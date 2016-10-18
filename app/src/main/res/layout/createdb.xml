@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgrey"
+    android:weightSum="1">
+
+
+
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/header"
+        android:id="@+id/header"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/include">
+
+       <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Store Name :"
+                android:textSize="10pt"
+                android:layout_weight="0.4"
+                android:layout_gravity="center"
+
+                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Store Name"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/csname"
+                    />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Points :"
+                android:layout_weight="0.4"
+                android:textSize="10pt"
+
+                android:layout_gravity="center"
+                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter points"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/cpoints"
+                    android:inputType="numberDecimal"
+                    />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Date Modified :"
+                android:textSize="10pt"
+                android:layout_weight="0.5"
+                android:layout_gravity="center"
+                android:id="@+id/textView3" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tab To Date"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/cdate"
+                    android:inputType="date"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>-->
+
+
+
+
+       <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/table">
+
+
+
+            <TableRow
+                android:background="@color/littlethickgray">
+
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:textSize="10pt"
+                    android:layout_marginLeft="10dp"
+                    android:text="Store Name " />
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:textSize="10pt"
+                    android:padding="3dip"
+                    android:text="@string/colon"
+                    />
+
+                <EditText
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:hint="Enter Store Name"
+                    android:textSize="10pt"
+                    android:id="@+id/csname" />
+            </TableRow>
+
+            <TableRow android:background="@color/littlethickgray"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:textSize="10pt"
+                    android:text="Points "
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:textSize="10pt"
+                    android:padding="3dip"
+                    android:text="@string/colon"
+                    />
+                <EditText
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:text="10"
+                    android:hint="Enter Points"
+                    android:id="@+id/cpoints" />
+            </TableRow>
+
+            <TableRow android:background="@color/littlethickgray"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:textSize="10pt"
+                    android:layout_marginLeft="10dp"
+                    android:text="Date Modified " />
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:textSize="10pt"
+                    android:padding="3dip"
+                    android:text="@string/colon"
+                    />
+                <EditText
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left"
+                    android:padding="3dip"
+                    android:hint="10/10/2016"
+                    android:textSize="10pt"
+                    android:id="@+id/cdate" />
+
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edittextshape"
+            android:id="@+id/csub"
+            />
+    </LinearLayout>
+</LinearLayout>
+
