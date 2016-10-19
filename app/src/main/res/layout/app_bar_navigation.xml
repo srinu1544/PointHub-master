@@ -21,6 +21,8 @@
 
 
         <include
+
+
             layout="@layout/header">
 
 
@@ -28,7 +30,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/qrcode" />
+   <!-- <include layout="@layout/qrcode" />-->
 
 
 

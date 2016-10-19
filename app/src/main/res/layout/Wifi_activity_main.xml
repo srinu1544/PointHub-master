@@ -17,16 +17,24 @@
         android:layout_height="wrap_content"
         android:text="WI-FI DIRECT TEST" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Bill Amount Is : " />
     <TextView
         android:id="@+id/showbillamount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Bill Amount Is" />
+        android:text="0000" />
 
 
-
-
+</LinearLayout>
 
 
     <Button

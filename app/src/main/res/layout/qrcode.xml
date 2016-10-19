@@ -10,11 +10,23 @@
 
    <include
        layout="@layout/header"
-       android:id="@id/include"
+       android:id="@id/header"
        android:layout_height="wrap_content"
        android:layout_width="match_parent">
 
    </include>
+
+
+   <fragment
+       android:name="com.pointhub.earnredeemtab.Scanner_Fragment"
+       android:id="@+id/article_fragment"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"
+       android:layout_above="@+id/pointsbutton"
+       android:layout_below="@+id/header"/>
+
 
 
    <Button
@@ -26,15 +38,6 @@
        android:textColor="@color/zxing_encode_view"
        android:background="@drawable/buttonshape"
        android:id="@+id/pointsbutton"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentStart="true"
-       android:layout_alignParentBottom="true" />
-
-   <fragment
-       android:name="com.pointhub.earnredeemtab.Scanner_Fragment"
-       android:id="@+id/article_fragment"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
        android:layout_alignParentBottom="true"
        android:layout_alignParentLeft="true"
        android:layout_alignParentStart="true" />

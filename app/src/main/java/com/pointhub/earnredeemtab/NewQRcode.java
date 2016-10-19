@@ -7,17 +7,16 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.db.Createdb;
 
 public class NewQRcode extends AppCompatActivity  {
 
-    Button points;
-    ImageView share;
+
+
+
     ImageView createPoints;
 
 
@@ -28,46 +27,12 @@ public class NewQRcode extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-        showCameraPreview();
-        points = (Button) findViewById(R.id.pointsbutton);
 
-        share = (ImageView) findViewById(R.id.share);
+        showCameraPreview();
+
+
 
         //share.setBackgroundResource(R.drawable.whatsappicon);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 /* Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_SEND);
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-                intent.setPackage("com.whatsapp");
-                intent.setType("text/plain");
-                startActivity(intent);
-                */
-
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("image/jpg");
-                String imagePath = "http://www.ijaitra.com/womenswear/kurtis/image2/image2a.jpg";
-                //File imagefiletoshare = new File(imagePath);
-                //Uri uri = Uri.fromFile(imagefiletoshare);
-                //sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                // Uri screenshotUri = Uri.parse("http://www.ijaitra.com/womenswear/kurtis/image2/image2f.jpg");
-                //  sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-
-
-            }
-        });
-        points.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent i = new Intent(NewQRcode.this, PointListActivity.class);
-                startActivity(i);
-
-            }
-        });
 
         createPoints = (ImageView) findViewById(R.id.imgmenu);
 
@@ -126,6 +91,14 @@ public class NewQRcode extends AppCompatActivity  {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        requestCameraPermission();
+
     }
 }
 

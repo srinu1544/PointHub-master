@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +38,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button discover;
-    private EditText edt;
+    private TextView tv1, tv2;
 
     // private Button server;
 
@@ -80,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
 
         discover = (Button) findViewById(R.id.bt_discover);
+        tv2 = (TextView) findViewById(R.id.showbillamount);
+        Bundle extras = getIntent().getExtras();
+        String billamount;
+
+        if (extras != null) {
+            billamount = extras.getString("amount");
+            tv2.setText(billamount);
+        }
 
 
         // server = (Button) findViewById(R.id.bt_server);
@@ -112,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPeersAvailable(WifiP2pDeviceList peersList) {
 
                 Log.i("xyz", "onPeersAvailable.");
-                Toast.makeText(getBaseContext(),"onPeersAvailable.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "onPeersAvailable.", Toast.LENGTH_SHORT).show();
 
                 peers.clear();
                 peersshow.clear();
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     Log.i("xyz", "name: " + a.deviceName + " address: " + a.deviceAddress);
-                    Toast.makeText(getBaseContext(),"name: " + a.deviceName + " address: " + a.deviceAddress, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "name: " + a.deviceName + " address: " + a.deviceAddress, Toast.LENGTH_SHORT).show();
                     peersshow.add(map);
                 }
 
@@ -141,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void OnItemClick(View view, int position) {
 
-                        if(peersshow.size() > 0) {
+                        if (peersshow.size() > 0) {
                             CreateConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
                         }
 
@@ -160,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onConnectionInfoAvailable(final WifiP2pInfo minfo) {
 
-                Toast.makeText(getBaseContext(),"Connection info available.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Connection info available.", Toast.LENGTH_SHORT).show();
                 info = minfo;
 
                 Boolean groupFormed = info.groupFormed;
@@ -172,9 +179,12 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView view = (TextView) findViewById(R.id.tv_main);
 
+
+
                 if (groupOwner) {
+
                     Log.i("xyz", "Group owner.");
-                    Toast.makeText(getBaseContext(),"Group owner.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Group owner.", Toast.LENGTH_SHORT).show();
                     mDataTask = new DataServerAsyncTask(MainActivity.this, view);
                     mDataTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
@@ -186,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        wifiEnable();
+       /* wifiEnable();*/
         super.onResume();
         Log.i("xyz", "onResume");
-        Toast.makeText(getBaseContext(),"onResume: ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "onResume: ", Toast.LENGTH_SHORT).show();
         registerReceiver(mReceiver, mFilter);
     }
 
@@ -197,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         Log.i("xyz", "onPause");
-        Toast.makeText(getBaseContext(),"onPause: ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "onPause: ", Toast.LENGTH_SHORT).show();
         unregisterReceiver(mReceiver);
     }
 
@@ -214,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, mFilter);
     }
 
-   // static boolean serv = false;
+    // static boolean serv = false;
 
     private void initEvents() {
 
@@ -244,8 +254,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(int reason) {
 
                         // popup[ for wifi
-
-
 
 
                         Toast.makeText(getBaseContext(), "Discovery peer failure. Reason: " + reason, Toast.LENGTH_SHORT).show();
@@ -288,20 +296,20 @@ public class MainActivity extends AppCompatActivity {
     private void CreateConnect(String address, final String name) {
 
         Log.i("xyz", address);
-        Toast.makeText(getBaseContext(),"address: " + address, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "address: " + address, Toast.LENGTH_SHORT).show();
         //if (null == config) {
-            initCreateConnect(address);
+        initCreateConnect(address);
         //}
-        String msg = edt.getText().toString();
-        sendData(msg);
+
 
     }
 
     /**
      * Initialize WifiP2P Configuration.
+     *
      * @param address
      */
-    private void initCreateConnect(String address){
+    private void initCreateConnect(String address) {
         try {
 
             config = new WifiP2pConfig();
@@ -310,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
             //config.deviceName;
 
-             config.wps.setup = WpsInfo.PBC;
+            config.wps.setup = WpsInfo.PBC;
 
             mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
@@ -318,21 +326,21 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess() {
 
                     Log.i("xyz", "P2P Connection success.");
-                    Toast.makeText(getBaseContext(),"P2P Connection success.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "P2P Connection success.", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(int reason) {
 
                     Log.i("xyz", "P2P Connection failure: Reason: " + reason);
-                    Toast.makeText(getBaseContext(),"P2P Connection failure: Reason:" + reason,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "P2P Connection failure: Reason:" + reason, Toast.LENGTH_SHORT).show();
                     config = null;
-                    if(reason==1){
-                      Toast.makeText(getApplicationContext(),"my reason srinu",Toast.LENGTH_LONG).show();
+                    if (reason == 1) {
+                        Toast.makeText(getApplicationContext(), "my reason srinu", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -343,11 +351,27 @@ public class MainActivity extends AppCompatActivity {
      */
     private void sendData(String msg) {
 
-        try {
+        Bundle extras = getIntent().getExtras();
+        String billamount;
 
-            Toast.makeText(getApplicationContext(), "Calling senddata.", Toast.LENGTH_SHORT).show();
-            Log.i("xyz", "Calling senddata.");
+        if (extras != null) {
+            billamount = extras.getString("amount");
 
+            msg = billamount;
+            try {
+
+                Toast.makeText(getApplicationContext(), "Calling senddata.", Toast.LENGTH_SHORT).show();
+                Log.i("xyz", "Calling senddata.");
+
+
+           /* Bundle extras = getIntent().getExtras();
+            String billamount;
+
+
+            billamount = extras.getString("amount");
+
+            String m = billamount;
+            sendData(m);*/
 
             /*Thread thread = new Thread(new Runnable() {
 
@@ -364,34 +388,33 @@ public class MainActivity extends AppCompatActivity {
             thread.start();*/
 
 
+                if (null == info) {
+                    Toast.makeText(getApplicationContext(), "Send data info obj null.", Toast.LENGTH_SHORT).show();
+                    Log.i("xyz", "Send data info obj null.");
+                }
 
-            if (null == info) {
-                Toast.makeText(getApplicationContext(), "Send data info obj null.", Toast.LENGTH_SHORT).show();
-                Log.i("xyz", "Send data info obj null.");
+                Intent serviceIntent = new Intent(MainActivity.this, DataTransferService.class);
+
+                serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
+
+                String hostAddress = info.groupOwnerAddress.getHostAddress();
+
+                //hostAddress = "192.168.5.61";
+                serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, hostAddress);
+                Log.i("xyz", "owner ip is " + hostAddress);
+                Toast.makeText(getApplicationContext(), "owner ip is " + hostAddress, Toast.LENGTH_SHORT).show();
+
+                serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
+                // msg = msg + count++;
+                serviceIntent.putExtra("msg", msg);
+
+                MainActivity.this.startService(serviceIntent);
+
+            } catch (Throwable th) {
+                Toast.makeText(getBaseContext(), th.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
-            Intent serviceIntent = new Intent(MainActivity.this, DataTransferService.class);
+        } // Send data.
 
-            serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
-
-            String hostAddress = info.groupOwnerAddress.getHostAddress();
-
-            //hostAddress = "192.168.5.61";
-            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, hostAddress);
-            Log.i("xyz", "owner ip is " + hostAddress);
-            Toast.makeText(getApplicationContext(), "owner ip is " + hostAddress, Toast.LENGTH_SHORT).show();
-
-            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
-           // msg = msg + count++;
-
-            serviceIntent.putExtra("msg", msg);
-
-            MainActivity.this.startService(serviceIntent);
-
-        } catch(Throwable th) {
-            Toast.makeText(getBaseContext(), th.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-    } // Send data.
-
+    }
 }
