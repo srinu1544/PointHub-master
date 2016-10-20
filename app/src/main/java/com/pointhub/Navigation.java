@@ -17,6 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.pointhub.db.Createdb;
 
 import java.io.File;
 
@@ -27,6 +30,8 @@ public class Navigation extends AppCompatActivity
     ImageView menuButtom;
     Button points;
     ImageView share;
+    private boolean doubleBackToExitPressedOnce=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +77,7 @@ public class Navigation extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(Navigation.this, PointListActivity.class);
+                Intent i = new Intent(Navigation.this, Createdb.class);
                 startActivity(i);
 
             }
@@ -107,8 +112,20 @@ public class Navigation extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this," To exit_press_back_again,",Toast.LENGTH_SHORT).show();
         }
+        }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.doubleBackToExitPressedOnce = false;
     }
 
     @Override
@@ -149,8 +166,10 @@ public class Navigation extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_back) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+             drawer.closeDrawer(GravityCompat.START);
+                super.onBackPressed();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
