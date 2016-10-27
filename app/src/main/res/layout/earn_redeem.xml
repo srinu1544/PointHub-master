@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bgcolor"
+    tools:context="com.pointhub.EarnRedeem">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/table">
+
+
+
+        <TableRow
+            android:background="@color/littlethickgray">
+
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:textSize="10pt"
+                android:layout_marginLeft="10dp"
+                android:text="Store Name" />
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:textSize="10pt"
+                android:padding="3dip"
+                android:text="@string/colon"
+                />
+
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:text="abc"
+                android:textSize="10pt"
+                android:id="@+id/redeemPoints" />
+        </TableRow>
+
+        <TableRow android:background="@color/littlethickgray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:textSize="10pt"
+                android:text="Point "
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:textSize="10pt"
+                android:padding="3dip"
+                android:text="@string/colon"
+                />
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:text="yyy"
+                android:textSize="10pt"
+                android:id="@+id/discountAmount" />
+        </TableRow>
+
+        <TableRow android:background="@color/littlethickgray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:textSize="10pt"
+                android:layout_marginLeft="10dp"
+                android:text="Last Visited  " />
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:textSize="10pt"
+                android:padding="3dip"
+                android:text="@string/colon"
+                />
+            <TextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+                android:padding="3dip"
+                android:text="dd/mm/yy"
+                android:textSize="10pt"
+                android:id="@+id/billAmount" />
+
+        </TableRow>
+    </TableLayout>
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/tabLayout"
+        app:tabMode="fixed"
+        android:background="@color/btncolor"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white">
+    </android.support.design.widget.TabLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager"
+        android:layout_below="@+id/tabLayout"
+        android:background="@android:color/white">
+    </android.support.v4.view.ViewPager>
+
+
+</LinearLayout>
