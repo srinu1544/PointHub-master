@@ -14,6 +14,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class WifiDirectSend extends AppCompatActivity {
     private Button btnRequest;
     private EditText editText;
     private ImageView imagebut;
+    private CardView cardView;
 
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
@@ -81,6 +83,7 @@ public class WifiDirectSend extends AppCompatActivity {
         btRefresh = (Button) findViewById(R.id.btnRefresh);
         btnRequest = (Button) findViewById(R.id.btnRequest);
         editText = (EditText) findViewById(R.id.txtSend);
+        cardView= (CardView) findViewById(R.id.cardview);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 
@@ -141,6 +144,7 @@ public class WifiDirectSend extends AppCompatActivity {
                     public void OnItemClick(View view, int position) {
 
                         createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
+
                     }
 
                     @Override
