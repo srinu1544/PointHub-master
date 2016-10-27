@@ -1,9 +1,6 @@
 package com.pointhub.db;
 
-import android.app.Activity;
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pointhub.R;
-import com.pointhub.db.Points;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by venu gopal on 04-10-2016.
@@ -45,7 +39,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.storeName.setText(point.getStoreName());
         holder.points.setText(point.getPoints());
         holder.datemod.setText(point.getLastVisited());
-
 
     }
 

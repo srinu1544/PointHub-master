@@ -3,7 +3,6 @@ package com.pointhub;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -20,8 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pointhub.db.Createdb;
-
-import java.io.File;
+import com.pointhub.earnredeemtab.MainActivity;
 
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,7 +55,7 @@ public class Navigation extends AppCompatActivity
                 startActivity(intent);
 */
                 // this for all type of sharing apps
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+               /* Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("image/jpg");
                 String imagePath = "http://www.Bizz mark.in";
                 File imagefiletoshare = new File(imagePath);
@@ -65,7 +63,13 @@ public class Navigation extends AppCompatActivity
                 sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 Uri screenshotUri = Uri.parse("http://www.ijaitra.com/womenswear/kurtis/image2/image2f.jpg");
                  sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                startActivity(Intent.createChooser(sharingIntent, "Share image using"));*/
+
+
+                //for testing storename
+                Intent i = new Intent(Navigation.this, MainActivity.class);
+                i.putExtra("storename", "teststore");
+                startActivity(i);
 
 
             }
@@ -189,6 +193,7 @@ public class Navigation extends AppCompatActivity
         } else {
             // Permission is missing and must be requested.
             requestCameraPermission();
+
         }
 
     }

@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
- * Created by Venu on 2016/10/10.
+ * Created by Venu gopal on 24-10-2016.
  */
 public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
@@ -37,30 +37,30 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
-        // Check wifi is enabled.
+        /*check if the wifi is enable*/
         if (WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION.equals(action)) {
+
             int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
         }
 
-        // Get the list
+        /*get the list*/
         else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
 
             mManager.requestPeers(mChannel, mPeerListListener);
         } else if (WifiP2pManager.WIFI_P2P_DISCOVERY_CHANGED_ACTION.equals(action)) {
 
             int State = intent.getIntExtra(WifiP2pManager.EXTRA_DISCOVERY_STATE, -1);
-
             if (State == WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED) {
 
-                Toast.makeText(mActivity, "Discovery started.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "P2P discovery started.", Toast.LENGTH_SHORT).show();
             } else if (State == WifiP2pManager.WIFI_P2P_DISCOVERY_STOPPED) {
 
-                Toast.makeText(mActivity, "Discovery stopped.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "P2P discovery stopped.", Toast.LENGTH_SHORT).show();
             }
 
         }
 
-        // Response to new connection/disconnections.
+        /*Respond to new connection or disconnections*/
         else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
 
             if (mManager == null) {
@@ -70,16 +70,17 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
             NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
 
             if (networkInfo.isConnected()) {
-                Log.i("xyz", "Connected.");
 
+                Log.i("bizzmark", "Network is connected.");
                 mManager.requestConnectionInfo(mChannel, mInfoListener);
             } else {
-                Log.i("xyz", "Not connected.");
+
+                Log.i("bizzmark", "Network is not connected.");
                 return;
             }
         }
 
-        // On state change.
+        /*Respond to this device's wifi state changing*/
         else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
 
         }

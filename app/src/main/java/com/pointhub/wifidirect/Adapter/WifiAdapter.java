@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.pointhub.R;
 
 import java.util.HashMap;
@@ -14,31 +13,28 @@ import java.util.List;
 
 
 /**
- * Created by Venu on 2016/10/4.
+ * Created by Venu on 24-10-2016.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
+public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
 
     private List<HashMap<String, String>> mList;
-
-    /*
-    *
-    * */
 
     public interface OnItemClickListener {
 
         void OnItemClick(View view, int position);
-
         void OnItemLongClick(View view, int position);
     }
 
     public OnItemClickListener mOnItemClickListener;
 
     public void SetOnItemClickListener(OnItemClickListener listener) {
+
         this.mOnItemClickListener = listener;
     }
 
-    public MyAdapter(List<HashMap<String, String>> list) {
+    public WifiAdapter(List<HashMap<String, String>> list) {
+
         super();
         this.mList = list;
     }
@@ -47,7 +43,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
         View view = inflater.inflate(R.layout.card_item, parent, false);
         MyHolder myHolder = new MyHolder(view);
         return myHolder;
@@ -88,15 +83,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         mList.remove(position);
         notifyItemRemoved(position);
     }
-
     public void RefreshView(){
-
-        for(int i=0;i<getItemCount();i++) {
+        for(int i=0;i<getItemCount();i++)
             removeData(i);
-        }
-        for(int i=0;i<getItemCount();i++) {
-            addData(i, mList.get(i));
-        }
+        for(int i=0;i<getItemCount();i++)
+            addData(i,mList.get(i));
     }
 
     @Override
@@ -110,7 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         public TextView tvaddress;
 
         public MyHolder(View View) {
-
             super(View);
             tvname = (TextView) View.findViewById(R.id.tv_name);
             tvaddress = (TextView) View.findViewById(R.id.tv_address);

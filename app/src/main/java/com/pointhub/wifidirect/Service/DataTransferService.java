@@ -1,9 +1,10 @@
-// Copyright 2011 Google Inc. All Rights Reserved.
-
 package com.pointhub.wifidirect.Service;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,20 +15,16 @@ import java.net.Socket;
 
 /**
  * A service that process each file transfer request i.e Intent by opening a
- * socket connection with the WiFi Direct Group Owner and writing the file
+ * socket connection with the WiFi Direct Group Owner and writing the message.
  */
 public class DataTransferService extends IntentService {
 
-
-
-
-
-    private static final int SOCKET_TIMEOUT = 50000;
+    private static final int SOCKET_TIMEOUT = 5000;
     public static final String ACTION_SEND_DATA = "com.example.android.wifidirect.SEND_DATA";
-    public static final String EXTRAS_GROUP_OWNER_ADDRESS = "group_owner_address";
-    public static final String EXTRAS_GROUP_OWNER_PORT = "group_owner__port";
+    public static final String EXTRAS_GROUP_OWNER_ADDRESS = "sd_go_host";
+    public static final String EXTRAS_GROUP_OWNER_PORT = "sd_go_port";
 
-    Socket socket = null;
+    public static final String MESSAGE = "message";
 
     public DataTransferService(String name) {
         super(name);
@@ -45,84 +42,78 @@ public class DataTransferService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Toast.makeText(getApplicationContext(), " Inside handle intent...", Toast.LENGTH_SHORT).show();
+        Context context = getApplicationContext();
 
-        if(null == socket) {
+        if (intent.getAction().equals(ACTION_SEND_DATA)) {
 
-            Toast.makeText(getApplicationContext(), " Socket null creating...", Toast.LENGTH_SHORT).show();
-            boolean success = openSocket(intent);
-        }
+            String host = intent.getExtras().getString( EXTRAS_GROUP_OWNER_ADDRESS);
 
-        String msg = intent.getExtras().getString("msg");
+            Socket socket = new Socket();
 
-        try {
+            int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
 
-            /*returns an output stream to write data into this socket*/
-            OutputStream stream = socket.getOutputStream();
-            stream.write(msg.getBytes());
-            Toast.makeText(getApplicationContext(), msg + " send to other device.", Toast.LENGTH_SHORT).show();
-        } catch (Exception ex) {
+            try {
 
-            closeSocket();
-            Toast.makeText(getApplicationContext(), ex.getMessage() ,Toast.LENGTH_SHORT).show();
-        } finally {
+                Log.d("bizzmark", "Opening client socket - ");
 
-            closeSocket();
-        }
-    }
+                // showToast("Opening client socket - ");
 
-    private boolean openSocket(Intent intent) {
-        try {
+                socket.bind(null);
+                socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
-            if (intent.getAction().equals(ACTION_SEND_DATA)) {
+                Log.d("bizzmark", "Client socket - " + socket.isConnected());
 
-                String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
+                // showToast("Client socket - " + socket.isConnected());
 
-                socket = new Socket();
+				/*returns an output stream to write data into this socket*/
+                OutputStream stream = socket.getOutputStream();
 
-                int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
+                String message = intent.getExtras().getString(MESSAGE);
 
-                try {
+                // showToast("Writing message: " + message);
+                stream.write(message.getBytes());
 
-                    // Log.d("xyz", "Opening client socket - ");
-                    socket.bind(null);
-                    socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
-                    Toast.makeText(getApplicationContext(), "Other device socket connected." ,Toast.LENGTH_SHORT).show();
-                } catch (Throwable e) {
+               /* BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                while(true) {
 
-                    Toast.makeText(getApplicationContext(), e.getMessage() ,Toast.LENGTH_SHORT).show();
-                    Log.e("xyz", e.getMessage());
-                } finally {
+                    String line = bufferedReader.readLine();
+                    if(line!= null) {
 
-                    // closeSocket();
-                }
-            }
-
-        } catch(Throwable th) {
-            Toast.makeText(getApplicationContext(), th.getMessage() ,Toast.LENGTH_SHORT).show();
-        }
-
-        return false;
-    }
-
-    private void closeSocket() {
-
-        try {
-            if (socket != null) {
-                if (socket.isConnected()) {
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage() ,Toast.LENGTH_SHORT).show();
+                        showToast("Message from seller: " + line);
                     }
+                }*/
+
+
+            } catch (IOException e) {
+                Log.e("bizzmark", e.getMessage());
+                showToast("Error opening client socket. Ask seller to refresh.");
+            } finally {
+
+                if (socket != null) {
+                        try {
+                            socket.close();
+                        } catch (IOException e) {
+                            // Give up
+                            e.printStackTrace();
+                        }
                 }
             }
-        } catch (Throwable th) {
-            Toast.makeText(getApplicationContext(), th.getMessage() ,Toast.LENGTH_SHORT).show();
-        } finally {
-            socket = null;
-        }
-    }
 
+        } // if ACTION_SEND_DATA
+
+    } // onHandleIntent
+
+
+    public void showToast(String message) {
+        final String msg = message;
+        new Handler(Looper.getMainLooper())
+                .post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                            }
+                        });
+    }
 
 }
