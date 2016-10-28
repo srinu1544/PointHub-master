@@ -1,8 +1,10 @@
 package com.pointhub.earnredeemtab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 
 
@@ -20,6 +24,7 @@ public class Reedem extends Fragment {
     private Spinner spinner;
     View v;
     Button submitButton1;
+    Context mContext;
     EditText redeemBillAmountText1;
     public Reedem() {
         // Required empty public constructor
@@ -47,19 +52,57 @@ public class Reedem extends Fragment {
                 String billAmount = redeemBillAmountText1.getText().toString();
 
 
-              /*  PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
+                PointHubMessage msg = new PointHubMessage("reedem",billAmount, getUserId(), "");
 
                 Gson gson = new Gson();
                 String earnString =  gson.toJson(msg);
-*/
-                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                intent.putExtra("earnString","Your Bill Amount is :"   + billAmount);
-                intent.putExtra("points","Reedem points is :"    +String.valueOf(spinner.getSelectedItem()));
-                startActivity(intent);
+
+
+
+                String spinnerpoints =String.valueOf(spinner.getSelectedItem());
+                if (spinnerpoints.isEmpty()){
+                    Toast.makeText(getActivity(), "please select Redeem points", Toast.LENGTH_SHORT).show();
+
+                      if (redeemBillAmountText1.getText().toString().isEmpty()){
+                        Toast.makeText(getActivity(), "please enter  bill amount", Toast.LENGTH_SHORT).show();
+
+                    }
+                }else {
+                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                    intent.putExtra("billAmount","Your Bill Amount is : "   + billAmount);
+                    intent.putExtra("points","Reedem points is : "    +String.valueOf(spinner.getSelectedItem()));
+                    intent.putExtra("earnString",earnString);
+                    startActivity(intent);
+                }
+
+
             }
         });
 
     }
+    private String getUserId(){
+        String userId = "";
+        try {
+
+            TelephonyManager telephonyManager = (TelephonyManager
+                    ) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+
+            //getDeviceId() function Returns the unique device ID.
+
+            String imeistring = telephonyManager.getDeviceId();
+           userId=imeistring;
+
+
+        }catch(Throwable th){
+            th.printStackTrace();
+        }
+
+        return userId;
+    }
+
+
+
 
     private  void setSpinnerCategories(){
         // Spinner Drop down elements

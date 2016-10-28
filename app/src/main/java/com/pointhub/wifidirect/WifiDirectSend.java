@@ -94,6 +94,7 @@ public class WifiDirectSend extends AppCompatActivity {
         if (extras != null) {
             tv1.setText(extras.getString("earnString")) ;
             tv2.setText(extras.getString("points")) ;
+            tv3.setText(extras.getString("billAmount")) ;
             // and get whatever type user account id is
         }
         ;
