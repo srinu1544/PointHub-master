@@ -19,10 +19,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pointhub.R;
@@ -39,9 +38,13 @@ public class WifiDirectSend extends AppCompatActivity {
 
     private Button btRefresh;
     private Button btnRequest;
-    private EditText editText;
+    // private EditText editText;
     private ImageView imagebut;
     private CardView cardView;
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+
 
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
@@ -79,13 +82,28 @@ public class WifiDirectSend extends AppCompatActivity {
     }
 
     private void initView() {
+
+        tv1= (TextView) findViewById(R.id.tv1);
+        tv2= (TextView) findViewById(R.id.tv2);
+        tv3= (TextView) findViewById(R.id.tv3);
+
+
+        Bundle extras = getIntent().getExtras();
+
+
+        if (extras != null) {
+            tv1.setText(extras.getString("earnString")) ;
+            tv2.setText(extras.getString("points")) ;
+            // and get whatever type user account id is
+        }
+        ;
         imagebut= (ImageView) findViewById(R.id.imgmenu);
         btRefresh = (Button) findViewById(R.id.btnRefresh);
         btnRequest = (Button) findViewById(R.id.btnRequest);
-        editText = (EditText) findViewById(R.id.txtSend);
+        // editText = (EditText) findViewById(R.id.txtSend);
         cardView= (CardView) findViewById(R.id.cardview);
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);*/
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
@@ -222,11 +240,13 @@ public class WifiDirectSend extends AppCompatActivity {
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
 
-            String sendText = editText.getText().toString();
+            // String sendText = editText.getText().toString();
 
-            serviceIntent.putExtra(DataTransferService.MESSAGE, sendText);
+            String sendMsg = getIntent().getExtras().getString("earnString");
 
-            Log.i("bizzmark", "owenerip is " + info.groupOwnerAddress.getHostAddress());
+            serviceIntent.putExtra(DataTransferService.MESSAGE, sendMsg);
+
+            Log.i("bizzmark", "Owenerip is " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
             WifiDirectSend.this.startService(serviceIntent);
         }catch (Throwable th){

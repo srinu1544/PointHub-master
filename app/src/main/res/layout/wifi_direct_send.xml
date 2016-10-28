@@ -8,16 +8,6 @@
     tools:context=".wifidirect.WifiDirectSend">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRefresh"
-        android:layout_marginTop="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/btncolor"/>
-
     <Button
         android:text="Request"
         android:layout_width="wrap_content"
@@ -61,5 +51,46 @@
         android:layout_toLeftOf="@+id/btnRequest"
         android:layout_toStartOf="@+id/btnRequest" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignTop="@+id/btnRefresh"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/linearLayout">
 
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="empty"
+        android:id="@+id/tv1"
+        android:layout_marginBottom="5pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="empty"
+            android:id="@+id/tv2"
+            android:layout_marginBottom="5pt"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="empty"
+            android:id="@+id/tv3"
+            android:layout_marginBottom="5pt"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/btncolor"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="95dp" />
 </RelativeLayout>

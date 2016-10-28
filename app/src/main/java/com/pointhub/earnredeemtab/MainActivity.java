@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     ViewPageAdapter viewPagerAdapter;
     TextView strnm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

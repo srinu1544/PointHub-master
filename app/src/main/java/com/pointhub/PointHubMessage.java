@@ -1,7 +1,5 @@
 package com.pointhub;
 
-import android.support.v7.app.AppCompatActivity;
-
 /**
  * Created by Provigil on 05-06-2016.
  */
@@ -12,8 +10,12 @@ public class PointHubMessage {
     String userName;
     String points;
 
+    private PointHubMessage(){
 
-    PointHubMessage(String type, String billAmount, String userName, String points){
+    }
+
+
+    public PointHubMessage(String type, String billAmount, String userName, String points){
         this.type = type;
         this.billAmount = billAmount;
         this.userName = userName;

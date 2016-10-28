@@ -1,35 +1,26 @@
 package com.pointhub.earnredeemtab;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.graphics.PorterDuff;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.pointhub.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-import static android.widget.Spinner.*;
-import static com.pointhub.R.id.spinner1;
-
 
 public class Reedem extends Fragment {
 
     private Spinner spinner;
     View v;
+    Button submitButton1;
+    EditText redeemBillAmountText1;
     public Reedem() {
         // Required empty public constructor
     }
@@ -48,6 +39,25 @@ public class Reedem extends Fragment {
     private void findViewByid(View v){
 
         spinner=(Spinner)v.findViewById(R.id.spinner1);
+        submitButton1 = (Button) v.findViewById(R.id.submitButton);
+        redeemBillAmountText1 =(EditText)v.findViewById(R.id.redeemBillAmountText);
+        submitButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String billAmount = redeemBillAmountText1.getText().toString();
+
+
+              /*  PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
+
+                Gson gson = new Gson();
+                String earnString =  gson.toJson(msg);
+*/
+                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                intent.putExtra("earnString","Your Bill Amount is :"   + billAmount);
+                intent.putExtra("points","Reedem points is :"    +String.valueOf(spinner.getSelectedItem()));
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -76,6 +86,9 @@ public class Reedem extends Fragment {
 //                // Showing selected spinner item
 
                 //Toast.makeText(getContext(), "Selected: " +purpose[position], Toast.LENGTH_SHORT).show();
+
+
+
                 Toast.makeText(getActivity(),"You Selected  "   +String.valueOf(spinner.getSelectedItem()),Toast.LENGTH_LONG).show();
 
 

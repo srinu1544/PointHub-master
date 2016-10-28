@@ -43,10 +43,6 @@ public class Detaildb extends Activity {
 
                 pts.getPoints();
                 pts.getLastVisited();
-
-
-
-
             }
         });
 

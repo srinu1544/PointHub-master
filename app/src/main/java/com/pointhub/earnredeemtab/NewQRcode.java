@@ -14,9 +14,6 @@ import com.pointhub.db.Createdb;
 
 public class NewQRcode extends AppCompatActivity  {
 
-
-
-
     ImageView createPoints;
 
 
@@ -27,10 +24,7 @@ public class NewQRcode extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-
         showCameraPreview();
-
-
 
         //share.setBackgroundResource(R.drawable.whatsappicon);
 
@@ -45,11 +39,6 @@ public class NewQRcode extends AppCompatActivity  {
                 startActivity(i);
             }
         });
-
-
-
-
-
 
     }
 
@@ -71,6 +60,7 @@ public class NewQRcode extends AppCompatActivity  {
     }
 
     private void requestCameraPermission() {
+
         // Permission has not been granted and must be requested.
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
@@ -98,7 +88,6 @@ public class NewQRcode extends AppCompatActivity  {
         super.onResume();
 
         requestCameraPermission();
-
     }
 }
 

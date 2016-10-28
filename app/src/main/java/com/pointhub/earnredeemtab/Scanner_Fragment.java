@@ -60,8 +60,6 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
 
         final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
         tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-        //Log.i("TAG", result.getText());
-        //Bundle args = new Bundle();
 
         // Direct to earn an1d redeem tab functionality.
          if (result!= null){
@@ -72,19 +70,9 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
              Intent i = new Intent(getActivity(), MainActivity.class);
              i.putExtra("storename",result.toString());
              startActivity(i);
-
-
-
-
-
-         }
-             else {
+         } else {
              Toast.makeText(getActivity(),"scan again",Toast.LENGTH_SHORT).show();
          }
-       /* Intent i = new Intent(getActivity(), MainActivity.class);
-        String storeName = result.getText();
-        i.putExtra("storeName", storeName);
-        startActivity(i);
-        //args.putString("barcodeScan", result.getText());*/
+
     }
 }

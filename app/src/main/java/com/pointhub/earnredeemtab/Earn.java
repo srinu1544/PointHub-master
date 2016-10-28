@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 
 import static com.pointhub.R.layout;
@@ -22,8 +24,8 @@ import static com.pointhub.R.layout;
 public class Earn extends Fragment {
 
     View view;
-    Button bn;
-    EditText et;
+    Button bnSubmit;
+    EditText billAmountText;
     public Earn() {
         // Required empty public constructor
     }
@@ -36,27 +38,52 @@ public class Earn extends Fragment {
         View v =  inflater.inflate(layout.earn, container, false);
 
         findViewByid(v);
-        return v;}
+        return v;
+    }
+
 
     private void findViewByid(View v) {
-        et= (EditText)v.findViewById(R.id.billAmountText);
-        bn = (Button) v.findViewById(R.id.submit);
 
-          bn.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                   String s=et.getText().toString();
-                 if (s.isEmpty()) {
-                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
-                  }
-                    else {
-                     Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                     intent.putExtra("amount",et.getText().toString());
-                     ((MainActivity) getActivity()).startActivity(intent);
-                  }
-              }
+        billAmountText = (EditText) v.findViewById(R.id.billAmountText);
+        bnSubmit = (Button) v.findViewById(R.id.submit);
 
-          });
+        bnSubmit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                String s = billAmountText.getText().toString();
+                if (s.isEmpty()) {
+
+                    Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    String billAmount = billAmountText.getText().toString();
+
+                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, getUserId(), "");
+
+                    Gson gson = new Gson();
+                    String earnString =  gson.toJson(msg);
+
+                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                    intent.putExtra("earnString", earnString);
+                }
+            }
+
+        });
+    }
+
+    private String getUserId(){
+        String userId = "";
+        try {
+
+
+
+        }catch(Throwable th){
+            th.printStackTrace();
+        }
+
+        return userId;
     }
 
 }
