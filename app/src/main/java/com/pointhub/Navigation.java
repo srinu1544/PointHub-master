@@ -121,7 +121,7 @@ public class Navigation extends AppCompatActivity
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this," To exit_press_back_again,",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"To exit press back again.,",Toast.LENGTH_SHORT).show();
         }
         }
 

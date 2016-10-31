@@ -56,21 +56,21 @@ public class DataTransferService extends IntentService {
 
                 Log.d("bizzmark", "Opening client socket - ");
 
-                // showToast("Opening client socket - ");
+                 showToast("Opening client socket - ");
 
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
                 Log.d("bizzmark", "Client socket - " + socket.isConnected());
 
-                // showToast("Client socket - " + socket.isConnected());
+                 showToast("Client socket - " + socket.isConnected());
 
 				/*returns an output stream to write data into this socket*/
                 OutputStream stream = socket.getOutputStream();
 
                 String message = intent.getExtras().getString(MESSAGE);
 
-                // showToast("Writing message: " + message);
+                 showToast("Writing message: " + message);
                 stream.write(message.getBytes());
 
                /* BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

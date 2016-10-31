@@ -20,6 +20,7 @@ public class Detaildb extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detaildb);
         dsnamej = (EditText)findViewById(R.id.dsnamej);
@@ -49,8 +50,6 @@ public class Detaildb extends Activity {
         updatej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
             }
         });

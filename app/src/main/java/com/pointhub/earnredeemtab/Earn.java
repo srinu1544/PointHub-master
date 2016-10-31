@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 import static com.pointhub.R.layout;
 
@@ -32,11 +33,9 @@ public class Earn extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v =  inflater.inflate(layout.earn, container, false);
-
         findViewByid(v);
         return v;
     }
@@ -52,21 +51,26 @@ public class Earn extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String s = billAmountText.getText().toString();
-                if (s.isEmpty()) {
+                String billAmount = billAmountText.getText().toString();
+                if (billAmount.isEmpty()) {
 
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    String billAmount = billAmountText.getText().toString();
+                   // String billAmount = billAmountText.getText().toString();
 
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, getUserId(), "");
+                    String earnString = "";
+                    try{
+                        Gson gson = new Gson();
+                        earnString =  gson.toJson(msg);
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                    }
 
-                    Gson gson = new Gson();
-                    String earnString =  gson.toJson(msg);
-
-                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                    Intent intent = new Intent(getActivity(), WifiDirectSend.class);
                     intent.putExtra("earnString", earnString);
+                    startActivity(intent);
                 }
             }
 
@@ -77,12 +81,10 @@ public class Earn extends Fragment {
         String userId = "";
         try {
 
-
-
+            userId = "Venu";
         }catch(Throwable th){
             th.printStackTrace();
         }
-
         return userId;
     }
 

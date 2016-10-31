@@ -12,7 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 
 public class Reedem extends Fragment {
@@ -21,6 +24,7 @@ public class Reedem extends Fragment {
     View v;
     Button submitButton1;
     EditText redeemBillAmountText1;
+
     public Reedem() {
         // Required empty public constructor
     }
@@ -44,21 +48,33 @@ public class Reedem extends Fragment {
         submitButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String billAmount = redeemBillAmountText1.getText().toString();
 
 
-              /*  PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
+              PointHubMessage msg = new PointHubMessage("Redeem", billAmount, getUserId(), "");
 
                 Gson gson = new Gson();
                 String earnString =  gson.toJson(msg);
-*/
-                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+
+                Intent intent = new Intent(getActivity(), WifiDirectSend.class);
                 intent.putExtra("earnString","Your Bill Amount is :"   + billAmount);
                 intent.putExtra("points","Reedem points is :"    +String.valueOf(spinner.getSelectedItem()));
                 startActivity(intent);
             }
         });
 
+    }
+
+    private String getUserId(){
+        String userId = "";
+        try {
+
+            userId = "Venu";
+        }catch(Throwable th){
+            th.printStackTrace();
+        }
+        return userId;
     }
 
     private  void setSpinnerCategories(){
@@ -89,7 +105,7 @@ public class Reedem extends Fragment {
 
 
 
-                Toast.makeText(getActivity(),"You Selected  "   +String.valueOf(spinner.getSelectedItem()),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(),"You Selected  "   +String.valueOf(spinner.getSelectedItem()),Toast.LENGTH_LONG).show();
 
 
             }

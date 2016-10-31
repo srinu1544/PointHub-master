@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
             userName = extras.getString("storename");
            strnm.setText(userName);
         }
+
+
+
+
     }
 }
 

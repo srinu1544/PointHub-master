@@ -19,22 +19,15 @@ import java.util.List;
  */
 public class PointsAdapter extends BaseAdapter {
 
-
     private Activity activity;
     private List<Points> places;
     private static LayoutInflater inflater=null;
 
-    public PointsAdapter(Activity activity, List<Points> placesList)
-
-    {
-        this.activity=activity;
-        this.places=placesList;
-        inflater = ( LayoutInflater )activity.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public PointsAdapter(Activity activity, List<Points> placesList) {
+        this.activity = activity;
+        this.places = placesList;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-
-
 
     @Override
     public int getCount() {
@@ -59,8 +52,7 @@ public class PointsAdapter extends BaseAdapter {
 
         final Points point=places.get(position);
 
-
-        if(convertView==null){
+        if (convertView == null) {
 
             /****** Inflate tabitem.xml file for each row ( Defined below ) *******/
             vi = inflater.inflate(R.layout.point_item, null);
@@ -71,14 +63,12 @@ public class PointsAdapter extends BaseAdapter {
             holder.txtName = (TextView) vi.findViewById(R.id.storeName);
             holder.txtPoints = (TextView) vi.findViewById(R.id.points);
             holder.btnDelete= (Button) vi.findViewById(R.id.btnDelete);
-
-
-
             /************  Set holder with LayoutInflater ************/
             vi.setTag(holder);
+        } else {
+
+            holder = (ViewHolder) vi.getTag();
         }
-        else
-            holder=(ViewHolder)vi.getTag();
 
         holder.txtName.setText(point.getStoreName());
 
@@ -86,42 +76,37 @@ public class PointsAdapter extends BaseAdapter {
 
         holder.btnDelete.setTag(point.getId());
 
-
-
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                int id= (int) v.getTag();
 
-                Points temp= getPoints(id);
-
+                int id = (int) v.getTag();
+                Points temp = getPoints(id);
                 DatabaseHelper.getInstance(activity).deletePoint(id);
-                places=DatabaseHelper.getInstance(activity).getAllPoints();
+                places = DatabaseHelper.getInstance(activity).getAllPoints();
                 PointsAdapter.this.notifyDataSetChanged();
-
-
             }
         });
 
         return vi;
     }
 
-    private Points getPoints(int id)
-    {
-        for(Points place:places)
-        {
-            if(place.getId()==id)
+    private Points getPoints(int id) {
+
+        for (Points place : places) {
+
+            if (place.getId() == id) {
                 return place;
+            }
         }
         return null;
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
 
         public TextView txtName;
         public TextView txtPoints;
         public Button btnDelete;
-
-
     }
 }
