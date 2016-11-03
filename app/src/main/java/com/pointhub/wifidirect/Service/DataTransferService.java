@@ -15,7 +15,7 @@ import java.net.Socket;
 
 /**
  * A service that process each file transfer request i.e Intent by opening a
- * socket connection with the WiFi Direct Group Owner and writing the message.
+ * socket connection with the WiFi Direct Group Owner and writing the file
  */
 public class DataTransferService extends IntentService {
 
@@ -23,8 +23,7 @@ public class DataTransferService extends IntentService {
     public static final String ACTION_SEND_DATA = "com.example.android.wifidirect.SEND_DATA";
     public static final String EXTRAS_GROUP_OWNER_ADDRESS = "sd_go_host";
     public static final String EXTRAS_GROUP_OWNER_PORT = "sd_go_port";
-
-    public static final String MESSAGE = "message";
+    public static final String MESSAGE = "msg";
 
     public DataTransferService(String name) {
         super(name);
@@ -42,11 +41,16 @@ public class DataTransferService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+
+        showToast("Inside onHandleIntent.");
+
         Context context = getApplicationContext();
 
         if (intent.getAction().equals(ACTION_SEND_DATA)) {
 
-            String host = intent.getExtras().getString( EXTRAS_GROUP_OWNER_ADDRESS);
+            String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
+
+            String message = intent.getExtras().getString(MESSAGE);
 
             Socket socket = new Socket();
 
@@ -55,53 +59,34 @@ public class DataTransferService extends IntentService {
             try {
 
                 Log.d("bizzmark", "Opening client socket - ");
-
-                 showToast("Opening client socket - ");
-
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
                 Log.d("bizzmark", "Client socket - " + socket.isConnected());
 
-                 showToast("Client socket - " + socket.isConnected());
-
-				/*returns an output stream to write data into this socket*/
+                /*returns an output stream to write data into this socket*/
                 OutputStream stream = socket.getOutputStream();
 
-                String message = intent.getExtras().getString(MESSAGE);
-
-                 showToast("Writing message: " + message);
                 stream.write(message.getBytes());
-
-               /* BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                while(true) {
-
-                    String line = bufferedReader.readLine();
-                    if(line!= null) {
-
-                        showToast("Message from seller: " + line);
-                    }
-                }*/
-
-
             } catch (IOException e) {
+
                 Log.e("bizzmark", e.getMessage());
-                showToast("Error opening client socket. Ask seller to refresh.");
             } finally {
 
                 if (socket != null) {
+                    if (socket.isConnected()) {
                         try {
                             socket.close();
                         } catch (IOException e) {
                             // Give up
                             e.printStackTrace();
                         }
+                    }
                 }
             }
 
-        } // if ACTION_SEND_DATA
-
-    } // onHandleIntent
+        }
+    }
 
 
     public void showToast(String message) {
@@ -115,5 +100,4 @@ public class DataTransferService extends IntentService {
                             }
                         });
     }
-
 }

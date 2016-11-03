@@ -29,8 +29,11 @@ import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
 import com.pointhub.wifidirect.Service.DataTransferService;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -203,11 +206,26 @@ public class WifiDirectSend extends AppCompatActivity {
                 return;
             }
 
+
             Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
+
+            serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
+
+            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+            Log.i("address", "owenerip is " + info.groupOwnerAddress.getHostAddress());
+            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
+
+            String sendMsg = getIntent().getExtras().getString("earnString");
+            serviceIntent.putExtra(DataTransferService.MESSAGE, sendMsg);
+
+            startService(serviceIntent);
+
+            /*Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
 
-            Log.i("bizzmark", "Owenerip: " + info.groupOwnerAddress.getHostAddress());
+            Log.i("bizzmark", "Ownerip: " + info.groupOwnerAddress.getHostAddress());
+            // Log.i("bizzmark", "Owner Name: " + info.groupOwnerAddress.getCanonicalHostName());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
 
             // String sendText = editText.getText().toString();
@@ -215,11 +233,43 @@ public class WifiDirectSend extends AppCompatActivity {
             serviceIntent.putExtra(DataTransferService.MESSAGE, sendMsg);
 
             Log.i("bizzmark", sendMsg);
-            WifiDirectSend.this.startService(serviceIntent);
+            WifiDirectSend.this.startService(serviceIntent);*/
 
         }catch (Throwable th){
             th.printStackTrace();
         }
+    }
+
+    /**
+     * Get IP address from first non-localhost interface
+     * @param
+     * @return  address or empty string
+     */
+    public static String getIPAddress(boolean useIPv4) {
+        try {
+            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface intf : interfaces) {
+                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+                for (InetAddress addr : addrs) {
+                    if (!addr.isLoopbackAddress()) {
+                        String sAddr = addr.getHostAddress();
+                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+                        boolean isIPv4 = sAddr.indexOf(':')<0;
+
+                        if (useIPv4) {
+                            if (isIPv4)
+                                return sAddr;
+                        } else {
+                            if (!isIPv4) {
+                                int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
+                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) { } // for now eat exceptions
+        return "";
     }
 
     WifiP2pConfig config = null;
