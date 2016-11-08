@@ -1,9 +1,11 @@
 package com.pointhub.earnredeemtab;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import static com.pointhub.R.layout;
 public class Earn extends Fragment {
 
     View view;
+    Context mContext;
     Button bnSubmit;
     EditText billAmountText;
     public Earn() {
@@ -80,6 +83,14 @@ public class Earn extends Fragment {
     private String getUserId(){
         String userId = "";
         try {
+            TelephonyManager telephonyManager = (TelephonyManager
+                    ) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+
+            //getDeviceId() function Returns the unique device ID.
+
+            String imeistring = telephonyManager.getDeviceId();
+            userId=imeistring;
 
             userId = "Venu";
         }catch(Throwable th){
