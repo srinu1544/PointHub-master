@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "348603265958",
+    "firebase_url": "https://pointhub-4c40a.firebaseio.com",
+    "project_id": "pointhub-4c40a",
+    "storage_bucket": "pointhub-4c40a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348603265958:android:4929dd852d37fb91",
+        "android_client_info": {
+          "package_name": "com.pointhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348603265958-eukhcl592c24s4nv4755bk8rjdmilnul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pointhub",
+            "certificate_hash": "6A0BC83877C3195D7D42C3AF319A8A86152F148A"
+          }
+        },
+        {
+          "client_id": "348603265958-brkbp2jlono3397uopgksv9612pd7fo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKLnJa57WAJ3P7ni5fyMuog9puEjjw6YA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348603265958-brkbp2jlono3397uopgksv9612pd7fo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
