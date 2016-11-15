@@ -35,35 +35,12 @@ public class Navigation extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         showCameraPreview();
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-*/
-        //share button
+        // share button
         share = (ImageView) findViewById(R.id.share);
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                //this is for only whats app
-                /*Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_SEND);
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-                intent.setPackage("com.whatsapp");
-                intent.setType("text/plain");
-                startActivity(intent);
-*/
-                // this for all type of sharing apps
-               /* Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("image/jpg");
-                String imagePath = "http://www.Bizz mark.in";
-                File imagefiletoshare = new File(imagePath);
-                Uri uri = Uri.fromFile(imagefiletoshare);
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                Uri screenshotUri = Uri.parse("http://www.ijaitra.com/womenswear/kurtis/image2/image2f.jpg");
-                 sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                startActivity(Intent.createChooser(sharingIntent, "Share image using"));*/
 
 
                 //for testing storename
@@ -71,11 +48,10 @@ public class Navigation extends AppCompatActivity
                 i.putExtra("storename", "teststore");
                 startActivity(i);
 
-
             }
         });
 
-        //points button
+        // points button
         points = (Button) findViewById(R.id.pointsbutton);
         points.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +63,7 @@ public class Navigation extends AppCompatActivity
             }
         });
 
-          //slide menu button
+          // slide menu button
         menuButtom= (ImageView) findViewById(R.id.imgmenu);
         menuButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +76,7 @@ public class Navigation extends AppCompatActivity
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -180,40 +155,35 @@ public class Navigation extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private void showCameraPreview() {
 
         // BEGIN_INCLUDE(startCamera)
         // Check if the Camera permission has been granted
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
             // Permission is already available, start camera preview
-           /* Snackbar.make(mLayout,
-                    "Camera permission is available. Starting preview.",
-                    Snackbar.LENGTH_SHORT).show();*/
         } else {
+
             // Permission is missing and must be requested.
             requestCameraPermission();
-
         }
 
     }
     private void requestCameraPermission() {
+
         // Permission has not been granted and must be requested.
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-
-
-            // Request the permission
+           // Request the permission
             ActivityCompat.requestPermissions(Navigation.this,
                     new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
         } else {
-          /*  Snackbar.make(mLayout,
-                    "Permission is not available. Requesting camera permission.",
-                    Snackbar.LENGTH_SHORT).show();*/
+
             // Request the permission. The result will be received in onRequestPermissionResult().
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);

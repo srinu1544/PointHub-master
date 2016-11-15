@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earn_redeem_tab);
-   /*     toolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);*/
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -44,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
             userName = extras.getString("storename");
            strnm.setText(userName);
         }
-
-
-
-
     }
 }
 

@@ -1,162 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.pointhub.earnredeemtab.MainActivity">
 
-
-                   <include
-                   android:layout_height="wrap_content"
-                   android:layout_width="match_parent"
-                   layout="@layout/header"
-                   android:id="@+id/header"/>
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/viewpager"
-          android:layout_below="@+id/tabLayout"
-          android:background="@android:color/white">
-      </android.support.v4.view.ViewPager>
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabLayout"
+        android:background="@android:color/white"/>
 
     <LinearLayout
+        android:id="@+id/mainlinearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="3"
-        android:background="@color/lightgrey"
-        android:id="@+id/mainlinearlayout"
-        android:orientation="vertical"
-        android:layout_below="@+id/header"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:weightSum="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Store Name"
-                android:layout_weight="0.3"
-                android:textSize="18dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/colon"
-                android:textSize="18dp"
-                android:layout_weight="0.1"/>
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:id="@+id/strn"
-                android:textSize="18dp"
-                android:layout_weight="0.6"/>
-
-        </LinearLayout>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/header"
+        android:background="@color/lightgrey"
+        android:orientation="vertical"
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:weightSum="1"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            >
-
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Points"
                 android:layout_weight="0.3"
-                android:textSize="18dp"
-                android:id="@+id/textView4" />
-
+                android:text="Store Name"
+                android:textSize="18dp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.1"
                 android:text="@string/colon"
-                android:textSize="18dp"
-                android:layout_weight="0.1"/>
-
-
+                android:textSize="18dp" />
             <TextView
+                android:id="@+id/strn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="100"
-                android:textSize="18dp"
-                android:layout_weight="0.6"/>
-
+                android:layout_weight="0.6"
+                android:text=""
+                android:textSize="18dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:weightSum="1"
-            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp">
-
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1">
             <TextView
+                android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Lastvisit"
-                android:textSize="18dp"
                 android:layout_weight="0.3"
-                />
-
+                android:text="Points"
+                android:textSize="18dp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.1"
                 android:text="@string/colon"
-                android:textSize="18dp"
-                android:layout_weight="0.1"/>
-
-
+                android:textSize="18dp" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="06/10/2016"
-                android:textSize="18dp"
-                android:inputType="date"
-                android:layout_weight="0.6"/>
-
+                android:layout_weight="0.6"
+                android:text="100"
+                android:textSize="18dp" />
         </LinearLayout>
 
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:text="Lastvisit"
+                android:textSize="18dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:text="@string/colon"
+                android:textSize="18dp" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:inputType="date"
+                android:text="06/10/2016"
+                android:textSize="18dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <android.support.design.widget.TabLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:id="@+id/tabLayout"
-          app:tabMode="fixed"
-          app:tabMinWidth="50dp"
-          android:background="@color/btncolor"
-          app:tabGravity="fill"
-        app:tabIndicatorColor="@color/colorAccent"
-        android:layout_below="@+id/mainlinearlayout"
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-      </android.support.design.widget.TabLayout>
-
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/mainlinearlayout"
+        android:background="@color/btncolor"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabMinWidth="50dp"
+        app:tabMode="fixed"/>
 
 </RelativeLayout>
 

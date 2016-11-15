@@ -26,11 +26,12 @@ public class NewQRcode extends AppCompatActivity  {
 
         showCameraPreview();
 
-        //share.setBackgroundResource(R.drawable.whatsappicon);
+        // share.setBackgroundResource(R.drawable.whatsappicon);
 
         createPoints = (ImageView) findViewById(R.id.imgmenu);
 
-        //share.setBackgroundResource(R.drawable.whatsappicon);
+        // share.setBackgroundResource(R.drawable.whatsappicon);
+
         createPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,12 +47,8 @@ public class NewQRcode extends AppCompatActivity  {
 
         // BEGIN_INCLUDE(startCamera)
         // Check if the Camera permission has been granted
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             // Permission is already available, start camera preview
-           /* Snackbar.make(mLayout,
-                    "Camera permission is available. Starting preview.",
-                    Snackbar.LENGTH_SHORT).show();*/
         } else {
             // Permission is missing and must be requested.
             requestCameraPermission();
@@ -62,12 +59,10 @@ public class NewQRcode extends AppCompatActivity  {
     private void requestCameraPermission() {
 
         // Permission has not been granted and must be requested.
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-
 
             // Request the permission
             ActivityCompat.requestPermissions(NewQRcode.this,

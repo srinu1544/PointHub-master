@@ -21,7 +21,7 @@ public class PointsAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<Points> places;
-    private static LayoutInflater inflater=null;
+    private static LayoutInflater inflater = null;
 
     public PointsAdapter(Activity activity, List<Points> placesList) {
         this.activity = activity;
@@ -50,7 +50,7 @@ public class PointsAdapter extends BaseAdapter {
         View vi = convertView;
         ViewHolder holder;
 
-        final Points point=places.get(position);
+        final Points point = places.get(position);
 
         if (convertView == null) {
 
@@ -58,11 +58,11 @@ public class PointsAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.point_item, null);
 
             /****** View Holder Object to contain tabitem.xml file elements ******/
-
             holder = new ViewHolder();
             holder.txtName = (TextView) vi.findViewById(R.id.storeName);
             holder.txtPoints = (TextView) vi.findViewById(R.id.points);
-            holder.btnDelete= (Button) vi.findViewById(R.id.btnDelete);
+            holder.btnDelete = (Button) vi.findViewById(R.id.btnDelete);
+
             /************  Set holder with LayoutInflater ************/
             vi.setTag(holder);
         } else {

@@ -1,8 +1,10 @@
 package com.pointhub.earnredeemtab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 
 
@@ -24,7 +28,6 @@ public class Reedem extends Fragment {
     public Reedem() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,26 +50,25 @@ public class Reedem extends Fragment {
                 String billAmount = redeemBillAmountText1.getText().toString();
 
 
-              /*  PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
+              PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
 
                 Gson gson = new Gson();
-                String earnString =  gson.toJson(msg);
-*/
+                String redeemString =  gson.toJson(msg);
+
                 Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                intent.putExtra("earnString","Your Bill Amount is :"   + billAmount);
-                intent.putExtra("points","Reedem points is :"    +String.valueOf(spinner.getSelectedItem()));
+
+                intent.putExtra("earnRedeemString", redeemString);
                 startActivity(intent);
             }
         });
 
     }
     private String getUserId(){
+
         String userId = "";
         try {
 
-            TelephonyManager telephonyManager = (TelephonyManager
-                    ) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-
+            TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
             //getDeviceId() function Returns the unique device ID.
 

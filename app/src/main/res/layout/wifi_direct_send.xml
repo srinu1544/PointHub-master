@@ -7,19 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".wifidirect.WifiDirectSend">
 
-
     <Button
         android:text="Request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:id="@+id/btnRequest"
-
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="12dp" />
-
 
     <include
         layout="@layout/header"
@@ -28,16 +24,13 @@
         android:id="@+id/include2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-    </include>
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/btnRefresh"
         android:background="@mipmap/ic_launcher"
-
         android:layout_below="@+id/include2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -50,8 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/btncolor"
-
         android:layout_below="@+id/btnRefresh"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>

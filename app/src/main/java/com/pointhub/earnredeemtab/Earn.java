@@ -30,6 +30,7 @@ public class Earn extends Fragment {
     Context mContext;
     Button bnSubmit;
     EditText billAmountText;
+
     public Earn() {
         // Required empty public constructor
     }
@@ -38,7 +39,7 @@ public class Earn extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v =  inflater.inflate(layout.earn, container, false);
+        View v = inflater.inflate(layout.earn, container, false);
         findViewByid(v);
         return v;
     }
@@ -60,19 +61,19 @@ public class Earn extends Fragment {
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                 } else {
 
-                   // String billAmount = billAmountText.getText().toString();
+                    // String billAmount = billAmountText.getText().toString();
 
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, getUserId(), "");
                     String earnString = "";
-                    try{
+                    try {
                         Gson gson = new Gson();
-                        earnString =  gson.toJson(msg);
-                    }catch(Exception ex){
+                        earnString = gson.toJson(msg);
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
 
                     Intent intent = new Intent(getActivity(), WifiDirectSend.class);
-                    intent.putExtra("earnString", earnString);
+                    intent.putExtra("earnRedeemString", earnString);
                     startActivity(intent);
                 }
             }
@@ -80,20 +81,19 @@ public class Earn extends Fragment {
         });
     }
 
-    private String getUserId(){
+    private String getUserId() {
+
         String userId = "";
         try {
-            TelephonyManager telephonyManager = (TelephonyManager
-                    ) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
+            TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
-            //getDeviceId() function Returns the unique device ID.
-
+            // getDeviceId() function Returns the unique device ID.
             String imeistring = telephonyManager.getDeviceId();
-            userId=imeistring;
+            userId = imeistring;
 
-            userId = "Venu";
-        }catch(Throwable th){
+            // userId = "Venu";
+        } catch (Throwable th) {
             th.printStackTrace();
         }
         return userId;

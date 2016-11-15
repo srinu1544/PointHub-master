@@ -55,6 +55,8 @@ public class WifiDirectSend extends AppCompatActivity {
     private BroadcastReceiver mReceiver;
     private IntentFilter mFilter;
 
+    String earnRedeemString = null;
+
     // Connection info object.
     private WifiP2pInfo info;
 
@@ -64,6 +66,7 @@ public class WifiDirectSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
+        earnRedeemString = getIntent().getExtras().getString("earnRedeemString");
 
         initView();
         initIntentFilter();
@@ -215,8 +218,7 @@ public class WifiDirectSend extends AppCompatActivity {
             Log.i("address", "owenerip is " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
 
-            String sendMsg = getIntent().getExtras().getString("earnString");
-            serviceIntent.putExtra(DataTransferService.MESSAGE, sendMsg);
+            serviceIntent.putExtra(DataTransferService.MESSAGE, earnRedeemString);
 
             startService(serviceIntent);
 

@@ -3,7 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.pointhub.earnredeemtab.Scanner_Fragment"
-    android:background="@color/colorAccent">
+    android:background="@color/colorAccent"/>
 
-
-</FrameLayout>
