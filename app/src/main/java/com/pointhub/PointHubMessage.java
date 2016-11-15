@@ -14,7 +14,6 @@ public class PointHubMessage {
 
     }
 
-
     public PointHubMessage(String type, String billAmount, String userName, String points){
         this.type = type;
         this.billAmount = billAmount;

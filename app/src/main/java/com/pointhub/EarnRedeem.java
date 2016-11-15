@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import com.pointhub.EarnBillAmountActivity;
 import com.pointhub.R;
+import com.pointhub.earnredeemtab.MainActivity;
 
 /**
  * Created by Venu on 03-05-2016.
@@ -26,11 +27,11 @@ public class EarnRedeem extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
-    //ViewPageAdapter viewPagerAdapter;
 
     Button earnButton,redeemButton;
     String storeName = "";
     Layout la;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,11 +40,6 @@ public class EarnRedeem extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        /*viewPagerAdapter = new ViewPageAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragments(new EarnBillAmountActivity(), "EARN");
-        viewPagerAdapter.addFragments(new RedeemBillAmountActivity(), "REDEEM");
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);*/
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -68,7 +64,7 @@ public class EarnRedeem extends AppCompatActivity {
             public void onClick(View arg0) {
 
 
-                Intent i = new Intent(EarnRedeem.this, EarnBillAmountActivity.class);
+                Intent i = new Intent(EarnRedeem.this, MainActivity.class);
                 i.putExtra("storeName",storeName);
                 startActivity(i);
             }
@@ -83,14 +79,12 @@ public class EarnRedeem extends AppCompatActivity {
      */
     public void addListenerOnRedeemButton() {
 
-        //redeemButton = (Button) findViewById(R.id.redeemButton);
-
         redeemButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
-                Intent i = new Intent(EarnRedeem.this, RedeemBillAmountActivity.class);
+                Intent i = new Intent(EarnRedeem.this, MainActivity.class);
                 i.putExtra("storeName",storeName);
                 startActivity(i);
             }

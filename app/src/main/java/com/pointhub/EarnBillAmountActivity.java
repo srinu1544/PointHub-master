@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
-import com.pointhub.scanner.QRCode;
+import com.pointhub.earnredeemtab.NewQRcode;
 
 /**
  * Created by Venu on 03-05-2016.
@@ -62,7 +62,7 @@ public class EarnBillAmountActivity extends Activity {
 
                 // success = updateInMongoDBServer(storeName, billAmount.getText().toString());
 
-                Intent i = new Intent(EarnBillAmountActivity.this, QRCode.class);
+                Intent i = new Intent(EarnBillAmountActivity.this, NewQRcode.class);
                 startActivity(i);
             }
         });

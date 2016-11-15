@@ -24,6 +24,7 @@ public class PointListActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_list);
 
@@ -33,21 +34,8 @@ public class PointListActivity extends Activity {
         ArrayList<Points> pointses= (ArrayList<Points>) DatabaseHelper.getInstance(this).getAllPoints();
         lstPoints= (RecyclerView) findViewById(R.id.lstPoints);
 
-
         lstPoints.setLayoutManager(new LinearLayoutManager(this));
         lstPoints.setAdapter(new Adapter(PointListActivity.this,pointses));
-
-        //slide menu button
-        /*menuButtom= (ImageView) findViewById(R.id.imgmenu);
-        menuButtom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DrawerLayout slider = (DrawerLayout) findViewById(R.id.drawer_layout);
-                slider.openDrawer(Gravity.LEFT);
-            }
-        });*/
-
 
     }
 }
