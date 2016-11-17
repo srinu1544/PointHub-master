@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,7 +26,6 @@ public class Earn extends Fragment {
 
     Button bnSubmit;
     EditText billAmountText;
-    TextView storeNameTxtView;
 
     public Earn() {
         // Required empty public constructor
@@ -56,7 +54,7 @@ public class Earn extends Fragment {
                 String billAmount = billAmountText.getText().toString();
 
                 String userId = getImeistring();
-                String storName=getStoreID();
+                String storName = getStoreID();
 
                 if (billAmount.isEmpty()) {
 
@@ -82,17 +80,14 @@ public class Earn extends Fragment {
         });
     }
 
-    public String getStoreID(){
-        String storeName="";
+    public String getStoreID() {
 
-        storeName=getActivity().getIntent().getStringExtra("storename");
-
+        String storeName = getActivity().getIntent().getStringExtra("storename");
         return storeName;
     }
 
-
     public String getImeistring() {
-        String imeistring=null;
+        String imeistring = null;
         /*try {
            // TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -107,5 +102,5 @@ public class Earn extends Fragment {
         return imeistring;
     }
 
-    }
+}
 

@@ -26,11 +26,7 @@ public class NewQRcode extends AppCompatActivity  {
 
         showCameraPreview();
 
-        // share.setBackgroundResource(R.drawable.whatsappicon);
-
         createPoints = (ImageView) findViewById(R.id.imgmenu);
-
-        // share.setBackgroundResource(R.drawable.whatsappicon);
 
         createPoints.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +44,10 @@ public class NewQRcode extends AppCompatActivity  {
         // BEGIN_INCLUDE(startCamera)
         // Check if the Camera permission has been granted
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
             // Permission is already available, start camera preview
         } else {
+
             // Permission is missing and must be requested.
             requestCameraPermission();
         }
@@ -69,9 +67,7 @@ public class NewQRcode extends AppCompatActivity  {
                     new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
         } else {
-          /*  Snackbar.make(mLayout,
-                    "Permission is not available. Requesting camera permission.",
-                    Snackbar.LENGTH_SHORT).show();*/
+
             // Request the permission. The result will be received in onRequestPermissionResult().
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
@@ -80,8 +76,8 @@ public class NewQRcode extends AppCompatActivity  {
 
     @Override
     protected void onResume() {
-        super.onResume();
 
+        super.onResume();
         requestCameraPermission();
     }
 }

@@ -50,8 +50,6 @@ public class DataTransferService extends IntentService {
 
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
 
-            //String message = intent.getExtras().getString(MESSAGE);
-
             Socket socket = new Socket();
 
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);

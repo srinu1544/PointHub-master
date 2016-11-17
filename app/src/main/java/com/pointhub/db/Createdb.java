@@ -15,10 +15,8 @@ import com.pointhub.R;
  */
 public class Createdb extends Activity {
 
-
     private EditText csnamej, cpointsj, cdatej;
     private Button csubj;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,6 @@ public class Createdb extends Activity {
         cpointsj = (EditText) findViewById(R.id.cpoints);
         cdatej = (EditText) findViewById(R.id.cdate);
         csubj = (Button) findViewById(R.id.csub);
-
 
         csubj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +42,7 @@ public class Createdb extends Activity {
                 // Log.i("Tag", "points : > " +pts.getPoints());
 
                 pts.setLastVisited(cdatej.getText().toString());
+
                 //  Log.i("Tag", "points : >>> " +pts.getPoints());
                 dbHelper.createPoints(pts);
 
@@ -54,8 +52,6 @@ public class Createdb extends Activity {
 
             }
         });
-
-
     }
 
 }

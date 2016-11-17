@@ -5,22 +5,12 @@ package com.pointhub.db;
  */
 public class Points {
 
+    int id;
     String storeName;
     String points;
     String lastVisited;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    int id;
-
     public Points() {
-
 
     }
 
@@ -28,8 +18,15 @@ public class Points {
 
         this.storeName = storeName;
         this.points = points;
-
         this.lastVisited = lastVisited;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStoreName() {

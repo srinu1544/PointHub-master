@@ -34,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-
         Bundle extras = getIntent().getExtras();
-
 
         if (extras != null) {
             storeName = extras.getString("storename");
-           strnm.setText(storeName);
+            strnm.setText(storeName);
         }
     }
 }

@@ -20,46 +20,45 @@ import com.pointhub.R;
 public class Reedem extends Fragment {
 
     private Spinner spinner;
-    View v;
     Button submitButton1;
     EditText redeemBillAmountText1;
+
     public Reedem() {
         // Required empty public constructor
     }
-    String points=null;
+
+    String points = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v =  inflater.inflate(R.layout.reedem, container, false);
+        View v = inflater.inflate(R.layout.reedem, container, false);
         findViewByid(v);
         setSpinnerCategories();
-
         return v;
     }
-    private void findViewByid(View v){
 
-        spinner=(Spinner)v.findViewById(R.id.spinner1);
+    private void findViewByid(View v) {
+
+        spinner = (Spinner) v.findViewById(R.id.spinner1);
         submitButton1 = (Button) v.findViewById(R.id.submitButton);
-        redeemBillAmountText1 =(EditText)v.findViewById(R.id.redeemBillAmountText);
+        redeemBillAmountText1 = (EditText) v.findViewById(R.id.redeemBillAmountText);
 
         submitButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String billAmount = redeemBillAmountText1.getText().toString();
 
-                String storName=getStoreID();
-                String userid=getUserId();
+                String storName = getStoreID();
+                String userid = getUserId();
 
-
-              PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName,points);
+                PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
 
                 Gson gson = new Gson();
-                String redeemString =  gson.toJson(msg);
+                String redeemString = gson.toJson(msg);
 
                 Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-
                 intent.putExtra("earnRedeemString", redeemString);
                 startActivity(intent);
             }
@@ -67,13 +66,12 @@ public class Reedem extends Fragment {
 
     }
 
-    public String getStoreID(){
-        String storeName="";
+    public String getStoreID() {
 
-        storeName=getActivity().getIntent().getStringExtra("storename");
-
+        String storeName = getActivity().getIntent().getStringExtra("storename");
         return storeName;
     }
+
     private String getUserId(){
 
        String userId = null;
@@ -93,15 +91,14 @@ public class Reedem extends Fragment {
         return userId;
     }
 
+    private void setSpinnerCategories() {
 
-
-
-    private  void setSpinnerCategories(){
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               points= String.valueOf(spinner.getSelectedItem());
-                Toast.makeText(getActivity(),"You Selected  "   +String.valueOf(spinner.getSelectedItem()),Toast.LENGTH_LONG).show();
+                points = String.valueOf(spinner.getSelectedItem());
+                Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -109,7 +106,6 @@ public class Reedem extends Fragment {
 
             }
         });
-
     }
 
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * Created by Raj on 28/04/2016.
+ * Created by Venu on 28/04/2016.
  */
 public class PointsAdapter extends BaseAdapter {
 

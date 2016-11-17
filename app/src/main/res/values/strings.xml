@@ -1,14 +1,14 @@
 <resources>
+
     <string name="app_name">PointHub</string>
     <string name="okbutton">ok</string>
     <string name="pleaseenterbillno">Please Enter Your Bill No</string>
     <string name="submit">Submit</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="points_prompt">choose points</string>
     <string name="colon"> : </string>
-    <string name="userprofile">PointHub-Master </string>
+    <string name="userprofile">PointHub-Master</string>
 
     <string-array name="point_arrays">
         <item>  </item>
@@ -18,10 +18,9 @@
         <item>300</item>
         <item>400</item>
         <item>500</item>
-
     </string-array>
-    <string name="title_activity_navigation">Point Hub</string>
 
+    <string name="title_activity_navigation">Smart Points</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_navigation_screen">NavigationScreen</string>
 </resources>
