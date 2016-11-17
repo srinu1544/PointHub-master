@@ -21,17 +21,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pointhub.db.Createdb;
+import com.pointhub.db.DatabaseHelper;
+import com.pointhub.earnredeemtab.MainActivity;
+import com.pointhub.util.Utility;
 
 import java.io.File;
 
-public class Navigation extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     ImageView menuButtom;
     Button points;
     ImageView share;
-    private boolean doubleBackToExitPressedOnce=false;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,37 +48,39 @@ public class Navigation extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-               ApplicationInfo app = getApplicationContext().getApplicationInfo();
-               String filePath = app.sourceDir;
+                if(Utility.isTesting()) {
 
-               Intent intent = new Intent(Intent.ACTION_SEND);
+                    Intent i = new Intent(Navigation.this, MainActivity.class);
+                    i.putExtra("storename", "teststore");
+                    startActivity(i);
+                } else {
 
-               intent.setType("*/*");
+                    shareFromBluetooth();
 
-                // Only use Bluetooth to send .apk
-                // intent.setPackage("com.android.bluetooth");
-
-                // Append file and send Intent
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
-                startActivity(Intent.createChooser(intent, "Share app"));
-
-
+                }
             }
         });
 
-        // points button
+        // Points button
         points = (Button) findViewById(R.id.pointsbutton);
         points.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(Navigation.this, Createdb.class);
-                startActivity(i);
+                if(Utility.isTesting()) {
 
+                    Intent i = new Intent(Navigation.this, Createdb.class);
+                    startActivity(i);
+                } else {
+
+                    Intent intent = new Intent(Navigation.this, PointListActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
-          // slide menu button
+          // Slide menu button
         menuButtom= (ImageView) findViewById(R.id.imgmenu);
         menuButtom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +91,6 @@ public class Navigation extends AppCompatActivity
             }
         });
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -97,6 +100,24 @@ public class Navigation extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private void shareFromBluetooth() {
+        try {
+
+            ApplicationInfo app = getApplicationContext().getApplicationInfo();
+            String filePath = app.sourceDir;
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+
+            // Only use Bluetooth to send .apk
+            // intent.setPackage("com.android.bluetooth");
+
+            // Append file and send Intent
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
+            startActivity(Intent.createChooser(intent, "Share app"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -109,7 +130,7 @@ public class Navigation extends AppCompatActivity
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this,"To exit press back again.,",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"To exit press back again.",Toast.LENGTH_SHORT).show();
         }
         }
 

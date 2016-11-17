@@ -14,6 +14,7 @@ public class Utility {
 
     static Gson gson = null;
 
+    static boolean testing = false;
 
     public static synchronized Gson getGsonObject() {
 
@@ -22,6 +23,10 @@ public class Utility {
         }
 
         return gson;
+    }
+
+    public static synchronized boolean isTesting () {
+        return testing;
     }
 
 }

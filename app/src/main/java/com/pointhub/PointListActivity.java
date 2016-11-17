@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class PointListActivity extends Activity {
 
     RecyclerView lstPoints;
-    ImageView menuButtom;
-    DrawerLayout slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +26,11 @@ public class PointListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_list);
 
-        /*final String store_name;
-        store_name = getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);*/
-        DatabaseHelper dbHelper=new DatabaseHelper(getApplicationContext());
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         ArrayList<Points> pointses= (ArrayList<Points>) DatabaseHelper.getInstance(this).getAllPoints();
         lstPoints= (RecyclerView) findViewById(R.id.lstPoints);
 
         lstPoints.setLayoutManager(new LinearLayoutManager(this));
-        lstPoints.setAdapter(new Adapter(PointListActivity.this,pointses));
-
+        lstPoints.setAdapter(new Adapter(PointListActivity.this, pointses));
     }
 }
