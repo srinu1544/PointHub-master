@@ -158,10 +158,6 @@ public class WifiDirectSend extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 discoverPeers();
-                Intent intent=getIntent();
-                sendText=intent.getExtras().getString("earnRedeemString");
-                Toast.makeText(WifiDirectSend.this,sendText,Toast.LENGTH_LONG).show();
-
             }
         });
 
