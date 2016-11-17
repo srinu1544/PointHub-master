@@ -1,16 +1,15 @@
 package com.pointhub.earnredeemtab;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,10 +25,9 @@ import static com.pointhub.R.layout;
  */
 public class Earn extends Fragment {
 
-    View view;
-    Context mContext;
     Button bnSubmit;
     EditText billAmountText;
+    TextView storeNameTxtView;
 
     public Earn() {
         // Required empty public constructor
@@ -56,14 +54,16 @@ public class Earn extends Fragment {
             public void onClick(View v) {
 
                 String billAmount = billAmountText.getText().toString();
+
+                String userId = getImeistring();
+                String storName=getStoreID();
+
                 if (billAmount.isEmpty()) {
 
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    // String billAmount = billAmountText.getText().toString();
-
-                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, getUserId(), "");
+                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, "");
                     String earnString = "";
                     try {
                         Gson gson = new Gson();
@@ -71,6 +71,7 @@ public class Earn extends Fragment {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+
 
                     Intent intent = new Intent(getActivity(), WifiDirectSend.class);
                     intent.putExtra("earnRedeemString", earnString);
@@ -81,22 +82,30 @@ public class Earn extends Fragment {
         });
     }
 
-    private String getUserId() {
+    public String getStoreID(){
+        String storeName="";
 
-        String userId = "";
-        try {
+        storeName=getActivity().getIntent().getStringExtra("storename");
 
-            TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+        return storeName;
+    }
+
+
+    public String getImeistring() {
+        String imeistring=null;
+        /*try {
+           // TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
             // getDeviceId() function Returns the unique device ID.
-            String imeistring = telephonyManager.getDeviceId();
-            userId = imeistring;
+            //imeistring = telephonyManager.getDeviceId();
+            //System.out.println(imeistring);
 
             // userId = "Venu";
         } catch (Throwable th) {
             th.printStackTrace();
-        }
-        return userId;
+        }*/
+        return imeistring;
     }
 
-}
+    }
+

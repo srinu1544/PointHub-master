@@ -9,14 +9,16 @@ public class PointHubMessage {
     String billAmount;
     String userName;
     String points;
+    String deviceid;
 
     private PointHubMessage(){
 
     }
 
-    public PointHubMessage(String type, String billAmount, String userName, String points){
+    public PointHubMessage(String type, String billAmount, String deviceid, String userName, String points){
         this.type = type;
         this.billAmount = billAmount;
+        this.deviceid=deviceid;
         this.userName = userName;
         this.points = points;
     }

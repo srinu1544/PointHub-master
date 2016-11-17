@@ -14,14 +14,11 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pointhub.R;
@@ -29,11 +26,8 @@ import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
 import com.pointhub.wifidirect.Service.DataTransferService;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,9 +35,6 @@ public class WifiDirectSend extends AppCompatActivity {
 
     private Button btRefresh;
     private Button btnRequest;
-    // private EditText editText;
-    private ImageView imagebut;
-    private CardView cardView;
 
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
@@ -55,7 +46,7 @@ public class WifiDirectSend extends AppCompatActivity {
     private BroadcastReceiver mReceiver;
     private IntentFilter mFilter;
 
-    String earnRedeemString = null;
+    String sendText=null;
 
     // Connection info object.
     private WifiP2pInfo info;
@@ -66,7 +57,6 @@ public class WifiDirectSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
-        earnRedeemString = getIntent().getExtras().getString("earnRedeemString");
 
         initView();
         initIntentFilter();
@@ -77,16 +67,11 @@ public class WifiDirectSend extends AppCompatActivity {
 
     private void initView() {
 
-        Bundle extras = getIntent().getExtras();
-
-        imagebut= (ImageView) findViewById(R.id.imgmenu);
         btRefresh = (Button) findViewById(R.id.btnRefresh);
         btnRequest = (Button) findViewById(R.id.btnRequest);
-        // editText = (EditText) findViewById(R.id.txtSend);
-        cardView= (CardView) findViewById(R.id.cardview);
         /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);*/
-
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+*/
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
         mRecyclerView.setAdapter(mAdapter);
@@ -95,6 +80,7 @@ public class WifiDirectSend extends AppCompatActivity {
         btnRequest.setVisibility(View.INVISIBLE);
 
     }
+
 
     private void initIntentFilter() {
 
@@ -106,6 +92,7 @@ public class WifiDirectSend extends AppCompatActivity {
         mFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
     }
 
+
     private void initReceiver() {
 
         mManager = (WifiP2pManager) getSystemService(WIFI_P2P_SERVICE);
@@ -116,7 +103,6 @@ public class WifiDirectSend extends AppCompatActivity {
             @Override
             public void onPeersAvailable(WifiP2pDeviceList peersList) {
 
-                //Toast.makeText(getApplicationContext(),"WifiP2pManager.PeerListListener onPeersAvailable.",Toast.LENGTH_SHORT).show();
                 peers.clear();
                 peersshow.clear();
 
@@ -142,7 +128,6 @@ public class WifiDirectSend extends AppCompatActivity {
                     public void OnItemClick(View view, int position) {
 
                         createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
-
                     }
 
                     @Override
@@ -158,32 +143,25 @@ public class WifiDirectSend extends AppCompatActivity {
             @Override
             public void onConnectionInfoAvailable(WifiP2pInfo minfo) {
 
-               // btRefresh.setVisibility(View.VISIBLE);
-
-                // Toast.makeText(getApplicationContext(),"ConnectionInfoListener onConnectionInfoAvailable.",Toast.LENGTH_SHORT).show();
                 Log.i("xyz", "InfoAvailable is on");
                 info = minfo;
-                // btnRequest.setVisibility(View.VISIBLE);
             }
         };
 
         mReceiver = new WifiDirectBroadcastReceiver(mManager, mChannel, this, mPeerListListerner, mInfoListener);
     }
 
-    /**
-     * Initialize all the events.
-     */
     private void initEvents() {
 
         btRefresh.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                // Toast.makeText(getApplicationContext(),"Send button clicked.",Toast.LENGTH_SHORT).show();
                 discoverPeers();
-                // sendMessage();
-               // btRefresh.setVisibility(View.INVISIBLE);
+                Intent intent=getIntent();
+                sendText=intent.getExtras().getString("earnRedeemString");
+                Toast.makeText(WifiDirectSend.this,sendText,Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -195,83 +173,45 @@ public class WifiDirectSend extends AppCompatActivity {
             }
         });
 
+
+       /* mAdapter.SetOnItemClickListener(new WifiAdapter.OnItemClickListener() {
+
+            @Override
+            public void OnItemClick(View view, int position) {
+
+                createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
+            }
+
+            @Override
+            public void OnItemLongClick(View view, int position) {
+
+            }
+        });*/
     }
 
-    /**
-     * Send message.
-     */
     private void sendMessage() {
 
         try {
 
-            if(null == info) {
-                Toast.makeText(getApplicationContext(),"null == info.",Toast.LENGTH_SHORT).show();
+            if(null == info){
                 return;
             }
 
+            Intent intent=getIntent();
+            sendText=intent.getExtras().getString("earnRedeemString");
 
             Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
-
-            serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
-
-            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
-            Log.i("address", "owenerip is " + info.groupOwnerAddress.getHostAddress());
-            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
-
-            serviceIntent.putExtra(DataTransferService.MESSAGE, earnRedeemString);
-
-            startService(serviceIntent);
-
-            /*Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+            if(null!=sendText){
+                serviceIntent.putExtra(DataTransferService.MESSAGE, sendText);}
 
-            Log.i("bizzmark", "Ownerip: " + info.groupOwnerAddress.getHostAddress());
-            // Log.i("bizzmark", "Owner Name: " + info.groupOwnerAddress.getCanonicalHostName());
+            Log.i("bizzmark", "owenerip is " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
-
-            // String sendText = editText.getText().toString();
-            String sendMsg = getIntent().getExtras().getString("earnString");
-            serviceIntent.putExtra(DataTransferService.MESSAGE, sendMsg);
-
-            Log.i("bizzmark", sendMsg);
-            WifiDirectSend.this.startService(serviceIntent);*/
-
+            WifiDirectSend.this.startService(serviceIntent);
         }catch (Throwable th){
             th.printStackTrace();
         }
-    }
-
-    /**
-     * Get IP address from first non-localhost interface
-     * @param
-     * @return  address or empty string
-     */
-    public static String getIPAddress(boolean useIPv4) {
-        try {
-            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface intf : interfaces) {
-                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-                for (InetAddress addr : addrs) {
-                    if (!addr.isLoopbackAddress()) {
-                        String sAddr = addr.getHostAddress();
-                        //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                        boolean isIPv4 = sAddr.indexOf(':')<0;
-
-                        if (useIPv4) {
-                            if (isIPv4)
-                                return sAddr;
-                        } else {
-                            if (!isIPv4) {
-                                int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
-                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) { } // for now eat exceptions
-        return "";
     }
 
     WifiP2pConfig config = null;
@@ -283,20 +223,15 @@ public class WifiDirectSend extends AppCompatActivity {
     private void createConnect(String address, final String name) {
 
         //if(null == config) {
-            initWifiP2pConfig(address);
+        initWifiP2pConfig(address);
         //}
 
         mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
             @Override
             public void onSuccess() {
-
-                 Toast.makeText(getApplicationContext(),"WifiP2pManager connect success.", Toast.LENGTH_SHORT).show();
-                // btnRequest.setVisibility(View.VISIBLE);
                 sendMessage();
-                // btSend.setVisibility(View.VISIBLE);
-
-            }
+                }
 
             @Override
             public void onFailure(int reason) {
@@ -385,10 +320,10 @@ public class WifiDirectSend extends AppCompatActivity {
         StopConnect();
     }
 
-    public void ResetReceiver() {
+    /*public void ResetReceiver() {
 
         unregisterReceiver(mReceiver);
         registerReceiver(mReceiver, mFilter);
-    }
+    }*/
 
 }

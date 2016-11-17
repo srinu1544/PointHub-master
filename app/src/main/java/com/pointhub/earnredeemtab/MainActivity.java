@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.pointhub.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPageAdapter viewPagerAdapter;
     TextView strnm;
+
+    String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        String userName;
+
 
         if (extras != null) {
-            userName = extras.getString("storename");
-           strnm.setText(userName);
+            storeName = extras.getString("storename");
+           strnm.setText(storeName);
         }
     }
 }

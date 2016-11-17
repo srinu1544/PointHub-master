@@ -1,10 +1,8 @@
 package com.pointhub.earnredeemtab;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +26,7 @@ public class Reedem extends Fragment {
     public Reedem() {
         // Required empty public constructor
     }
+    String points=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,13 +43,17 @@ public class Reedem extends Fragment {
         spinner=(Spinner)v.findViewById(R.id.spinner1);
         submitButton1 = (Button) v.findViewById(R.id.submitButton);
         redeemBillAmountText1 =(EditText)v.findViewById(R.id.redeemBillAmountText);
+
         submitButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String billAmount = redeemBillAmountText1.getText().toString();
 
+                String storName=getStoreID();
+                String userid=getUserId();
 
-              PointHubMessage msg = new PointHubMessage("reedem", billAmount, getUserId(), "");
+
+              PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName,points);
 
                 Gson gson = new Gson();
                 String redeemString =  gson.toJson(msg);
@@ -63,10 +66,18 @@ public class Reedem extends Fragment {
         });
 
     }
+
+    public String getStoreID(){
+        String storeName="";
+
+        storeName=getActivity().getIntent().getStringExtra("storename");
+
+        return storeName;
+    }
     private String getUserId(){
 
-        String userId = "";
-        try {
+       String userId = null;
+        /*try {
 
             TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -78,8 +89,7 @@ public class Reedem extends Fragment {
 
         }catch(Throwable th){
             th.printStackTrace();
-        }
-
+        }*/
         return userId;
     }
 
@@ -87,36 +97,11 @@ public class Reedem extends Fragment {
 
 
     private  void setSpinnerCategories(){
-        // Spinner Drop down elements
-        //final String[] purpose = {"100","150","200"};
-
-        // Creating adapter for spinner
-        //ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, purpose);
-
-
-        // Drop down layout style - list view with radio button
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        // attaching data adapter to spinner
-        //spinner.setAdapter(dataAdapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                    spurpose = parent.getItemAtPosition(position).toString();
-//                // Showing selected spinner item
-//                Toast.makeText(parent.getContext(), "Selected: " + spurpose, Toast.LENGTH_LONG).show();
-//                smetal = parent.getItemAtPosition(position).toString();
-//                // Showing selected spinner item
-
-                //Toast.makeText(getContext(), "Selected: " +purpose[position], Toast.LENGTH_SHORT).show();
-
-
-
+               points= String.valueOf(spinner.getSelectedItem());
                 Toast.makeText(getActivity(),"You Selected  "   +String.valueOf(spinner.getSelectedItem()),Toast.LENGTH_LONG).show();
-
-
             }
 
             @Override
@@ -129,5 +114,6 @@ public class Reedem extends Fragment {
 
 
 }
+
 
 

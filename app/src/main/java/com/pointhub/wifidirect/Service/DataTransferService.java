@@ -50,7 +50,7 @@ public class DataTransferService extends IntentService {
 
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
 
-            String message = intent.getExtras().getString(MESSAGE);
+            //String message = intent.getExtras().getString(MESSAGE);
 
             Socket socket = new Socket();
 
@@ -67,7 +67,12 @@ public class DataTransferService extends IntentService {
                 /*returns an output stream to write data into this socket*/
                 OutputStream stream = socket.getOutputStream();
 
+                String message = intent.getExtras().getString(MESSAGE);
+
                 stream.write(message.getBytes());
+
+
+
             } catch (IOException e) {
 
                 Log.e("bizzmark", e.getMessage());

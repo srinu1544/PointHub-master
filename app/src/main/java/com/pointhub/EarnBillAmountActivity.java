@@ -73,7 +73,7 @@ public class EarnBillAmountActivity extends Activity {
         boolean success = false;
         try {
 
-            PointHubMessage msg = new PointHubMessage("Earn",billAmount, "khaizar", "");
+            PointHubMessage msg = new PointHubMessage("Earn",billAmount,"","khaizar", "");
 
             Gson gson = new Gson();
             return gson.toJson(msg);
