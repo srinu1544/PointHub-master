@@ -2,7 +2,9 @@ package com.pointhub;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pointhub.db.Createdb;
-import com.pointhub.earnredeemtab.MainActivity;
+
+import java.io.File;
 
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,11 +46,20 @@ public class Navigation extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
+               ApplicationInfo app = getApplicationContext().getApplicationInfo();
+               String filePath = app.sourceDir;
 
-                //for testing storename
-                Intent i = new Intent(Navigation.this, MainActivity.class);
-                i.putExtra("storename", "teststore");
-                startActivity(i);
+               Intent intent = new Intent(Intent.ACTION_SEND);
+
+               intent.setType("*/*");
+
+                // Only use Bluetooth to send .apk
+                // intent.setPackage("com.android.bluetooth");
+
+                // Append file and send Intent
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
+                startActivity(Intent.createChooser(intent, "Share app"));
+
 
             }
         });
