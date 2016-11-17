@@ -1,7 +1,9 @@
 package com.pointhub.earnredeemtab;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.gcm.GCMToken;
+import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.WifiDirectSend;
 
 import static com.pointhub.R.layout;
@@ -64,16 +68,23 @@ public class Earn extends Fragment {
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, "");
                     String earnString = "";
                     try {
-                        Gson gson = new Gson();
+                        Gson gson = Utility.getGsonObject();
                         earnString = gson.toJson(msg);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
 
+                    boolean internetAvailable = false;
 
-                    Intent intent = new Intent(getActivity(), WifiDirectSend.class);
-                    intent.putExtra("earnRedeemString", earnString);
-                    startActivity(intent);
+                            // isNetworkConnected();
+                    if(internetAvailable) {
+
+                        GCMToken.sendNotification(msg);
+                    } else {
+                        Intent intent = new Intent(getActivity(), WifiDirectSend.class);
+                        intent.putExtra("earnRedeemString", earnString);
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -100,6 +111,12 @@ public class Earn extends Fragment {
             th.printStackTrace();
         }*/
         return imeistring;
+    }
+
+    private boolean isNetworkConnected() {
+
+        ConnectivityManager cm = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.pointhub.earnredeemtab;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.gcm.GCMToken;
+import com.pointhub.util.Utility;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 
 public class Reedem extends Fragment {
@@ -55,12 +60,20 @@ public class Reedem extends Fragment {
 
                 PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
 
-                Gson gson = new Gson();
+                Gson gson = Utility.getGsonObject();
                 String redeemString = gson.toJson(msg);
 
-                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                intent.putExtra("earnRedeemString", redeemString);
-                startActivity(intent);
+                boolean internetAvailable = false;
+                        // isNetworkConnected();
+                if(internetAvailable) {
+
+                    GCMToken.sendNotification(msg);
+                } else {
+                    Intent intent = new Intent(getActivity(), WifiDirectSend.class);
+                    intent.putExtra("earnRedeemString", redeemString);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -108,6 +121,11 @@ public class Reedem extends Fragment {
         });
     }
 
+    private boolean isNetworkConnected() {
+
+        ConnectivityManager cm = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
 
 }
 
