@@ -34,72 +34,55 @@
         android:text="Submit" />
 
     <LinearLayout
-        android:id="@+id/layout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout1"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/textviewbackgeound"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:id="@+id/layout2"
+        android:weightSum="2"
+        android:background="@drawable/textviewbackgeound"
+       android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Redeem"
+            android:layout_weight="0.8"
+            android:gravity="center"
+
+            android:layout_gravity="center"
+            android:id="@+id/redeemBillAmountText"
+            android:textColor="@color/btncolor"
+            android:textSize="25dp"
+            android:textStyle="italic" />
 
         <LinearLayout
-            android:layout_width="274dp"
-            android:layout_height="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:layout_gravity="center"
-            android:background="@drawable/edittextshape"
-            android:orientation="horizontal">
+            android:background="@drawable/edittextshape">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1.71"
-                android:text="Redeem points"
-                android:textSize="15dp" />
 
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/drop"
-                android:ems="4"
-                android:entries="@array/point_arrays" />
+        <Spinner
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:layout_weight="9.20"
+            android:layout_gravity="center"
+            android:verticalScrollbarPosition="left"
+            android:scrollbarThumbVertical="@drawable/spinnershape"
+            android:spinnerMode="dropdown"
+            android:id="@+id/spinner1"
+            android:layout_marginLeft="10dp"
+            android:entries="@array/point_arrays"/>
+            //android:prompt="Choose Points"
+
+        <!-- android:entries="/point_arrays"-->
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="27dp"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/redeemBillAmountText"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:ems="4"
-                android:hint="@string/pleaseenterbillno"
-                android:inputType="numberDecimal" />
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
 </RelativeLayout>

@@ -72,9 +72,8 @@ public class EarnBillAmountActivity extends Activity {
 
         boolean success = false;
         try {
-            String storename=getStoreID();
 
-            PointHubMessage msg = new PointHubMessage("Earn",billAmount,"",storename, "");
+            PointHubMessage msg = new PointHubMessage("Earn",billAmount,"","khaizar", "");
 
             Gson gson = new Gson();
             return gson.toJson(msg);
@@ -85,10 +84,6 @@ public class EarnBillAmountActivity extends Activity {
         }
         return null;
     }
-    public String getStoreID() {
-
-
-        return getIntent().getStringExtra("storename");}
 
     private void saveInLocal(PointHubMessage pointHubMessage) {
         try {
