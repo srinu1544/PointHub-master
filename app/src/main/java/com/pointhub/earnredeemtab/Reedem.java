@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class Reedem extends Fragment {
 
     private Spinner spinner;
     Button submitButton;
-    AppCompatTextView redeemBillAmountText;
+    TextView redeemBillAmountText;
 
     public Reedem() {
         // Required empty public constructor
@@ -44,7 +45,7 @@ public class Reedem extends Fragment {
 
         spinner = (Spinner) v.findViewById(R.id.spinner1);
         submitButton = (Button) v.findViewById(R.id.submitButton);
-        redeemBillAmountText = (AppCompatTextView) v.findViewById(R.id.redeemBillAmountText);
+        redeemBillAmountText = (TextView) v.findViewById(R.id.redeemBillAmountText);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
 
