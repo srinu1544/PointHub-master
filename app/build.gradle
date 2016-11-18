@@ -1,25 +1,40 @@
 apply plugin: 'com.android.application'
 
+def gitVersion() {
+    def counter = 0
+    def process = "git rev-list master --first-parent --count".execute()
+    return process.text.toInteger()
+}
+
 android {
 
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+
+
     defaultConfig {
-        applicationId "com.pointhub"
+        applicationId "com.smartpoints"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersion()
+        versionName "2.1"
+        multiDexEnabled true
     }
 
     buildTypes {
 
         release {
 
-            minifyEnabled false
+            // minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+    }
+
+    //....
+    dexOptions {
+        javaMaxHeapSize "2g"
     }
 }
 

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.pointhub.db.Createdb;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
 
@@ -54,8 +55,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 } else {
 
                     shareFromBluetooth();
-
-                } 
+                }
             }
         });
 
@@ -68,7 +68,10 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                 if(Utility.isTesting()) {
 
-                    Intent i = new Intent(Navigation.this, PointListActivity.class);
+                    /*PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
+                    Utility.saveToDB(getApplicationContext(), msg);*/
+
+                    Intent i = new Intent(Navigation.this, Createdb.class);
                     startActivity(i);
                 } else {
 
