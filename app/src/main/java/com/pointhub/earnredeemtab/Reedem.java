@@ -1,10 +1,10 @@
 package com.pointhub.earnredeemtab;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +17,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
-import com.pointhub.gcm.GCMToken;
-import com.pointhub.util.Utility;
-import com.pointhub.wifidirect.WifiDirectSend;
 
 
 public class Reedem extends Fragment {
 
     private Spinner spinner;
-    Button submitButton1;
-    EditText redeemBillAmountText1;
+    Button submitButton;
+    AppCompatTextView redeemBillAmountText;
 
     public Reedem() {
         // Required empty public constructor
@@ -35,8 +32,7 @@ public class Reedem extends Fragment {
     String points = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.reedem, container, false);
         findViewByid(v);
@@ -47,33 +43,27 @@ public class Reedem extends Fragment {
     private void findViewByid(View v) {
 
         spinner = (Spinner) v.findViewById(R.id.spinner1);
-        submitButton1 = (Button) v.findViewById(R.id.submitButton);
-        redeemBillAmountText1 = (EditText) v.findViewById(R.id.redeemBillAmountText);
+        submitButton = (Button) v.findViewById(R.id.submitButton);
+        redeemBillAmountText = (AppCompatTextView) v.findViewById(R.id.redeemBillAmountText);
 
-        submitButton1.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                String billAmount = redeemBillAmountText1.getText().toString();
+
+                String billAmount = redeemBillAmountText.getText().toString();
 
                 String storName = getStoreID();
                 String userid = getUserId();
 
                 PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
 
-                Gson gson = Utility.getGsonObject();
+                Gson gson = new Gson();
                 String redeemString = gson.toJson(msg);
 
-                boolean internetAvailable = false;
-                        // isNetworkConnected();
-                if(internetAvailable) {
-
-                    GCMToken.sendNotification(msg);
-                } else {
-                    Intent intent = new Intent(getActivity(), WifiDirectSend.class);
-                    intent.putExtra("earnRedeemString", redeemString);
-                    startActivity(intent);
-                }
-
+                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                intent.putExtra("earnRedeemString", redeemString);
+                startActivity(intent);
             }
         });
 
@@ -87,20 +77,15 @@ public class Reedem extends Fragment {
 
     private String getUserId(){
 
-       String userId = null;
-        /*try {
-
-            TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
-
+        String userId = null;
+        try {
+            TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(getContext().TELEPHONY_SERVICE);
             //getDeviceId() function Returns the unique device ID.
-
             String imeistring = telephonyManager.getDeviceId();
            userId=imeistring;
-
-
         }catch(Throwable th){
             th.printStackTrace();
-        }*/
+        }
         return userId;
     }
 
@@ -121,13 +106,5 @@ public class Reedem extends Fragment {
         });
     }
 
-    private boolean isNetworkConnected() {
-
-        ConnectivityManager cm = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
 
 }
-
-
-

@@ -16,7 +16,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_android_black_24dp"
+        android:icon="@drawable/smartpoints_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -27,6 +27,9 @@
         <activity android:name=".db.Createdb" />
         <activity android:name=".wifidirect.WifiDirectSend" />
         <activity android:name=".db.Detaildb" />
+        <activity android:name=".FaqExpandable" />
+
+
         <service android:name=".wifidirect.Service.DataTransferService" android:enabled="true" android:exported="true"/>
 
         <activity
