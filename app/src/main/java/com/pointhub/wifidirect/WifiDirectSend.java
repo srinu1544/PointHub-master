@@ -14,14 +14,11 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pointhub.R;
@@ -40,7 +37,6 @@ public class WifiDirectSend extends AppCompatActivity {
     private Button btnRequest;
     // private EditText editText;
     private ImageView imagebut;
-    ImageView imgmenu,share;
     private CardView cardView;
     TextView tv1;
     TextView tv2;
@@ -74,10 +70,6 @@ public class WifiDirectSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
-        imgmenu = (ImageView) findViewById(R.id.imgmenu);
-        share=(ImageView) findViewById(R.id.share);
-        imgmenu.setVisibility(View.INVISIBLE);
-        share.setVisibility(View.INVISIBLE);
 
         initView();
         initIntentFilter();

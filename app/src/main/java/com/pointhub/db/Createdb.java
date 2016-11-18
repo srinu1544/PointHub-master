@@ -16,11 +16,11 @@ import com.pointhub.R;
  */
 public class Createdb extends Activity {
 
-
     private EditText csnamej, cpointsj, cdatej;
     private Button csubj;
     private ImageView imgmenu,share;
 
+    private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,9 @@ public class Createdb extends Activity {
         csnamej = (EditText) findViewById(R.id.csname);
         cpointsj = (EditText) findViewById(R.id.cpoints);
         cdatej = (EditText) findViewById(R.id.cdate);
-        csubj = (Button) findViewById(R.id.csub);
+        submitButton = (Button) findViewById(R.id.csub);
 
-
-        csubj.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -53,17 +52,15 @@ public class Createdb extends Activity {
                 // Log.i("Tag", "points : > " +pts.getPoints());
 
                 pts.setLastVisited(cdatej.getText().toString());
+
                 //  Log.i("Tag", "points : >>> " +pts.getPoints());
                 dbHelper.createPoints(pts);
 
                 Intent intent = new Intent(Createdb.this, PointListActivity.class);
                 intent.putExtra(DatabaseHelper.STORE_NAME, csnamej.getText().toString());
                 startActivity(intent);
-
             }
         });
-
-
     }
 
 }

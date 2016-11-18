@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.pointhub.R;
 
 /**
@@ -18,10 +19,13 @@ public class Detaildb extends Activity {
     private TextView  upointsj , udatej ;
     private Button usavej,updatej;
     ImageView imgmenu,share;
-
+    private EditText dsnamej;
+    private TextView upointsj, udatej;
+    private Button usavej, updatej;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detaildb);
 
@@ -36,6 +40,12 @@ public class Detaildb extends Activity {
         usavej = (Button)findViewById(R.id.usave);
         updatej = (Button)findViewById(R.id.update);
         final String store_name=getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
+        dsnamej = (EditText) findViewById(R.id.dsnamej);
+        upointsj = (TextView) findViewById(R.id.upoints);
+        udatej = (TextView) findViewById(R.id.udate);
+        usavej = (Button) findViewById(R.id.usave);
+        updatej = (Button) findViewById(R.id.update);
+        final String store_name = getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
 
         dsnamej.setText(store_name);
 

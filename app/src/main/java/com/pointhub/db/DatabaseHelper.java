@@ -30,15 +30,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	// Table Names
 	private static final String TABLE_POINTS = "points";
 
-
 	// Common column names
 	private static final String KEY_ID = "id";
 	public static final String STORE_NAME = "store_name";
 	private static final String POINTS = "points";
 	private static final String LAST_VISITED = "last_visited";
-
-
-
 
 	// Table Create Statements
 	// Todo table create statement
@@ -46,8 +42,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ TABLE_POINTS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + STORE_NAME
 			+ " TEXT," + POINTS + " TEXT," + LAST_VISITED
 			+ " TEXT" + ")";
-
-
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,7 +57,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static DatabaseHelper getInstance(Context context) {
 
 		if(helper == null) {
-
 			helper = new DatabaseHelper(context);
 		}
 		return helper;
@@ -74,8 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		// creating required tables
 		db.execSQL(CREATE_TABLE_POINTS);
-		// db.execSQL(CREATE_TABLE_USER);
-
 	}
 
 	@Override
@@ -166,16 +157,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 			String selectQuery = "SELECT  * FROM " + TABLE_POINTS;
 
-
 			Log.e(LOG, selectQuery);
 
 			Cursor c = db.rawQuery(selectQuery, null);
-
-
-			//while (c.moveToFirst()){
-
-
-			//}
 
 			if (c.moveToFirst()) {
 				do {
@@ -195,7 +179,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		return points;
 	}
-
 
 	/**
 	 * getting all todos
@@ -227,7 +210,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return todos;
 	}
 
-
 	/*
      * Updating a todo
      */
@@ -258,7 +240,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_POINTS, KEY_ID + " = ?", new String[] { id+"" });
 	}
-
 
 	// closing database
 	public void closeDB() {

@@ -3,9 +3,9 @@ package com.pointhub.earnredeemtab;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.gcm.GCMToken;
+import com.pointhub.util.Utility;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 import static com.pointhub.R.layout;
 
@@ -25,21 +28,18 @@ import static com.pointhub.R.layout;
  */
 public class Earn extends Fragment {
 
-    View view;
-    Context mContext;
     Button bnSubmit;
     EditText billAmountText;
+
     public Earn() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v =  inflater.inflate(layout.earn, container, false);
-
+        View v = inflater.inflate(layout.earn, container, false);
         findViewByid(v);
         return v;
     }
@@ -55,47 +55,69 @@ public class Earn extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String s = billAmountText.getText().toString();
-                if (s.isEmpty()) {
+                String billAmount = billAmountText.getText().toString();
+
+                String userId = getImeistring();
+                String storName = getStoreID();
+
+                if (billAmount.isEmpty()) {
 
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    String billAmount = billAmountText.getText().toString();
+                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, "");
+                    String earnString = "";
+                    try {
+                        Gson gson = Utility.getGsonObject();
+                        earnString = gson.toJson(msg);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
-                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, getUserId(), "");
+                    boolean internetAvailable = false;
 
-                    Gson gson = new Gson();
-                    String earnString =  gson.toJson(msg);
+                            // isNetworkConnected();
+                    if(internetAvailable) {
 
-                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                    intent.putExtra("earnString", earnString);
-                    startActivity(intent);
+                        GCMToken.sendNotification(msg);
+                    } else {
+                        Intent intent = new Intent(getActivity(), WifiDirectSend.class);
+                        intent.putExtra("earnRedeemString", earnString);
+                        startActivity(intent);
+                    }
                 }
             }
 
         });
     }
 
-    private String getUserId(){
-        String userId = "";
-        try {
-            TelephonyManager telephonyManager = (TelephonyManager
-                    ) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+    public String getStoreID() {
 
+        String storeName = getActivity().getIntent().getStringExtra("storename");
+        return storeName;
+    }
 
-            //getDeviceId() function Returns the unique device ID.
+    public String getImeistring() {
+        String imeistring = null;
+        /*try {
+           // TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
 
-            String imeistring = telephonyManager.getDeviceId();
-            userId=imeistring;
+            // getDeviceId() function Returns the unique device ID.
+            //imeistring = telephonyManager.getDeviceId();
+            //System.out.println(imeistring);
 
-
-
-        }catch(Throwable th){
+            // userId = "Venu";
+        } catch (Throwable th) {
             th.printStackTrace();
-        }
+        }*/
+        return imeistring;
+    }
 
-        return userId;
+    private boolean isNetworkConnected() {
+
+        ConnectivityManager cm = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
 }
+

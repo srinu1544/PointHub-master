@@ -2,67 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightgrey"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/lightgrey"
     tools:context="com.pointhub.earnredeemtab.Reedem">
 
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:inputType="numberDecimal"
-                android:id="@+id/redeemBillAmountText"
-                android:ems="4"
-                android:layout_gravity="center"
-                android:hint="@string/pleaseenterbillno"
-
-                 />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
+        android:id="@+id/layout3"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/layout2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/layout3"
         android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:layout_gravity="right"
-            android:background="@drawable/edittextshape"
-            android:id="@+id/submitButton"/>
-
-
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layout3"
+        android:layout_gravity="right"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/edittextshape"
+        android:text="Submit" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -98,13 +67,13 @@
             android:layout_gravity="center"
             android:background="@drawable/edittextshape">
 
-          <!-- <TextView
+           <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Choose points"
                android:textSize="15dp"
                android:layout_marginLeft="5dp"
-               android:layout_gravity="center"/>-->
+               android:layout_gravity="center"/>
         <Spinner
 
             android:layout_width="wrap_content"
@@ -112,11 +81,10 @@
             android:ems="4"
             android:layout_weight="9.20"
             android:layout_gravity="center"
-            android:scrollbarThumbVertical="@drawable/spinnershape"
+            android:background="@drawable/drop"
             android:spinnerMode="dropdown"
             android:id="@+id/spinner1"
             android:layout_marginLeft="10dp"
-            android:verticalScrollbarPosition="left"
             android:entries="@array/point_arrays"/>
             //android:prompt="Choose Points"
 

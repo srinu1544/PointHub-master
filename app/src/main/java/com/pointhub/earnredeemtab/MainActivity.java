@@ -15,12 +15,13 @@ import com.pointhub.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPageAdapter viewPagerAdapter;
     TextView strnm;
     ImageView imgmenu,share;
+
+    String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,11 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-
         Bundle extras = getIntent().getExtras();
-        String userName;
 
         if (extras != null) {
-            userName = extras.getString("storename");
-           strnm.setText(userName);
+            storeName = extras.getString("storename");
+            strnm.setText(storeName);
         }
     }
 }

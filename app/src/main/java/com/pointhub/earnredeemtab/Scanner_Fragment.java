@@ -23,14 +23,12 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class Scanner_Fragment extends Fragment implements ZXingScannerView.ResultHandler,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
-    //Context mContext;
+    // Context mContext;
     ZXingScannerView mScannerView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 
@@ -45,14 +43,12 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
         super.onResume();
         mScannerView.setResultHandler(this);
         mScannerView.startCamera();
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mScannerView.stopCamera();
-
     }
 
     @Override
@@ -63,8 +59,6 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
 
         // Direct to earn an1d redeem tab functionality.
          if (result!= null){
-
-
              //Log.i("tag",">>>>"+result.toString());
              Toast.makeText(getContext(),"result is"+result.toString(),Toast.LENGTH_LONG).show();
              Intent i = new Intent(getActivity(), MainActivity.class);
@@ -73,6 +67,5 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
          } else {
              Toast.makeText(getActivity(),"scan again",Toast.LENGTH_SHORT).show();
          }
-
     }
 }

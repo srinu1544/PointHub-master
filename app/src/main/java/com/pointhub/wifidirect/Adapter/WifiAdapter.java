@@ -23,6 +23,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
     public interface OnItemClickListener {
 
         void OnItemClick(View view, int position);
+
         void OnItemLongClick(View view, int position);
     }
 
@@ -74,8 +75,9 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
         }
 
     }
-    public void addData(int position,HashMap map) {
-        mList.add(position,map);
+
+    public void addData(int position, HashMap map) {
+        mList.add(position, map);
         notifyItemInserted(position);
     }
 
@@ -83,11 +85,12 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
         mList.remove(position);
         notifyItemRemoved(position);
     }
-    public void RefreshView(){
-        for(int i=0;i<getItemCount();i++)
+
+    public void RefreshView() {
+        for (int i = 0; i < getItemCount(); i++)
             removeData(i);
-        for(int i=0;i<getItemCount();i++)
-            addData(i,mList.get(i));
+        for (int i = 0; i < getItemCount(); i++)
+            addData(i, mList.get(i));
     }
 
     @Override
