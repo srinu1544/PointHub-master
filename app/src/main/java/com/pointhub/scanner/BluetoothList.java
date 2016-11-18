@@ -4,19 +4,17 @@ package com.pointhub.scanner;
  * Created by venu gopal on 07-09-2016.
  */
 
-import android.bluetooth.BluetoothAdapter;
-import android.os.Bundle;
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import java.util.Set;import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pointhub.R;
+
+import java.util.Set;
 
 public class BluetoothList extends Activity {
     TextView textview1;
@@ -31,7 +29,7 @@ public class BluetoothList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bluetoothlist);
 
-        textview1 = (TextView) findViewById(R.id.textView1);
+        /*textview1 = (TextView) findViewById(R.id.textView1);*/
         ListView listView = (ListView) findViewById(R.id.listView);
 
         // Getting the Bluetooth adapter

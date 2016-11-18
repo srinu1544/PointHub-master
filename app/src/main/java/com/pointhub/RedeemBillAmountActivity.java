@@ -4,9 +4,7 @@ package com.pointhub;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,10 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.pointhub.R;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
-import com.pointhub.scanner.QRCode;
+
 
 /**
  * Created by Venu on 03-05-2016.
@@ -105,8 +102,8 @@ public class RedeemBillAmountActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Failed to redeem points.", Toast.LENGTH_LONG).show();
                 }
 
-                Intent i = new Intent(RedeemBillAmountActivity.this, QRCode.class);
-                startActivity(i);
+             /*   Intent i = new Intent(RedeemBillAmountActivity.this, QRCode.class);
+                startActivity(i);*/
             }
         });
     }

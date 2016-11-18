@@ -2,7 +2,6 @@ package com.pointhub;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
-import com.pointhub.scanner.QRCode;
+
 
 /**
  * Created by Venu on 03-05-2016.
@@ -61,9 +60,9 @@ public class EarnBillAmountActivity extends Activity {
                 }
 
                 // success = updateInMongoDBServer(storeName, billAmount.getText().toString());
-
+/*
                 Intent i = new Intent(EarnBillAmountActivity.this, QRCode.class);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
     }

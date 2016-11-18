@@ -40,6 +40,7 @@ public class WifiDirectSend extends AppCompatActivity {
     private Button btnRequest;
     // private EditText editText;
     private ImageView imagebut;
+    ImageView imgmenu,share;
     private CardView cardView;
     TextView tv1;
     TextView tv2;
@@ -73,6 +74,10 @@ public class WifiDirectSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
+        imgmenu = (ImageView) findViewById(R.id.imgmenu);
+        share=(ImageView) findViewById(R.id.share);
+        imgmenu.setVisibility(View.INVISIBLE);
+        share.setVisibility(View.INVISIBLE);
 
         initView();
         initIntentFilter();

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.pointhub.R;
 
@@ -16,12 +17,19 @@ public class Detaildb extends Activity {
     private  EditText dsnamej;
     private TextView  upointsj , udatej ;
     private Button usavej,updatej;
+    ImageView imgmenu,share;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detaildb);
+
+        imgmenu = (ImageView) findViewById(R.id.imgmenu);
+        share=(ImageView) findViewById(R.id.share);
+        imgmenu.setVisibility(View.INVISIBLE);
+        share.setVisibility(View.INVISIBLE);
+
         dsnamej = (EditText)findViewById(R.id.dsnamej);
         upointsj = (TextView)findViewById(R.id.upoints);
         udatej = (TextView)findViewById(R.id.udate);

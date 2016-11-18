@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
@@ -18,6 +19,7 @@ public class Createdb extends Activity {
 
     private EditText csnamej, cpointsj, cdatej;
     private Button csubj;
+    private ImageView imgmenu,share;
 
 
     @Override
@@ -25,6 +27,12 @@ public class Createdb extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createdb);
+
+        imgmenu = (ImageView) findViewById(R.id.imgmenu);
+        share=(ImageView) findViewById(R.id.share);
+        imgmenu.setVisibility(View.INVISIBLE);
+        share.setVisibility(View.INVISIBLE);
+
         csnamej = (EditText) findViewById(R.id.csname);
         cpointsj = (EditText) findViewById(R.id.cpoints);
         cdatej = (EditText) findViewById(R.id.cdate);

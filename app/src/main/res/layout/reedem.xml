@@ -98,13 +98,13 @@
             android:layout_gravity="center"
             android:background="@drawable/edittextshape">
 
-           <TextView
+          <!-- <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Choose points"
                android:textSize="15dp"
                android:layout_marginLeft="5dp"
-               android:layout_gravity="center"/>
+               android:layout_gravity="center"/>-->
         <Spinner
 
             android:layout_width="wrap_content"
@@ -112,10 +112,11 @@
             android:ems="4"
             android:layout_weight="9.20"
             android:layout_gravity="center"
-            android:background="@drawable/drop"
+            android:scrollbarThumbVertical="@drawable/spinnershape"
             android:spinnerMode="dropdown"
             android:id="@+id/spinner1"
             android:layout_marginLeft="10dp"
+            android:verticalScrollbarPosition="left"
             android:entries="@array/point_arrays"/>
             //android:prompt="Choose Points"
 

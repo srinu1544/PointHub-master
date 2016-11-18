@@ -28,7 +28,6 @@ public class Points {
 
         this.storeName = storeName;
         this.points = points;
-
         this.lastVisited = lastVisited;
     }
 

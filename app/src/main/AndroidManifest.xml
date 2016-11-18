@@ -24,7 +24,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_android_black_24dp"
+        android:icon="@drawable/smartpoints_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -68,11 +68,14 @@
         </activity>
         -->
 
-      <!--  <activity
+
+        <!--
+        <activity
             android:name=".earnredeemtab.NewQRcode"
             android:label="@string/app_name">
 
-        </activity>-->
+        </activity>
+        -->
         <activity android:name=".earnredeemtab.MainActivity" />
         <activity android:name=".PointListActivity" />
         <activity android:name=".db.Createdb" />
@@ -88,6 +91,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Faq" />
+        <activity android:name=".FaqExpandable"></activity>
     </application>
 
 </manifest>
