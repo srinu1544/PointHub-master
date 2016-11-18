@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.pointhub.util.Utility;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -69,7 +71,7 @@ public class DataTransferService extends IntentService {
 
                 stream.write(message.getBytes());
 
-
+                Utility.savePointsToMobile(getApplicationContext(), message);
 
             } catch (IOException e) {
 

@@ -7,7 +7,7 @@ public class PointHubMessage {
 
     String type;
     String billAmount;
-    String userName;
+    String storeName;
     String points;
     String deviceid;
 
@@ -15,11 +15,11 @@ public class PointHubMessage {
 
     }
 
-    public PointHubMessage(String type, String billAmount, String deviceid, String userName, String points){
+    public PointHubMessage(String type, String billAmount, String deviceid, String storeName, String points){
         this.type = type;
         this.billAmount = billAmount;
         this.deviceid=deviceid;
-        this.userName = userName;
+        this.storeName = storeName;
         this.points = points;
     }
 
@@ -39,12 +39,12 @@ public class PointHubMessage {
         this.billAmount = billAmount;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setstoreName(String userName) {
+        this.storeName = storeName;
     }
 
     public String getPoints() {

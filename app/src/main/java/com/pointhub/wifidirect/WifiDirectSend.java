@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
@@ -181,6 +182,9 @@ public class WifiDirectSend extends AppCompatActivity {
             Log.i("bizzmark", "owenerip is " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
             WifiDirectSend.this.startService(serviceIntent);
+            Intent i=new Intent(WifiDirectSend.this, PointListActivity.class);
+            startActivity(i);
+
         } catch (Throwable th) {
             th.printStackTrace();
         }

@@ -20,8 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.pointhub.db.Createdb;
-import com.pointhub.db.DatabaseHelper;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
 
@@ -57,7 +55,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                     shareFromBluetooth();
 
-                }
+                } 
             }
         });
 
@@ -70,7 +68,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                 if(Utility.isTesting()) {
 
-                    Intent i = new Intent(Navigation.this, Createdb.class);
+                    Intent i = new Intent(Navigation.this, PointListActivity.class);
                     startActivity(i);
                 } else {
 
