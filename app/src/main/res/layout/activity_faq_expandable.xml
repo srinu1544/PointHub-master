@@ -8,17 +8,6 @@
     tools:context="com.pointhub.FaqExpandable"
     android:id="@+id/main">
 
-    <Button
-        android:id="@+id/expandableButton1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#ba1f04"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton1"
-        android:paddingRight="10dp"
-        android:text="@string/a"
-        android:textColor="#fff" />
-
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
         android:id="@+id/expandableLayout1"
         android:layout_width="match_parent"
@@ -64,7 +53,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/activity_horizontal_margin"
             android:text="Android library for creating an expandable and collapsible to full screen view inside a viewgroup composition. Expandable Layout provides an easy way to create a view called header with an expandable view. Views are external layout to allow a maximum of customization." />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -130,6 +119,20 @@ An android library that brings the expandable and collapsible layouts or views o
             android:text="Implements the expand and collapse by sliding logic for a top or a bottom view in a two children view  or layout or any widgets composition.
              Implements the expand and collapse by sliding logic for a top or a bottom view in a two children view  or layout or any widgets composition." />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ba1f04"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton1"
+        android:paddingRight="10dp"
+        android:text="@string/a"
+        android:textColor="#fff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
