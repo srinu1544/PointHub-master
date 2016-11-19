@@ -15,9 +15,7 @@ import com.pointhub.R;
  */
 public class Detaildb extends Activity {
 
-    private  EditText dsnamej;
-    private TextView  upointsj , udatej ;
-    private Button usavej,updatej;
+
     ImageView imgmenu,share;
     private EditText dsnamej;
     private TextView upointsj, udatej;
@@ -45,8 +43,8 @@ public class Detaildb extends Activity {
         udatej = (TextView) findViewById(R.id.udate);
         usavej = (Button) findViewById(R.id.usave);
         updatej = (Button) findViewById(R.id.update);
-        final String store_name = getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
-
+       /* final String store_name = getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
+*/
         dsnamej.setText(store_name);
 
         usavej.setOnClickListener(new View.OnClickListener() {

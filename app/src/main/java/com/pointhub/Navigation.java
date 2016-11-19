@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pointhub.db.Createdb;
-import com.pointhub.db.DatabaseHelper;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
 
@@ -181,6 +180,18 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+
+
+            if(Utility.isTesting()) {
+
+                Intent i = new Intent(Navigation.this, MainActivity.class);
+                i.putExtra("storename", "teststore");
+                startActivity(i);
+            } else {
+
+                shareFromBluetooth();
+
+            }
 
         } else if (id == R.id.nav_back) {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
