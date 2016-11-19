@@ -55,7 +55,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 } else {
 
                     shareFromBluetooth();
-
                 }
             }
         });
@@ -68,6 +67,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             public void onClick(View v) {
 
                 if(Utility.isTesting()) {
+
+                    /*PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
+                    Utility.saveToDB(getApplicationContext(), msg);*/
 
                     Intent i = new Intent(Navigation.this, Createdb.class);
                     startActivity(i);

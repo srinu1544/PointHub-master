@@ -26,7 +26,7 @@ public class GCMToken {
     public static void sendNotification(PointHubMessage msg) {
         try {
 
-            String storeId = msg.getUserName();
+            String storeId = msg.getStoreName();
             String sellerRegisteredToken = getTokenOfSeller(storeId);
             Gson gson = Utility.getGsonObject();
             String message = gson.toJson(msg);

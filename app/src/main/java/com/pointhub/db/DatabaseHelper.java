@@ -1,17 +1,17 @@
 package com.pointhub.db;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Venu on 02/05/2016.
@@ -127,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			}
 
 			point = new Points();
-			// point.setLastVisited(c.getString(c.getColumnIndex(LAST_VISITED)));
+			point.setLastVisited(c.getString(c.getColumnIndex(LAST_VISITED)));
 			point.setStoreName(c.getString(c.getColumnIndex(STORE_NAME)));
 			point.setPoints(c.getString(c.getColumnIndex(POINTS)));
 			point.setId(c.getInt(c.getColumnIndex(KEY_ID)));
@@ -153,9 +153,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 			SQLiteDatabase db = this.getReadableDatabase();
 
-			//String selectQuery = "SELECT  * FROM " + TABLE_POINTS + " WHEREC:\Android\sdk " + STORE_NAME + " like '" + storeName + "'";
+			String selectQuery = "SELECT  * FROM " + TABLE_POINTS + " WHERE " + STORE_NAME + " like '" + storeName + "'";
 
-			String selectQuery = "SELECT  * FROM " + TABLE_POINTS;
+			//String selectQuery = "SELECT  * FROM " + TABLE_POINTS;
 
 			Log.e(LOG, selectQuery);
 

@@ -1,29 +1,40 @@
 apply plugin: 'com.android.application'
 
+def gitVersion() {
+    def counter = 0
+    def process = "git rev-list master --first-parent --count".execute()
+    return process.text.toInteger()
+}
+
 android {
 
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+
+
     defaultConfig {
-        applicationId "com.pointhub"
+        applicationId "com.smartpoints"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersion()
+        versionName "2.1"
         multiDexEnabled true
-    }
-    dexOptions {
-        javaMaxHeapSize "4g"
     }
 
     buildTypes {
 
         release {
 
-            minifyEnabled false
+            // minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+    }
+
+    //....
+    dexOptions {
+        javaMaxHeapSize "2g"
     }
 }
 
@@ -58,7 +69,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'com.github.aakira:expandable-layout:1.4.2@aar'
-    compile 'com.android.support:multidex:1.0.1'
+
     compile 'com.google.android.gms:play-services-auth:9.8.0'
     compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.google.firebase:firebase-messaging:9.2.1'

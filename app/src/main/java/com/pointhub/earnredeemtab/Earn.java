@@ -65,7 +65,7 @@ public class Earn extends Fragment {
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, "");
+                    PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, billAmount);
                     String earnString = "";
                     try {
                         Gson gson = Utility.getGsonObject();
