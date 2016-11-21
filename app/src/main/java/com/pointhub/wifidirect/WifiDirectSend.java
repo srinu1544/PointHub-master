@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
@@ -61,6 +64,15 @@ public class WifiDirectSend extends AppCompatActivity {
         initReceiver();
         initEvents();
         discoverPeers();
+
+
+        MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
+
+
+        // Load an ad into the AdMob banner view.
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**

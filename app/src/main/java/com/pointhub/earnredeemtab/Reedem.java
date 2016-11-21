@@ -25,6 +25,8 @@ public class Reedem extends Fragment {
     Button submitButton;
     TextView redeemBillAmountText;
 
+
+
     public Reedem() {
         // Required empty public constructor
     }
@@ -38,6 +40,8 @@ public class Reedem extends Fragment {
         findViewByid(v);
         setSpinnerCategories();
         return v;
+
+
     }
 
     private void findViewByid(View v) {

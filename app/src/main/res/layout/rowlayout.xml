@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="10dp"
+    android:layout_marginRight="5dp"
     android:background="@color/bgcolor"
     android:orientation="vertical">
 
@@ -14,7 +14,8 @@
         android:layout_margin="5dp"
         android:layout_marginTop="10dp"
         android:background="@color/lightgrey"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        >
 
 
         <LinearLayout
@@ -34,7 +35,7 @@
                     android:id="@+id/storeName"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text=""
                     android:textColor="@color/butcolor"
@@ -58,7 +59,9 @@
                     android:layout_weight="0.4"
                     android:text="Points"
                     android:textColor="@color/butcolor"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    />
 
                 <TextView
                     android:id="@+id/pointssss"
@@ -83,7 +86,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="0.4"
                     android:text="Last Visited"
                     android:textColor="@color/butcolor"
