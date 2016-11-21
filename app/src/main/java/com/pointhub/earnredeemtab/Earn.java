@@ -5,17 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.db.DatabaseHelper;
 import com.pointhub.gcm.GCMToken;
 import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.WifiDirectSend;
@@ -30,6 +31,7 @@ public class Earn extends Fragment {
 
     Button bnSubmit;
     EditText billAmountText;
+    DatabaseHelper dbhelper;
 
     public Earn() {
         // Required empty public constructor
@@ -62,8 +64,19 @@ public class Earn extends Fragment {
 
                 if (billAmount.isEmpty()) {
 
-                    Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar=Snackbar.make(getView(),"Please Enter Bill Amount to Continue",Snackbar.LENGTH_INDEFINITE)
+                            .setAction("OK", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
+                    snackbar.show();
                 } else {
+
+                    /*Points pnts = new Points();
+                    String points= pnts.getPoints();*/
 
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, billAmount);
                     String earnString = "";

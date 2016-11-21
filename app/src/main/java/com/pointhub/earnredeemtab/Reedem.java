@@ -2,15 +2,14 @@ package com.pointhub.earnredeemtab;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatTextView;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,15 +55,28 @@ public class Reedem extends Fragment {
 
                 String storName = getStoreID();
                 String userid = getUserId();
+                if (billAmount.isEmpty() || points.isEmpty() ) {
 
-                PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
+                    //Toast.makeText(getActivity(), "Please Fill the Details", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar=Snackbar.make(getView(),"Please Fill the details to Continue",Snackbar.LENGTH_INDEFINITE)
+                            .setAction("OK", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                Gson gson = new Gson();
-                String redeemString = gson.toJson(msg);
+                                }
+                            });
+                    snackbar.show();
+                } else {
 
-                Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                intent.putExtra("earnRedeemString", redeemString);
-                startActivity(intent);
+                    PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
+
+                    Gson gson = new Gson();
+                    String redeemString = gson.toJson(msg);
+
+                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
+                    intent.putExtra("earnRedeemString", redeemString);
+                    startActivity(intent);
+                }
             }
         });
 
