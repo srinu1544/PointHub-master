@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="app_name">SmartPoints</string>
+    <string name="app_name">SmartpointS</string>
     <string name="okbutton">ok</string>
-    <string name="pleaseenterbillno">Please Enter Your Bill No</string>
+    <string name="pleaseenterbillno">Please Enter Your Bill Amount</string>
     <string name="submit">Submit</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
