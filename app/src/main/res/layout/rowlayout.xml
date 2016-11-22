@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="10dp"
+    android:layout_marginRight="5dp"
     android:background="@color/bgcolor"
     android:orientation="vertical">
 
@@ -14,7 +14,8 @@
         android:layout_margin="5dp"
         android:layout_marginTop="10dp"
         android:background="@color/lightgrey"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        >
 
 
         <LinearLayout
@@ -25,35 +26,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:background="@color/card"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="0.4"
-                    android:text="Store Name"
-                    android:textColor="@color/butcolor"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="0.1"
-                    android:text="@string/colon"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/storeName"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="0.5"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:text=""
                     android:textColor="@color/butcolor"
                     android:textSize="20dp" />
@@ -63,11 +46,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="2dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="1dp"
                 android:orientation="horizontal"
-                android:weightSum="1">
+                android:weightSum="1"
+                >
 
                 <TextView
                     android:layout_width="0dp"
@@ -75,15 +59,9 @@
                     android:layout_weight="0.4"
                     android:text="Points"
                     android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="@string/colon"
-                    android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    />
 
                 <TextView
                     android:id="@+id/pointssss"
@@ -92,33 +70,27 @@
                     android:layout_weight="0.4"
                     android:text=""
                     android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="3dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
                 android:orientation="horizontal"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:background="#e1e2e4"
+                >
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="0.4"
                     android:text="Last Visited"
                     android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
-                    android:text="@string/colon"
-                    android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/datemd"
@@ -127,7 +99,7 @@
                     android:layout_weight="0.4"
                     android:text=""
                     android:textColor="@color/butcolor"
-                    android:textSize="15dp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
         </LinearLayout>

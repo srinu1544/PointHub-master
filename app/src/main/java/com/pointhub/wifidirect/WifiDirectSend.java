@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
@@ -55,12 +58,18 @@ public class WifiDirectSend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
-
         initView();
         initIntentFilter();
         initReceiver();
         initEvents();
         discoverPeers();
+
+        MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
+
+        // Load an ad into the AdMob banner view.
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**
@@ -122,13 +131,10 @@ public class WifiDirectSend extends AppCompatActivity {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(WifiDirectSend.this));
 
                 mAdapter.SetOnItemClickListener(new WifiAdapter.OnItemClickListener() {
-
                     @Override
                     public void OnItemClick(View view, int position) {
-
                         createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
                     }
-
                     @Override
                     public void OnItemLongClick(View view, int position) {
 

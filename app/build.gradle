@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
 def gitVersion() {
-    def counter = 0
+    def counter = 2
     def process = "git rev-list master --first-parent --count".execute()
-    return process.text.toInteger()
+    return process.text.toInteger()+counter
 }
 
 android {
@@ -11,14 +11,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
-
-
     defaultConfig {
         applicationId "com.smartpoints"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode gitVersion()
-        versionName "2.1"
+        versionCode 23
+        versionName "2.3"
         multiDexEnabled true
     }
 
@@ -60,6 +58,8 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
 
     // Zxing libraries
+    
+
     compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
     compile 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
     compile 'com.google.zxing:core:3.0.1'
@@ -69,11 +69,13 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'com.github.aakira:expandable-layout:1.4.2@aar'
-
     compile 'com.google.android.gms:play-services-auth:9.8.0'
     compile 'com.google.android.gms:play-services:9.8.0'
-    compile 'com.google.firebase:firebase-messaging:9.2.1'
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.google.android.gms:play-services-ads:9.8.0'
+    compile 'com.google.firebase:firebase-ads:9.8.0'
     testCompile 'junit:junit:4.12'
 }
+
 
 apply plugin: 'com.google.gms.google-services'

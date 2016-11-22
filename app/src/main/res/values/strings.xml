@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="app_name">smart points</string>
+    <string name="app_name">SmartpointS</string>
     <string name="okbutton">ok</string>
-    <string name="pleaseenterbillno">Please Enter Your Bill No</string>
+    <string name="pleaseenterbillno">Please Enter Your Bill Amount</string>
     <string name="submit">Submit</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -89,6 +89,21 @@
     <string name="kans">One Smartpoint  is equal to 1 rupee.</string>
 
 
+    <string name="e">what is ?</string>
+    <string name="f">what is point hub?</string>
+    <string name="g">what is point hub?</string>
+    <string name="h">what is point hub?</string>
+    <string name="i">what is point hub?</string>
+    <string name="j">what is point hub?</string>
+    <string name="k">what is point hub?</string>
+    <string name="title_activity_ad_mobs">AdMobsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <!-- -
+        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
 
 </resources>
