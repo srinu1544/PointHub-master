@@ -3,7 +3,6 @@ package com.pointhub.earnredeemtab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatTextView;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +18,21 @@ import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 
-
 public class Reedem extends Fragment {
 
     private Spinner spinner;
     Button submitButton;
     TextView redeemBillAmountText;
+
+
+
+    private boolean wheelScrolled = false;
+
+    private TextView text;
+    private EditText text1;
+    private EditText text2;
+    private EditText text3;
+
 
     public Reedem() {
         // Required empty public constructor
@@ -106,6 +114,5 @@ public class Reedem extends Fragment {
             }
         });
     }
-
 
 }

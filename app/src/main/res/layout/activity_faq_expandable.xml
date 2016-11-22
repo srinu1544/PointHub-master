@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,6 +13,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pointhub.FaqExpandable"
     android:id="@+id/main">
+
+    <Button
+        android:id="@+id/expandableButton1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ba1f04"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton1"
+        android:paddingRight="10dp"
+        android:text="@string/a"
+        android:textColor="#fff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
         android:id="@+id/expandableLayout1"
@@ -23,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expandable Layout provides an easy way to create a view called header with an expandable view. Views are external layout to allow a maximum of customization." />
+            android:text="@string/aans" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 
@@ -53,8 +75,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/activity_horizontal_margin"
-            android:text="Android library for creating an expandable and collapsible to full screen view inside a viewgroup composition. Expandable Layout provides an easy way to create a view called header with an expandable view. Views are external layout to allow a maximum of customization." />
+            android:layout_height="wrap_content"
+            android:text="@string/bans" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
     <Button
@@ -62,9 +84,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/expandableLayout2"
-        android:background="#10a106"
+        android:background="#b77803"
         android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton3"
+        android:onClick="expandableButton2"
         android:paddingRight="10dp"
         android:text="@string/c"
         android:textColor="#fff" />
@@ -73,20 +95,20 @@
         android:id="@+id/expandableLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/expandableButton3"
-        android:background="#9010a106"
+        android:background="#90b77803"
         android:padding="16dp"
         app:ael_duration="400"
         app:ael_expanded="false"
         app:ael_interpolator="bounce"
-        app:ael_orientation="vertical">
+        app:ael_orientation="vertical"
+        android:layout_below="@+id/expandableLayout2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="An android library that brings the expandable and collapsible layouts or views or widgets with various animation effect and material design color. You can include optional contents and use everywhere according to your demand.
-An android library that brings the expandable and collapsible layouts or views or widgets with various animation effect and material design color. You can include optional contents and use everywhere according to your demand" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cans" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
 
 
     <Button
@@ -116,26 +138,225 @@ An android library that brings the expandable and collapsible layouts or views o
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Implements the expand and collapse by sliding logic for a top or a bottom view in a two children view  or layout or any widgets composition.
-             Implements the expand and collapse by sliding logic for a top or a bottom view in a two children view  or layout or any widgets composition." />
+            android:text="@string/dans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/expandableButton5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout4"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton5"
+        android:paddingRight="10dp"
+        android:text="@string/e"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton5"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eans" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
     <Button
-        android:id="@+id/expandableButton1"
+        android:id="@+id/expandableButton6"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#ba1f04"
+        android:layout_below="@+id/expandableLayout5"
+        android:background="#066da1"
         android:drawableRight="@android:drawable/arrow_down_float"
-        android:onClick="expandableButton1"
+        android:onClick="expandableButton6"
         android:paddingRight="10dp"
-        android:text="@string/a"
-        android:textColor="#fff"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/f"
+        android:textColor="#fff" />
 
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton6"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout6"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton7"
+        android:paddingRight="10dp"
+        android:text="@string/g"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton7"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton8"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout7"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton8"
+        android:paddingRight="10dp"
+        android:text="@string/h"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton8"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    <Button
+        android:id="@+id/expandableButton9"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout8"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton9"
+        android:paddingRight="10dp"
+        android:text="@string/i"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton9"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ians" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+    <Button
+        android:id="@+id/expandableButton10"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout9"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton4"
+        android:paddingRight="10dp"
+        android:text="@string/j"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton10"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+    <Button
+        android:id="@+id/expandableButton11"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expandableLayout10"
+        android:background="#066da1"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:onClick="expandableButton10"
+        android:paddingRight="10dp"
+        android:text="@string/j"
+        android:textColor="#fff" />
+
+    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+        android:id="@+id/expandableLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/expandableButton10"
+        android:background="#90066da1"
+        android:padding="16dp"
+        app:ael_duration="400"
+        app:ael_expanded="false"
+        app:ael_interpolator="bounce"
+        app:ael_orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jans" />
+    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
 </RelativeLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
 

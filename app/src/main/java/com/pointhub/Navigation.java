@@ -176,8 +176,14 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
 
         } else if (id == R.id.nav_gallery) {
+            Intent i =new Intent(Navigation.this,TermsAndConditions.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_slideshow) {
+            Intent i =new Intent(Navigation.this,Privact_policy.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_manage) {
 

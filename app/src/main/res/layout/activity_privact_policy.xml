@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="privacy and policy"
+            android:textColor="@color/butcolor"
+            android:layout_gravity="center_horizontal"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/textView6" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview"
+            android:textStyle="bold"
+            android:textColor="@color/butcolor"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="This privacy policy governs your use of products, services, content, features, technologies or functions offered by Bizzmark smartpoints We and all related sites, applications, and services (collectively smartpoints loyalty  Program) (including, without limitation, when you provide any information in relation to your use of smartpoints loyalty  Program). You accept and consent to this privacy policy when you sign up for, access, or use the smartpoints loyalty Program thereby expressly agree to our use and disclosure of your personal information and direct us to do so in the manner described in this privacy policy."
+            android:textColor="@color/butcolor"
+            android:layout_gravity="left"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="default"
+            android:textColor="@color/butcolor"
+            android:layout_marginLeft="10dp"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

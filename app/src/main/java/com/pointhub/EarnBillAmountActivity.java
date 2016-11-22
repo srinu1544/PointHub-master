@@ -1,27 +1,13 @@
 package com.pointhub;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.pointhub.db.DatabaseHelper;
-import com.pointhub.db.Points;
-import com.pointhub.earnredeemtab.NewQRcode;
 
 /**
  * Created by Venu on 03-05-2016.
  */
 public class EarnBillAmountActivity extends Activity {
 
-    Button button;
+   /* Button button;
     EditText billAmount;
     String storeName;
 
@@ -115,15 +101,15 @@ public class EarnBillAmountActivity extends Activity {
         }
     }
 
-    /**
+    *//**
      * Hide keyboard.
      *
      * @param input
-     */
+     *//*
     protected void hideSoftKeyboard(EditText input) {
         input.setInputType(0);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
-
+*/
 }

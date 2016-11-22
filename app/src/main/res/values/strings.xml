@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">PointHub</string>
+    <string name="app_name">smart points</string>
     <string name="okbutton">ok</string>
     <string name="pleaseenterbillno">Please Enter Your Bill No</string>
     <string name="submit">Submit</string>
@@ -24,19 +24,71 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_navigation_screen">NavigationScreen</string>
 
+    <string name="title_activity_terms_and_conditions">title_activity_terms_and_conditions</string>
+    <string name="title_activity_privact_policy">title_activity_privact_policy</string>
+
+
+
+
+
 
     //strings for FAQ
-    <string name="a">what is point hub?</string>
-    <string name="b"> how is it useful to you?</string>
-    <string name="c">what is earn?</string>
+    <string name="a">what is smart points?</string>
+    <string name="aans">Smartpoints  is a reward program that enables you to "earn points every time you make a purchase"
+        at a Smartpoints  Store, you are instantly rewarded with Smartpoints which is credited into your Smartpoints
+        Account</string>
+
+    <string name="b">.How does the reward system work? </string>
+    <string name="bans">Its simple. When you spend at any Smartpoints  Store you earn a reward as a token
+        of thank you from our partner Store for doing business with them. For e.g.: If they are running an assured reward
+        of 5% Smartpoints  reward and you make a purchase of INR 1000,
+        you would be entitled to EARN 50 Smartpoints. </string>
+
+
+    <string name="c">are there any joining fee?</string>
+    <string name="cans">No its free and always will be</string>
+
+
+
     <string name="d">what is reedem?</string>
-    <string name="e">what is ?</string>
-    <string name="f">what is point hub?</string>
-    <string name="g">what is point hub?</string>
-    <string name="h">what is point hub?</string>
-    <string name="i">what is point hub?</string>
-    <string name="j">what is point hub?</string>
-    <string name="k">what is point hub?</string>
+    <string name="dans">. You can use Smartpoints  reward program by just downloading it from the google playstore or
+        taking the app from our partner and installing it on to your device and you are ready to earn smartpoints.?</string>
+
+    <string name="e">What is my Eligibility criteria</string>
+    <string name="eans">. You should be having a smartphone with android version 4.0 or above.</string>
+
+
+    <string name="f">Is it compulsory to have the Smartpoints  app?</string>
+    <string name="fans">Yes its compulsory. And there are great advantages if you have the app! track the Smartpoints  you
+        recieved from our Smartpoints  Stores at your fingertips Manage your Smartpoints  account,smartpoints  earned and
+        redeemed across Stores . Stay updated about latest offers from all the retailers. As new retailers keep joining the
+        program, their offers will be instantly available to you</string>
+
+    <string name="g">Will I get a card that I need to carry every time I spend at a Smartpoints  Store? </string>
+    <string name="gans"> No, its a card-less program. Your smartphone is your unique identity Every time you wish to do a
+        transaction at a Smartpoints  Store, all you have to do is scan the qr code and follow the steps. </string>
+
+
+    <string name="h">How do I track my Smartpoints</string>
+    <string name="hans">You can check your Smartpoints  in our mobile app.</string>
+
+
+    <string name="i">How does the merchant know whether I am a Smartpoints  member or not? How do I identify myself? </string>
+    <string name="ians">There is no physical or digital card as your identity. It is your smartphone which is your unique identity.
+        If you are not a Smartpoints  member yet, when you are in any of the Smartpoints  Store, you can download  our app from google
+        playstore or ask the owner of the store to give you the app.</string>
+
+
+    <string name="j">What is the process to Earn, Track and Redeem my Smartpoints?</string>
+    <string name="jans">. Once you install the smartpoints app you can find out our merchant
+     partners. Spot the Smartpoints  logo, at the transacting Store to earn Smartpoints. You can track your accumulated Smartpoints  on our Smartpoints  app or by calling us on our helpline number. Whenever you shop at any Smartpoints  Store, you can redeem your Smartpoints  against your bill.
+    </string>
+
+
+    <string name="k">What is the value of my Smartpoints ?</string>
+    <string name="kans">One Smartpoint  is equal to 1 rupee.</string>
+
+
 
 
 </resources>
