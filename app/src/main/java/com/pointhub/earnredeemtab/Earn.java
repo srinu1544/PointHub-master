@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,6 @@ import com.pointhub.wifidirect.WifiDirectSend;
 
 import static com.pointhub.R.layout;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,7 +37,6 @@ public class Earn extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,7 +44,6 @@ public class Earn extends Fragment {
         findViewByid(v);
         return v;
     }
-
 
     private void findViewByid(View v) {
 
@@ -74,9 +72,6 @@ public class Earn extends Fragment {
                             });
                     snackbar.show();
                 } else {
-
-                    /*Points pnts = new Points();
-                    String points= pnts.getPoints();*/
 
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, billAmount);
                     String earnString = "";
@@ -111,18 +106,16 @@ public class Earn extends Fragment {
     }
 
     public String getImeistring() {
+
         String imeistring = null;
-        /*try {
-           // TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        try {
 
+           TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
             // getDeviceId() function Returns the unique device ID.
-            //imeistring = telephonyManager.getDeviceId();
-            //System.out.println(imeistring);
-
-            // userId = "Venu";
+            imeistring = telephonyManager.getDeviceId();
         } catch (Throwable th) {
             th.printStackTrace();
-        }*/
+        }
         return imeistring;
     }
 

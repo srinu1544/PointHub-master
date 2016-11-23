@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pointhub.R;
 import com.pointhub.earnredeemtab.MainActivity;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 public class MainActivity_login extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +48,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
 
             // That means user is already logged in so close this activity and open profile activity.
             finish();
-            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
+            startActivity(new Intent(getApplicationContext(), WifiDirectSend.class));
         }
 
         // Initializing views.
