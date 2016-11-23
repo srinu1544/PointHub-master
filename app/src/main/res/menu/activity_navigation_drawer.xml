@@ -8,11 +8,11 @@
             android:title="FAQ" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_folder_black_24dp"
             android:title="Terms and conditions" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_folder_black_24dp"
             android:title="Privacy policy" />
 
     </group>

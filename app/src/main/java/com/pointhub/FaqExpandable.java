@@ -3,11 +3,14 @@ package com.pointhub;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 
 public class FaqExpandable extends AppCompatActivity {
+
+    ImageView backbut;
     ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4,expandableLayout5,
             expandableLayout6,expandableLayout7,expandableLayout8,expandableLayout9,expandableLayout10,expandableLayout11;
 
@@ -15,6 +18,15 @@ public class FaqExpandable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq_expandable);
+        backbut= (ImageView) findViewById(R.id.backbut);
+        backbut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FaqExpandable.super.onBackPressed();
+            }
+        });
+
+
     }
 
     public void expandableButton1(View view) {
@@ -28,9 +40,12 @@ public class FaqExpandable extends AppCompatActivity {
     }
 
     public void expandableButton3(View view) {
-        expandableLayout3 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout3);
-        expandableLayout3.toggle(); // toggle expand and collapse
+        expandableLayout2 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout2);
+        expandableLayout2.toggle(); // toggle expand and collapse
     }
+
+
+
 
     public void expandableButton4(View view) {
         expandableLayout4 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout4);
