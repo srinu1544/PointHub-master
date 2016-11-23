@@ -29,7 +29,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignup, google_signin;
-    private TextView textViewSignin;
+  //  private TextView textViewSignin;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
@@ -53,7 +53,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
         // Initializing views.
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+       // textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
 
         progressDialog = new ProgressDialog(this);
@@ -130,10 +130,10 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             }
         }*/
 
-        if (view == textViewSignin) {
+       /* if (view == textViewSignin) {
 
             // Open login activity when user taps on the already registered textview.
             startActivity(new Intent(this, LoginActivity.class));
-        }
+        }*/
     }
 }
