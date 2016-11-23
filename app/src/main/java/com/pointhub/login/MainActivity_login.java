@@ -29,7 +29,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignup, google_signin;
-    private TextView textViewSignin;
+  //  private TextView textViewSignin;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
@@ -47,13 +47,13 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
 
             // That means user is already logged in so close this activity and open profile activity.
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
         }
 
         // Initializing views.
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+       // textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
 
         progressDialog = new ProgressDialog(this);
@@ -92,7 +92,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
                         // Checking if success.
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(),com.pointhub.wifidirect.WifiDirectSend.class));
                         } else {
 
                             // Display some message here.
@@ -116,7 +116,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             editor.apply();
         }
 
-        if (view == google_signin) {
+       /* if (view == google_signin) {
 
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             String restoredText = prefs.getString("text", null);
@@ -128,13 +128,12 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
                 System.out.println(mail);
                 System.out.println(pw);
             }
-        }
+        }*/
 
-        if (view == textViewSignin) {
+       /* if (view == textViewSignin) {
 
             // Open login activity when user taps on the already registered textview.
             startActivity(new Intent(this, LoginActivity.class));
-        }
-
+        }*/
     }
 }

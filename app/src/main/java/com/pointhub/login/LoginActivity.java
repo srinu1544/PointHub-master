@@ -57,7 +57,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //close this activity
             finish();
             //opening profile activity
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
         }
 
         //initializing views
@@ -119,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // String str = null;
                             //Toast.makeText(getApplicationContext(),"Welcome to Seller App !!!",Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
                         } else {
 
                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

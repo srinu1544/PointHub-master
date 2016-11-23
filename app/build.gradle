@@ -58,6 +58,7 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
 
     // Zxing libraries
+
     
 
     compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
@@ -73,6 +74,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.google.firebase:firebase-messaging:9.8.0'
     compile 'com.google.android.gms:play-services-ads:9.8.0'
+    compile 'com.google.firebase:firebase-auth:9.8.0'
     compile 'com.google.firebase:firebase-ads:9.8.0'
     testCompile 'junit:junit:4.12'
 }
