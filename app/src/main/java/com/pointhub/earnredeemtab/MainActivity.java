@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
         imgmenu.setVisibility(View.INVISIBLE);
         share.setVisibility(View.INVISIBLE);
 
-
-   /*     toolbar = (Toolbar) findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);*/
-
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         strnm=(TextView)findViewById(R.id.strn);
@@ -56,16 +52,12 @@ public class MainActivity extends AppCompatActivity {
             strnm.setText(storeName);
         }
 
-        MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
-
+        /*MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
 
         // Load an ad into the AdMob banner view.
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-
-
+        adView.loadAd(adRequest);*/
     }
 }
 
