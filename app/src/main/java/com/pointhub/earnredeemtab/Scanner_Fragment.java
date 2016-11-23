@@ -60,7 +60,7 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
         // Direct to earn an1d redeem tab functionality.
          if (result!= null){
              //Log.i("tag",">>>>"+result.toString());
-             Toast.makeText(getContext(),"result is"+result.toString(),Toast.LENGTH_LONG).show();
+             // Toast.makeText(getContext(),"result is"+result.toString(),Toast.LENGTH_LONG).show();
              Intent i = new Intent(getActivity(), MainActivity.class);
              i.putExtra("storename",result.toString());
              startActivity(i);
