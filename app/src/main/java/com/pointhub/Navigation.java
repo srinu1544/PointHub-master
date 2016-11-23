@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,6 +30,8 @@ import java.io.File;
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int PERMISSION_REQUEST_CAMERA = 0;
+    private static final int REQUEST_READ_PHONE_STATE = 1;
+
     ImageView menuButtom;
     Button points;
     ImageView share;
@@ -40,6 +43,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         showCameraPreview();
+        requestMobilePermission();
 
         // share button
         share = (ImageView) findViewById(R.id.share);
@@ -99,6 +103,18 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void requestMobilePermission() {
+        try{
+            int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     private void shareFromBluetooth() {
@@ -176,8 +192,14 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
 
         } else if (id == R.id.nav_gallery) {
+            Intent i =new Intent(Navigation.this,TermsAndConditions.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_slideshow) {
+            Intent i =new Intent(Navigation.this,Privact_policy.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_manage) {
 
@@ -237,6 +259,20 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             // Request the permission. The result will be received in onRequestPermissionResult().
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_PHONE_STATE:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // TODO
+                }
+                break;
+
+            default:
+                break;
         }
     }
 
