@@ -77,8 +77,8 @@ public class Reedem extends Fragment {
                     Gson gson = new Gson();
                     String redeemString = gson.toJson(msg);
 
-                    Intent intent = new Intent(getActivity(), com.pointhub.wifidirect.WifiDirectSend.class);
-                    intent.putExtra("earnRedeemString", redeemString);
+                    Intent intent = new Intent(getContext(), com.pointhub.login.LoginActivity.class);
+                   // intent.putExtra("earnRedeemString", redeemString);
                     startActivity(intent);
                 }
             }

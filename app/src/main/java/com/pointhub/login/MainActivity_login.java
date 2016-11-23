@@ -47,7 +47,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
 
             // That means user is already logged in so close this activity and open profile activity.
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
         }
 
         // Initializing views.
@@ -92,7 +92,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
                         // Checking if success.
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(),com.pointhub.wifidirect.WifiDirectSend.class));
                         } else {
 
                             // Display some message here.
@@ -116,7 +116,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             editor.apply();
         }
 
-        if (view == google_signin) {
+       /* if (view == google_signin) {
 
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             String restoredText = prefs.getString("text", null);
@@ -128,13 +128,12 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
                 System.out.println(mail);
                 System.out.println(pw);
             }
-        }
+        }*/
 
         if (view == textViewSignin) {
 
             // Open login activity when user taps on the already registered textview.
             startActivity(new Intent(this, LoginActivity.class));
         }
-
     }
 }
