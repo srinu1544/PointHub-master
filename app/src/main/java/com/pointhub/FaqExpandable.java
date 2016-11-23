@@ -11,8 +11,9 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 public class FaqExpandable extends AppCompatActivity {
 
     ImageView backbut;
-    ExpandableRelativeLayout expandableLayout1, expandableLayout2, expandableLayout3, expandableLayout4,expandableLayout5,
-            expandableLayout6,expandableLayout7,expandableLayout8,expandableLayout9,expandableLayout10,expandableLayout11;
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2,expandableLayout3,expandableLayout4,expandableLayout5,expandableLayout6,
+            expandableLayout7,expandableLayout8,expandableLayout9,expandableLayout10,expandableLayout11;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,9 @@ public class FaqExpandable extends AppCompatActivity {
     }
 
     public void expandableButton3(View view) {
-        expandableLayout2 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout2);
-        expandableLayout2.toggle(); // toggle expand and collapse
+        expandableLayout3 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout3);
+        expandableLayout3.toggle(); // toggle expand and collapse
     }
-
-
-
 
     public void expandableButton4(View view) {
         expandableLayout4 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout4);
@@ -80,5 +78,7 @@ public class FaqExpandable extends AppCompatActivity {
         expandableLayout11 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout11);
         expandableLayout11.toggle(); // toggle expand and collapse
     }
+
+
 }
 

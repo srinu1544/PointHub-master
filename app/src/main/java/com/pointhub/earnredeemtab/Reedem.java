@@ -78,7 +78,7 @@ public class Reedem extends Fragment {
                     String redeemString = gson.toJson(msg);
 
                     Intent intent = new Intent(getContext(), com.pointhub.login.LoginActivity.class);
-                   // intent.putExtra("earnRedeemString", redeemString);
+                    intent.putExtra("earnRedeemString", redeemString);
                     startActivity(intent);
                 }
             }

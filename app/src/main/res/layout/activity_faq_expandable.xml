@@ -84,7 +84,7 @@
                 app:ael_orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/aans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
@@ -115,30 +115,29 @@
                 app:ael_orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/bans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
 
             //3
             <Button
                 android:id="@+id/expandableButton3"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/expandableLayout1"
+                android:layout_below="@+id/expandableLayout2"
                 android:background="#4DB6AC"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton2"
+                android:onClick="expandableButton3"
                 android:paddingRight="10dp"
-                android:text="@string/b"
+                android:text="@string/c"
                 android:textColor="@color/butcolor" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/expandableLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/expandableButton2"
+                android:layout_below="@+id/expandableButton3"
                 android:background="#80CBC4"
                 android:padding="16dp"
                 app:ael_duration="400"
@@ -148,11 +147,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bans" />
+                    android:layout_height="70dp"
+                    android:text="@string/cans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
+            //4
 
             <Button
                 android:id="@+id/expandableButton4"
@@ -184,8 +183,7 @@
                     android:text="@string/dans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
-
+            //5
             <Button
                 android:id="@+id/expandableButton5"
                 android:layout_width="fill_parent"
@@ -212,10 +210,12 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:text="@string/eans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
+
+            //6
             <Button
                 android:id="@+id/expandableButton6"
                 android:layout_width="fill_parent"
@@ -241,11 +241,12 @@
                 app:ael_orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
                     android:text="@string/fans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
+            //7
             <Button
                 android:id="@+id/expandableButton7"
                 android:layout_width="fill_parent"
@@ -272,10 +273,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:text="@string/gans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
+            //8
             <Button
                 android:id="@+id/expandableButton8"
                 android:layout_width="fill_parent"
@@ -302,10 +304,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:text="@string/hans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
+            //9
             <Button
                 android:id="@+id/expandableButton9"
                 android:layout_width="fill_parent"
@@ -332,11 +335,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
                     android:text="@string/ians" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
+            //10
             <Button
                 android:id="@+id/expandableButton10"
                 android:layout_width="fill_parent"
@@ -344,7 +347,7 @@
                 android:layout_below="@+id/expandableLayout9"
                 android:background="#4DB6AC"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton4"
+                android:onClick="expandableButton10"
                 android:paddingRight="10dp"
                 android:text="@string/j"
                 android:textColor="@color/butcolor" />
@@ -363,11 +366,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:text="@string/jans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
-
+            //11
             <Button
                 android:id="@+id/expandableButton11"
                 android:layout_width="fill_parent"
@@ -375,16 +378,16 @@
                 android:layout_below="@+id/expandableLayout10"
                 android:background="#4DB6AC"
                 android:drawableRight="@android:drawable/arrow_down_float"
-                android:onClick="expandableButton10"
+                android:onClick="expandableButton11"
                 android:paddingRight="10dp"
-                android:text="@string/j"
+                android:text="@string/k"
                 android:textColor="@color/butcolor" />
 
             <com.github.aakira.expandablelayout.ExpandableRelativeLayout
                 android:id="@+id/expandableLayout11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/expandableButton10"
+                android:layout_below="@+id/expandableButton11"
                 android:background="#80CBC4"
                 android:padding="16dp"
                 app:ael_duration="400"
@@ -394,10 +397,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/jans" />
+                    android:layout_height="70dp"
+                    android:text="@string/kans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
 
         </LinearLayout>
 
