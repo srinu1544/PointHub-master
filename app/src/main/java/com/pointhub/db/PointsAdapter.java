@@ -55,16 +55,16 @@ public class PointsAdapter extends BaseAdapter {
         if (convertView == null) {
 
             /****** Inflate tabitem.xml file for each row ( Defined below ) *******/
-            vi = inflater.inflate(R.layout.point_item, null);
+            //vi = inflater.inflate(R.layout.point_item, null);
 
-            /****** View Holder Object to contain tabitem.xml file elements ******/
+
             holder = new ViewHolder();
-            holder.txtName = (TextView) vi.findViewById(R.id.storeName);
+           /* holder.txtName = (TextView) vi.findViewById(R.id.storeName);
             holder.txtPoints = (TextView) vi.findViewById(R.id.points);
             holder.btnDelete = (Button) vi.findViewById(R.id.btnDelete);
 
-            /************  Set holder with LayoutInflater ************/
-            vi.setTag(holder);
+
+            vi.setTag(holder);*/
         } else {
 
             holder = (ViewHolder) vi.getTag();
