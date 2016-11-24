@@ -85,7 +85,8 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/aans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -116,7 +117,8 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="130dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/bans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -148,6 +150,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/cans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -179,7 +182,8 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/dans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -211,6 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/eans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -243,6 +248,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/fans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -274,6 +280,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/gans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -305,6 +312,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/hans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -336,6 +344,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="130dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/ians" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -346,7 +355,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/expandableLayout9"
                 android:background="#4DB6AC"
-                android:drawableRight="@android:drawable/arrow_down_float"
+                 android:drawableRight="@android:drawable/arrow_down_float"
                 android:onClick="expandableButton10"
                 android:paddingRight="10dp"
                 android:text="@string/j"
@@ -367,6 +376,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/jans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
@@ -398,6 +408,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
+                    android:textColor="@color/zxing_encode_view"
                     android:text="@string/kans" />
             </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

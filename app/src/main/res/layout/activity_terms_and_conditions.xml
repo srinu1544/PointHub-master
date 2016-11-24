@@ -59,9 +59,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
+                android:layout_marginLeft="10dp"
                 android:text="@string/The_Terms_and_Conditions_Terms"
-                android:textColor="@color/butcolor"
                 android:layout_gravity="left"
                 />
 
