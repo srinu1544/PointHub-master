@@ -59,4 +59,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:text="Select Store"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:layout_above="@+id/recyclerview"
+        android:layout_alignTop="@+id/btnRefresh"
+        android:layout_toLeftOf="@+id/btnRefresh"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

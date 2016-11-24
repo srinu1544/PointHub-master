@@ -11,7 +11,7 @@
     <string name="userprofile">PointHub-Master</string>
 
     <string-array name="point_arrays">
-        <item>choose points</item>
+        <item>Select points.</item>
         <item>100</item>
         <item>150</item>
         <item>200</item>
