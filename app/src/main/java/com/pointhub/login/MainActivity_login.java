@@ -24,19 +24,18 @@ import com.pointhub.wifidirect.WifiDirectSend;
 
 public class MainActivity_login extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String MY_PREFS_NAME = "my_data";
+    private static final String MY_PREFS_NAME =  "my_data";
 
     // Defining view objects.
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonSignup, google_signin;
-  //  private TextView textViewSignin;
+    private Button buttonSignup;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
 
@@ -46,15 +45,14 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
         // If getCurrentUser does not returns null.
         if (firebaseAuth.getCurrentUser() != null) {
 
-            // That means user is already logged in so close this activity and open profile activity.
+            // That means user is already logged in so close this activity and open WifiDirect activity.
             finish();
-            startActivity(new Intent(getApplicationContext(), WifiDirectSend.class));
+            startActivity(new Intent(MainActivity_login.this, WifiDirectSend.class));
         }
 
         // Initializing views.
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-       // textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
 
         progressDialog = new ProgressDialog(this);
@@ -93,7 +91,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
                         // Checking if success.
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(),com.pointhub.wifidirect.WifiDirectSend.class));
+                            startActivity(new Intent(getApplicationContext(),WifiDirectSend.class));
                         } else {
 
                             // Display some message here.
@@ -117,24 +115,6 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             editor.apply();
         }
 
-       /* if (view == google_signin) {
 
-            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            String restoredText = prefs.getString("text", null);
-            if (restoredText != null) {
-
-                String mail = prefs.getString("mailid", "default");
-                String pw = prefs.getString("password", "default");
-
-                System.out.println(mail);
-                System.out.println(pw);
-            }
-        }*/
-
-       /* if (view == textViewSignin) {
-
-            // Open login activity when user taps on the already registered textview.
-            startActivity(new Intent(this, LoginActivity.class));
-        }*/
     }
 }
