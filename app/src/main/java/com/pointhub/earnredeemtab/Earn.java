@@ -17,7 +17,6 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
-import com.pointhub.db.DatabaseHelper;
 import com.pointhub.gcm.GCMToken;
 import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.WifiDirectSend;
@@ -31,7 +30,6 @@ public class Earn extends Fragment {
 
     Button bnSubmit;
     EditText billAmountText;
-    DatabaseHelper dbhelper;
 
     public Earn() {
         // Required empty public constructor

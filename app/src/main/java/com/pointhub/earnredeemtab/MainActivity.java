@@ -14,31 +14,34 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.pointhub.R;
+import com.pointhub.db.DatabaseHelper;
+import com.pointhub.db.Points;
 
 public class MainActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPageAdapter viewPagerAdapter;
-    TextView strnm,points,lastvisit;
-    ImageView imgmenu,share;
+    TextView strnm, points;
 
     String storeName;
-    String lastvisited,point;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earn_redeem_tab);
-        imgmenu = (ImageView) findViewById(R.id.imgmenu);
-        share=(ImageView) findViewById(R.id.share);
+
+        // Make two icons invisible.
+        ImageView imgmenu = (ImageView) findViewById(R.id.imgmenu);
+        ImageView share=(ImageView) findViewById(R.id.share);
         imgmenu.setVisibility(View.INVISIBLE);
         share.setVisibility(View.INVISIBLE);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        strnm=(TextView)findViewById(R.id.strn);
+
+        strnm = (TextView)findViewById(R.id.strn);
         viewPagerAdapter = new ViewPageAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new Earn(), "EARN");
         viewPagerAdapter.addFragments(new Reedem(), "REDEEM");
@@ -50,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             storeName = extras.getString("storename");
             strnm.setText(storeName);
+        }
+
+
+        TextView points = (TextView) findViewById(R.id.points);
+        // Points pts = new Points();
+        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        Points pts = dbHelper.getPoints(storeName);
+        if(null == pts) {
+            points.setText("0");
+        } else {
+            points.setText(pts.getPoints());
         }
 
         /*MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
