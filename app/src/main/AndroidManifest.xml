@@ -20,14 +20,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".login.MainActivity_login"/>
-        <activity android:name=".earnredeemtab.MainActivity" />
-        <activity android:name=".PointListActivity" />
-        <activity android:name=".db.Createdb" />
-        <activity android:name=".wifidirect.WifiDirectSend" />
-        <activity android:name=".db.Detaildb" />
-        <activity android:name=".FaqExpandable" />
+
+        <activity android:name=".login.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".login.MainActivity_login" android:screenOrientation="portrait"/>
+        <activity android:name=".earnredeemtab.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".PointListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".db.Createdb" android:screenOrientation="portrait"/>
+        <activity android:name=".wifidirect.WifiDirectSend" android:screenOrientation="portrait"/>
+        <activity android:name=".db.Detaildb" android:screenOrientation="portrait"/>
+        <activity android:name=".FaqExpandable" android:screenOrientation="portrait"/>
 
         <service
             android:name=".wifidirect.Service.DataTransferService"
@@ -37,6 +38,7 @@
         <activity
             android:name=".Navigation"
             android:label="@string/title_activity_navigation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,14 +46,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".TermsAndConditions"
             android:label="@string/title_activity_terms_and_conditions"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Privact_policy"
             android:label="@string/title_activity_privact_policy"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
 
         <!-- This meta-data tag is required to use Google Play Services. -->
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
@@ -60,7 +64,7 @@
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@android:style/Theme.Translucent" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

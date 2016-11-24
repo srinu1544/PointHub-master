@@ -64,6 +64,8 @@ public class WifiDirectSend extends AppCompatActivity {
         initEvents();
         discoverPeers();
 
+        Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
 
         // Load an ad into the AdMob banner view.
@@ -162,6 +164,8 @@ public class WifiDirectSend extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
+                Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
                 discoverPeers();
             }
         });
@@ -253,7 +257,7 @@ public class WifiDirectSend extends AppCompatActivity {
 
             @Override
             public void onSuccess() {
-                Toast.makeText(getApplicationContext(),"WifiP2pManager discoverPeers success.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(),"WifiP2pManager discoverPeers success.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -262,7 +266,7 @@ public class WifiDirectSend extends AppCompatActivity {
                 // Wifi disabled, Enable.
                 if(2 == reason) {
 
-                    Toast.makeText(getApplicationContext(),"Enabling wifi.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(),"Enabling wifi.", Toast.LENGTH_SHORT).show();
                     WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                     wifiManager.setWifiEnabled(true);
                 }
