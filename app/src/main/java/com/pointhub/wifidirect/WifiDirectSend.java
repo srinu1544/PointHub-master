@@ -61,10 +61,11 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.wifi_direct_send);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() == null) {
+        if (firebaseAuth.getCurrentUser()!= null) {
 
             // Closing this activity.
             finish();
+
 
             // Starting login activity.
             startActivity(new Intent(this, Navigation.class));
@@ -339,7 +340,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
          // Closing activity.
          finish();
 
-         // Starting login activity.
+
          startActivity(new Intent(this, Navigation.class));
      }
     }

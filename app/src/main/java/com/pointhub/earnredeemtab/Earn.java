@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 import com.pointhub.gcm.GCMToken;
+import com.pointhub.login.LoginActivity;
 import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.WifiDirectSend;
 
@@ -87,7 +88,9 @@ public class Earn extends Fragment {
 
                         GCMToken.sendNotification(msg);
                     } else {
-                        Intent intent = new Intent(getActivity(), WifiDirectSend.class);
+                       // Intent intent = new Intent(getContext(),com.pointhub.wifidirect.WifiDirectSend.class);
+                        Intent intent = new Intent(getContext(),WifiDirectSend.class);
+
                         intent.putExtra("earnRedeemString", earnString);
                         startActivity(intent);
                     }
