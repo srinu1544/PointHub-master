@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.auth.FirebaseAuth;
+import com.pointhub.Navigation;
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
@@ -35,10 +37,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class WifiDirectSend extends AppCompatActivity {
+public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btRefresh;
-
+    private Button btRefresh,btSignOut;
+    private FirebaseAuth firebaseAuth;
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
@@ -57,6 +59,18 @@ public class WifiDirectSend extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() == null) {
+
+            // Closing this activity.
+            finish();
+
+            // Starting login activity.
+            startActivity(new Intent(this, Navigation.class));
+        }
+        btSignOut=(Button)findViewById(R.id.btSign_out);
+        btSignOut.setOnClickListener(this);
 
         initView();
         initIntentFilter();
@@ -315,4 +329,18 @@ public class WifiDirectSend extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v)
+    {
+     if(v==btSignOut)
+     {
+         firebaseAuth.signOut();
+
+         // Closing activity.
+         finish();
+
+         // Starting login activity.
+         startActivity(new Intent(this, Navigation.class));
+     }
+    }
 }

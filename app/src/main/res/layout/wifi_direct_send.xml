@@ -26,6 +26,18 @@
             android:textColor="@color/zxing_encode_view"
             android:layout_centerInParent="true"/>
 
+        <Button
+            android:text="sign out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/btncolor"
+            android:textColor="@color/zxing_encode_view"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/btSign_out" />
+
+
     </RelativeLayout>
 
     <com.google.android.gms.ads.AdView
