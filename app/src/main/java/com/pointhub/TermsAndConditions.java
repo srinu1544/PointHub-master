@@ -10,13 +10,10 @@ public class TermsAndConditions extends AppCompatActivity {
 
     ImageView backbut;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms_and_conditions);
-
         backbut= (ImageView) findViewById(R.id.backbut);
         backbut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,5 +21,5 @@ public class TermsAndConditions extends AppCompatActivity {
                 TermsAndConditions.super.onBackPressed();
             }
         });
-    }
+   }
 }

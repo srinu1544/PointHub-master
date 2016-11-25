@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:layout_gravity="right"
-            android:id="@+id/submit"
+            android:id="@+id/earnsubmit"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextshape" />

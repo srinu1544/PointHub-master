@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 import com.pointhub.gcm.GCMToken;
-import com.pointhub.login.LoginActivity;
 import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.WifiDirectSend;
 
@@ -47,7 +46,7 @@ public class Earn extends Fragment {
     private void findViewByid(View v) {
 
         billAmountText = (EditText) v.findViewById(R.id.billAmountText);
-        bnSubmit = (Button) v.findViewById(R.id.submit);
+        bnSubmit = (Button) v.findViewById(R.id.earnsubmit);
 
         bnSubmit.setOnClickListener(new View.OnClickListener() {
 

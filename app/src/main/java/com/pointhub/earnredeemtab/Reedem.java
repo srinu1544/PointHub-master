@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.login.LoginActivity;
 
 
 public class Reedem extends Fragment {
@@ -50,39 +51,7 @@ public class Reedem extends Fragment {
         submitButton = (Button) v.findViewById(R.id.submitButton);
         redeemBillAmountText = (TextView) v.findViewById(R.id.redeemBillAmountText);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-                String billAmount = redeemBillAmountText.getText().toString();
-
-                String storName = getStoreID();
-                String userid = getUserId();
-                if (billAmount.isEmpty() || points.isEmpty() ) {
-
-                    //Toast.makeText(getActivity(), "Please Fill the Details", Toast.LENGTH_SHORT).show();
-                    Snackbar snackbar=Snackbar.make(getView(),"Please Fill the details to Continue",Snackbar.LENGTH_INDEFINITE)
-                            .setAction("OK", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            });
-                    snackbar.show();
-                } else {
-
-                    PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
-
-                    Gson gson = new Gson();
-                    String redeemString = gson.toJson(msg);
-
-                    Intent intent = new Intent(getContext(), com.pointhub.login.LoginActivity.class);
-                    intent.putExtra("earnRedeemString", redeemString);
-                    startActivity(intent);
-                }
-            }
-        });
 
     }
 
@@ -114,10 +83,48 @@ public class Reedem extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 points = String.valueOf(spinner.getSelectedItem());
                 // Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_LONG).show();
+
+                submitButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String billAmount = redeemBillAmountText.getText().toString();
+
+                        String storName = getStoreID();
+                        String userid = getUserId();
+                        if (billAmount.isEmpty() || points.isEmpty() ) {
+
+                            //Toast.makeText(getActivity(), "Please Fill the Details", Toast.LENGTH_SHORT).show();
+                            Snackbar snackbar=Snackbar.make(getView(),"Please Fill the details to Continue",Snackbar.LENGTH_INDEFINITE)
+                                    .setAction("OK", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                        }
+                                    });
+                            snackbar.show();
+                        } else {
+
+                            PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
+
+                            Gson gson = new Gson();
+                            String redeemString = gson.toJson(msg);
+
+                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                            intent.putExtra("earnRedeemString", redeemString);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+                Toast.makeText(getActivity(),"please choose points",Toast.LENGTH_SHORT).show();
+
 
             }
         });
