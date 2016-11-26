@@ -60,9 +60,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
-
-
-
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
         btSignOut=(Button)findViewById(R.id.btSign_out);
@@ -90,12 +88,6 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private void initView() {
 
         btRefresh = (Button) findViewById(R.id.btnRefresh);
-        firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() == null) {
-            // User is logout
-            btSignOut.setVisibility(View.INVISIBLE);
-
-        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
