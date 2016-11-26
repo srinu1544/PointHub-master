@@ -19,6 +19,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -38,8 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener {
-
-    private Button btRefresh,btSignOut;
+    private TextView tvSignout;
+    private Button btRefresh;
     private FirebaseAuth firebaseAuth;
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
@@ -63,8 +64,8 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-        btSignOut=(Button)findViewById(R.id.btSign_out);
-        btSignOut.setOnClickListener(this);
+        tvSignout=(TextView)findViewById(R.id.tvSign_out);
+        tvSignout.setOnClickListener(this);
 
         initView();
         initIntentFilter();
@@ -326,7 +327,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v)
     {
-     if(v==btSignOut)
+     if(v==tvSignout)
      {
          firebaseAuth.signOut();
 
