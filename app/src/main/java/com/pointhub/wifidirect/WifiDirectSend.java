@@ -21,11 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.auth.FirebaseAuth;
-import com.pointhub.Navigation;
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
@@ -39,8 +34,9 @@ import java.util.List;
 
 public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btRefresh,btSignOut;
-    private FirebaseAuth firebaseAuth;
+    private Button btRefresh;
+    //,btSignOut;
+    //private FirebaseAuth firebaseAuth;
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
@@ -65,8 +61,8 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
 
 
-        btSignOut=(Button)findViewById(R.id.btSign_out);
-        btSignOut.setOnClickListener(this);
+       // btSignOut=(Button)findViewById(R.id.btSign_out);
+      //  btSignOut.setOnClickListener(this);
 
         initView();
         initIntentFilter();
@@ -76,12 +72,12 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
         Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
 
-        MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
+        /*MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
 
         // Load an ad into the AdMob banner view.
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        adView.loadAd(adRequest);*/
     }
 
     /**
@@ -90,12 +86,12 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private void initView() {
 
         btRefresh = (Button) findViewById(R.id.btnRefresh);
-        firebaseAuth = FirebaseAuth.getInstance();
+        /*firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() == null) {
             // User is logout
             btSignOut.setVisibility(View.INVISIBLE);
 
-        }
+        }*/
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
@@ -334,15 +330,15 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v)
     {
-     if(v==btSignOut)
-     {
-         firebaseAuth.signOut();
+        /*if(v==btSignOut)
+        {
+            firebaseAuth.signOut();
 
-         // Closing activity.
-         finish();
+            // Closing activity.
+            finish();
 
 
-         startActivity(new Intent(this, Navigation.class));
-     }
+            startActivity(new Intent(this, Navigation.class));
+        }*/
     }
 }
