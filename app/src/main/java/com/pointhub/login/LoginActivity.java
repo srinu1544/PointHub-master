@@ -15,14 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pointhub.R;
-
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.pointhub.earnredeemtab.MainActivity;
+import com.pointhub.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     MenuInflater menuInflater;
     //progress dialog
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editTextEmail.setText("");
                             editTextPassword.setText("");
                             finish();
+
                             // String str = null;
                             //Toast.makeText(getApplicationContext(),"Welcome to Seller App !!!",Toast.LENGTH_SHORT).show();
 
@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (view == buttonSignIn) {
             userLogin();
+
         }
 
         if (view == textViewSignup) {

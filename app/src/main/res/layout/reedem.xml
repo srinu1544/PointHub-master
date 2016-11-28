@@ -57,11 +57,12 @@
         android:background="@drawable/edittextshape"
         android:id="@+id/layout3"
         android:layout_below="@+id/layout2"
-        android:layout_alignLeft="@+id/layout1"
-        android:layout_alignStart="@+id/layout1"
         android:layout_marginTop="16dp"
         android:layout_alignRight="@+id/layout1"
-        android:layout_alignEnd="@+id/layout1">
+        android:layout_alignEnd="@+id/layout1"
+        android:layout_toRightOf="@+id/layout2"
+        android:layout_toEndOf="@+id/layout2">
+
 
         <Spinner
             android:layout_width="wrap_content"
@@ -89,4 +90,20 @@
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/layout1"
         android:layout_alignEnd="@+id/layout1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Select points"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:background="@drawable/edittextshape"
+        android:id="@+id/textView10"
+        android:paddingLeft="5dp"
+        android:layout_alignTop="@+id/layout3"
+        android:layout_alignRight="@+id/layout2"
+        android:layout_alignEnd="@+id/layout2"
+        android:layout_alignBottom="@+id/layout3" />
+
+
 </RelativeLayout>

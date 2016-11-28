@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
@@ -59,8 +60,7 @@ public class Earn extends Fragment {
                 String storName = getStoreID();
 
                 if (billAmount.isEmpty()) {
-
-                    //Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
                     Snackbar snackbar=Snackbar.make(getView(),"Please Enter Bill Amount to Continue",Snackbar.LENGTH_INDEFINITE)
                             .setAction("OK", new View.OnClickListener() {
                                 @Override

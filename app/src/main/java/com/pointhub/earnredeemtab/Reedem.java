@@ -75,12 +75,17 @@ public class Reedem extends Fragment {
         return userId;
     }
 
+
+
     private void setSpinnerCategories() {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+               
+
                 points = String.valueOf(spinner.getSelectedItem());
                 // Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_LONG).show();
 
@@ -95,7 +100,7 @@ public class Reedem extends Fragment {
                         String userid = getUserId();
                         if (billAmount.isEmpty() || points.isEmpty() ) {
 
-                            //Toast.makeText(getActivity(), "Please Fill the Details", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Please Fill the Details", Toast.LENGTH_SHORT).show();
                             Snackbar snackbar=Snackbar.make(getView(),"Please Fill the details to Continue",Snackbar.LENGTH_INDEFINITE)
                                     .setAction("OK", new View.OnClickListener() {
                                         @Override
@@ -110,6 +115,8 @@ public class Reedem extends Fragment {
 
                             Gson gson = new Gson();
                             String redeemString = gson.toJson(msg);
+
+                            Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem())  + "points", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getActivity(),LoginActivity.class);
                             intent.putExtra("earnRedeemString", redeemString);

@@ -18,9 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pointhub.db.Createdb;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
@@ -29,10 +31,13 @@ import java.io.File;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    public FirebaseAuth firebaseAuth;
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
     ImageView menuButtom;
+    ImageButton log_out;
     Button points;
     ImageView share;
     private boolean doubleBackToExitPressedOnce = false;
@@ -42,8 +47,24 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
         showCameraPreview();
         requestMobilePermission();
+
+        log_out= (ImageButton) findViewById(R.id.logout);
+        log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth = FirebaseAuth.getInstance();
+                if (firebaseAuth.getCurrentUser()!=null) {
+                    firebaseAuth.signOut();
+                    Toast.makeText(getApplicationContext(), "signedout successfully", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " You alredy signedout ", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         // share button
         share = (ImageView) findViewById(R.id.share);
@@ -62,6 +83,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 }
             }
         });
+
 
         // Points button
         points = (Button) findViewById(R.id.pointsbutton);
@@ -275,5 +297,4 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 break;
         }
     }
-
 }

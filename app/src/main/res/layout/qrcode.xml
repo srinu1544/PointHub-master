@@ -8,12 +8,6 @@
     android:layout_alignParentBottom="true"
     tools:context=".earnredeemtab.NewQRcode">
 
-   <include
-       layout="@layout/header"
-       android:id="@id/header"
-       android:layout_height="wrap_content"
-       android:layout_width="match_parent"/>
-
    <fragment
        android:name="com.pointhub.earnredeemtab.Scanner_Fragment"
        android:id="@+id/article_fragment"
@@ -34,6 +28,15 @@
        android:background="@drawable/buttonshape"
        android:id="@+id/pointsbutton"
        android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true" />
+
+   <include
+       layout="@layout/header"
+       android:id="@id/header"
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:layout_alignParentTop="true"
        android:layout_alignParentLeft="true"
        android:layout_alignParentStart="true" />
 

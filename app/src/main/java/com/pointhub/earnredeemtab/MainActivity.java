@@ -6,13 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.pointhub.R;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
@@ -33,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.earn_redeem_tab);
 
         // Make two icons invisible.
-        ImageView imgmenu = (ImageView) findViewById(R.id.imgmenu);
-        ImageView share=(ImageView) findViewById(R.id.share);
-        imgmenu.setVisibility(View.INVISIBLE);
-        share.setVisibility(View.INVISIBLE);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
