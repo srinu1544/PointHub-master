@@ -1,17 +1,21 @@
 package com.pointhub;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,10 +24,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.pointhub.db.Createdb;
+import com.google.firebase.auth.FirebaseUser;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
 
@@ -33,6 +38,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
 
     public FirebaseAuth firebaseAuth;
+    public FirebaseUser firebaseUser;
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
@@ -40,17 +46,21 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     ImageButton log_out;
     Button points;
     ImageView share;
+    TextView tvUserMailId,tvUserName;
     private boolean doubleBackToExitPressedOnce = false;
+    private String userMailId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        tvUserMailId= (TextView) findViewById(R.id.tvUserEmailId);
+        tvUserName= (TextView) findViewById(R.id.tvUserName);
 
         showCameraPreview();
         requestMobilePermission();
-
         log_out= (ImageButton) findViewById(R.id.logout);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +99,22 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         points = (Button) findViewById(R.id.pointsbutton);
         points.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
 
-                if(Utility.isTesting()) {
+                StringBuffer buffer = new StringBuffer();
+                buffer.append("BILLAMOUNT:\t"+ "1500"+"\n\n");
+                buffer.append("DATE :\t"+ "20-11-2013"+"\n\n");
+                buffer.append("TIME :\t"+ "20:30"+"\n\n");
+                buffer.append("POINTS :\t"+ "20"+"\n\n");
+                showMessage("BIZZMARK",buffer.toString());
 
-                    /*PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
-                    Utility.saveToDB(getApplicationContext(), msg);*/
+
+              /*  if(Utility.isTesting()) {
+
+                    *//*PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
+                    Utility.saveToDB(getApplicationContext(), msg);*//*
 
                     Intent i = new Intent(Navigation.this, Createdb.class);
                     startActivity(i);
@@ -103,7 +122,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                     Intent intent = new Intent(Navigation.this, PointListActivity.class);
                     startActivity(intent);
-                }
+                }*/
             }
         });
 
@@ -148,7 +167,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             intent.setType("*/*");
 
             // Only use Bluetooth to send .apk
-            // intent.setPackage("com.android.bluetooth");
+             intent.setPackage("com.android.bluetooth");
 
             // Append file and send Intent
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
@@ -297,4 +316,21 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 break;
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void showMessage(String title, String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
+
+    }
+
 }

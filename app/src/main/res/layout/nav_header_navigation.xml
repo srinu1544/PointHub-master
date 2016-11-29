@@ -13,12 +13,15 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="83dp"
-        android:layout_height="73dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/smartpoints_logo" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/smartpoints_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.53" />
 
     <TextView
         android:layout_width="match_parent"
@@ -26,10 +29,10 @@
         android:layout_marginTop="5dp"
         android:text="smart points"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/textView3" />
+        android:id="@+id/tvUserName" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvUserEmailId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="www.bizzmark.in" />

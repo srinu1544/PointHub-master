@@ -341,4 +341,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(this, Navigation.class));
         }*/
     }
+
+
 }
+

@@ -210,6 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return todos;
 	}
 
+
 	/*
      * Updating a todo
      */
