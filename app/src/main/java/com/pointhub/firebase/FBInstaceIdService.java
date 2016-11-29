@@ -17,6 +17,8 @@ public class FBInstaceIdService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
 
         String token = FirebaseInstanceId.getInstance().getToken();
+        String userMailaid=FirebaseInstanceId.getInstance().getId();
+        Log.e(TAG, "usermailid: >>>>>>" + userMailaid);
 
         Log.e(TAG, "Got token: " + token);
 
