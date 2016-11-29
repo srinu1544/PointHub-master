@@ -1,8 +1,11 @@
 package com.pointhub;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -40,6 +44,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     ImageButton log_out;
     Button points;
     ImageView share;
+    final Context context=this;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -65,6 +70,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
             }
         });
+
+
 
         // share button
         share = (ImageView) findViewById(R.id.share);
@@ -239,7 +246,29 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
             }
 
-        } else if (id == R.id.nav_back) {
+        }else if (id== R.id.nav_version){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+            PackageInfo packageInfo = null;
+            try {
+                packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            builder1.setMessage("SmartPoints\nVersion: " + packageInfo.versionName);
+            builder1.setCancelable(true);
+            builder1.setIcon(R.drawable.smartpoints_logo);
+            builder1.setPositiveButton(
+                    "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+
+        else if (id == R.id.nav_back) {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
              drawer.closeDrawer(GravityCompat.START);
                 super.onBackPressed();

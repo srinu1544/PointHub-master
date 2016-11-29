@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
@@ -60,15 +59,16 @@ public class Earn extends Fragment {
                 String storName = getStoreID();
 
                 if (billAmount.isEmpty()) {
+
                     Toast.makeText(getActivity(), "please enter bill amount", Toast.LENGTH_SHORT).show();
-                    Snackbar snackbar=Snackbar.make(getView(),"Please Enter Bill Amount to Continue",Snackbar.LENGTH_INDEFINITE)
+                    /*Snackbar snackbar=Snackbar.make(getView(),"Please Enter Bill Amount to Continue",Snackbar.LENGTH_INDEFINITE)
                             .setAction("OK", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
 
                                 }
                             });
-                    snackbar.show();
+                    snackbar.show();*/
                 } else {
 
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, billAmount);
