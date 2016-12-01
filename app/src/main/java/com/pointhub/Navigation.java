@@ -44,7 +44,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     ImageButton log_out;
     Button points;
     ImageView share;
-    final Context context=this;
+    final Context context = this;
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -53,8 +53,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        showCameraPreview();
-        requestMobilePermission();
+        try {
+            showCameraPreview();
+            requestMobilePermission();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         log_out= (ImageButton) findViewById(R.id.logout);
         log_out.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +159,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             intent.setType("*/*");
 
             // Only use Bluetooth to send .apk
-            // intent.setPackage("com.android.bluetooth");
+             intent.setPackage("com.android.bluetooth");
 
             // Append file and send Intent
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
@@ -216,9 +220,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent i =new Intent(Navigation.this,FaqExpandable.class);
-            startActivity(i);
 
+            Intent i = new Intent(Navigation.this,FaqExpandable.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_gallery) {
             Intent i =new Intent(Navigation.this,TermsAndConditions.class);
@@ -229,11 +233,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             Intent i =new Intent(Navigation.this,Privact_policy.class);
             startActivity(i);
 
-
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
 
             if(Utility.isTesting()) {
 
@@ -243,10 +245,26 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             } else {
 
                 shareFromBluetooth();
-
             }
 
-        }else if (id== R.id.nav_version){
+        }else if (id== R.id.nav_version) {
+
+            showAppVersion();
+        } else if (id == R.id.nav_back) {
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+             drawer.closeDrawer(GravityCompat.START);
+                super.onBackPressed();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void showAppVersion() {
+        try {
+
             AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
             PackageInfo packageInfo = null;
             try {
@@ -266,17 +284,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        else if (id == R.id.nav_back) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-             drawer.closeDrawer(GravityCompat.START);
-                super.onBackPressed();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void showCameraPreview() {

@@ -38,7 +38,7 @@ public class Utility {
          try{
 
              PointHubMessage pointHubMessage = getGsonObject().fromJson(pointString, PointHubMessage.class);
-             success = saveToDB(context,pointHubMessage);
+             success = saveToDB(context, pointHubMessage);
 
              success = true;
            }catch (Exception ex){

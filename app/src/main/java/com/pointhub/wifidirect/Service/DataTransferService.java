@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.pointhub.util.Utility;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -21,10 +22,10 @@ import java.net.Socket;
  */
 public class DataTransferService extends IntentService {
 
-    private static final int SOCKET_TIMEOUT = 5000;
-    public static final String ACTION_SEND_DATA = "com.example.android.wifidirect.SEND_DATA";
-    public static final String EXTRAS_GROUP_OWNER_ADDRESS = "sd_go_host";
-    public static final String EXTRAS_GROUP_OWNER_PORT = "sd_go_port";
+    private static final int SOCKET_TIMEOUT = 10000;
+    public static final String ACTION_SEND_DATA = "SEND_DATA";
+    public static final String EXTRAS_GROUP_OWNER_ADDRESS = "host";
+    public static final String EXTRAS_GROUP_OWNER_PORT = "port";
     public static final String MESSAGE = "msg";
 
     public DataTransferService(String name) {
@@ -44,15 +45,17 @@ public class DataTransferService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
 
-        showToast("Inside onHandleIntent.");
+        // showToast("Inside onHandleIntent.");
 
-        Context context = getApplicationContext();
+        // Context context = getApplicationContext();
 
         if (intent.getAction().equals(ACTION_SEND_DATA)) {
 
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
 
             Socket socket = new Socket();
+            OutputStream outputStream = null;
+            InputStream inputStream = null;
 
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
 
@@ -65,18 +68,42 @@ public class DataTransferService extends IntentService {
                 Log.d("bizzmark", "Client socket - " + socket.isConnected());
 
                 /*returns an output stream to write data into this socket*/
-                OutputStream stream = socket.getOutputStream();
+                outputStream = socket.getOutputStream();
 
                 String message = intent.getExtras().getString(MESSAGE);
 
-                stream.write(message.getBytes());
+                outputStream.write(message.getBytes());
+                outputStream.flush();
 
-                Utility.savePointsToMobile(getApplicationContext(), message);
+                // Get data from seller.
+                /*int ch;
+                StringBuilder sb = new StringBuilder();
+                inputStream = socket.getInputStream();
+                while((ch = inputStream.read()) != -1) {
+                    sb.append((char) ch);
+                }
+                String msgFromServer = sb.toString();*/
 
             } catch (IOException e) {
 
                 Log.e("bizzmark", e.getMessage());
             } finally {
+
+                try{
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+                try{
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
 
                 if (socket != null) {
                     if (socket.isConnected()) {

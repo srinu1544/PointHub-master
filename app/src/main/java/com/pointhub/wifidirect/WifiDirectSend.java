@@ -11,6 +11,7 @@ import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
 import com.pointhub.wifidirect.Service.DataTransferService;
+import com.pointhub.wifidirect.Task.DataServerAsyncTask;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,8 +37,7 @@ import java.util.List;
 public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener {
 
     private Button btRefresh;
-    //,btSignOut;
-    //private FirebaseAuth firebaseAuth;
+
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
@@ -50,19 +51,17 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     // Connection info object.
     private WifiP2pInfo info;
 
+    DataServerAsyncTask acknowledgementFromSellerTask = null;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wifi_direct_send);
 
-
-
-
-
-
-       // btSignOut=(Button)findViewById(R.id.btSign_out);
-      //  btSignOut.setOnClickListener(this);
+        info = null;
 
         initView();
         initIntentFilter();
@@ -72,8 +71,8 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
         Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
 
+        // Add
         /*MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
-
         // Load an ad into the AdMob banner view.
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -86,12 +85,6 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private void initView() {
 
         btRefresh = (Button) findViewById(R.id.btnRefresh);
-        /*firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() == null) {
-            // User is logout
-            btSignOut.setVisibility(View.INVISIBLE);
-
-        }*/
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
@@ -118,6 +111,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private void initReceiver() {
 
         mManager = (WifiP2pManager) getSystemService(WIFI_P2P_SERVICE);
+
         mChannel = mManager.initialize(this, Looper.myLooper(), null);
 
         WifiP2pManager.PeerListListener mPeerListListerner = new WifiP2pManager.PeerListListener() {
@@ -142,6 +136,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
                 mAdapter = new WifiAdapter(peersshow);
                 mRecyclerView.setAdapter(mAdapter);
+
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(WifiDirectSend.this));
 
                 mAdapter.SetOnItemClickListener(new WifiAdapter.OnItemClickListener() {
@@ -164,6 +159,9 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
                 Log.i("xyz", "InfoAvailable is on");
                 info = minfo;
+
+                // New code.
+                // sendMessage();
             }
         };
 
@@ -177,10 +175,20 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
 
+                // New code Start.
+                peers.clear();
+                peersshow.clear();
+                mAdapter = new WifiAdapter(peersshow);
+                mRecyclerView.setAdapter(mAdapter);
+                // New code End.
+
                 Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
                 discoverPeers();
             }
         });
+
+        acknowledgementFromSellerTask = new DataServerAsyncTask(getApplicationContext());
+        acknowledgementFromSellerTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void sendMessage() {
@@ -194,6 +202,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             Intent intent = getIntent();
             String sendText = intent.getExtras().getString("earnRedeemString");
 
+            // Send msg to seller.
             Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
@@ -203,9 +212,13 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
             Log.i("bizzmark", "owenerip is " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
-            WifiDirectSend.this.startService(serviceIntent);
-            Intent i=new Intent(WifiDirectSend.this, PointListActivity.class);
-            startActivity(i);
+
+            // Start service.
+            startService(serviceIntent);
+
+            // Move to Points report.
+           /* Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
+            startActivity(i);*/
 
         } catch (Throwable th) {
             th.printStackTrace();
@@ -224,10 +237,13 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onSuccess() {
+                // Old code.
                 sendMessage();
             }
+
             @Override
             public void onFailure(int reason) {
+
                 Toast.makeText(getApplicationContext(),"WifiP2pManager connect failure. Reason: " + reason, Toast.LENGTH_SHORT).show();
             }
         });

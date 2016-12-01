@@ -24,7 +24,11 @@ public class NewQRcode extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcode);
 
-        showCameraPreview();
+        try {
+            showCameraPreview();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         createPoints = (ImageView) findViewById(R.id.imgmenu);
 
@@ -58,19 +62,17 @@ public class NewQRcode extends AppCompatActivity  {
 
         // Permission has not been granted and must be requested.
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
 
             // Request the permission
-            ActivityCompat.requestPermissions(NewQRcode.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    PERMISSION_REQUEST_CAMERA);
+            ActivityCompat.requestPermissions(NewQRcode.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
         } else {
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-                    PERMISSION_REQUEST_CAMERA);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CAMERA);
         }
     }
 
