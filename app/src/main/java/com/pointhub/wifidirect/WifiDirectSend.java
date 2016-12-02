@@ -28,6 +28,7 @@ import com.pointhub.R;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
 import com.pointhub.wifidirect.Service.DataTransferService;
+import com.pointhub.wifidirect.Task.AsyncResponse;
 import com.pointhub.wifidirect.Task.DataServerAsyncTask;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener {
+public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
 
     private Button btRefresh;
 
@@ -192,7 +193,10 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         });
 
         if(null == acknowledgementFromSellerTask) {
+
             acknowledgementFromSellerTask = new DataServerAsyncTask(getApplicationContext());
+            //this to set delegate/listener back to this class
+            acknowledgementFromSellerTask.delegate = this;
             acknowledgementFromSellerTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
@@ -380,6 +384,13 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             }
         }
         return false;
+    }
+
+    @Override
+    public void processFinish(String output) {
+        // Move to Points report.
+        Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
+        startActivity(i);
     }
 }
 

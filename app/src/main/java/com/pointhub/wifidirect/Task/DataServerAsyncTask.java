@@ -3,12 +3,17 @@ package com.pointhub.wifidirect.Task;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.pointhub.PointListActivity;
 import com.pointhub.db.AcknowledgePoints;
 import com.pointhub.util.Utility;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -18,6 +23,9 @@ import java.net.Socket;
 public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
 
     Context context = null;
+    public AsyncResponse delegate = null;
+
+
     public DataServerAsyncTask(Context context) {
         this.context = context;
     }
@@ -57,6 +65,8 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
 
+        delegate.processFinish(result);
+
         Log.i("bizzmark", "data on post execute.Result: " + result);
 
         if (result != null) {
@@ -70,11 +80,14 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
 
                 Log.i("bizzmark", "Acknowledgement: " + result);
 
-                Utility.savePointsToMobile(context, acknowledgePoints.getEarnRedeemString());
+                if("success".equalsIgnoreCase(status)) {
 
-                // Move to Points report.
-            /*Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
-            startActivity(i);*/
+                    Utility.savePointsToMobile(context, acknowledgePoints.getEarnRedeemString());
+                } else {
+
+                    showToast("Store owner rejected to give points.");
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -84,6 +97,18 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
 
+    }
+
+    public void showToast(String message) {
+        final String msg = message;
+        new Handler(Looper.getMainLooper())
+                .post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                            }
+                        });
     }
 
 }
