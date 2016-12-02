@@ -1,6 +1,7 @@
 package com.pointhub.wifidirect.Task;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -70,6 +71,10 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
                 Log.i("bizzmark", "Acknowledgement: " + result);
 
                 Utility.savePointsToMobile(context, acknowledgePoints.getEarnRedeemString());
+
+                // Move to Points report.
+            /*Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
+            startActivity(i);*/
             } catch (Exception e) {
                 e.printStackTrace();
             }

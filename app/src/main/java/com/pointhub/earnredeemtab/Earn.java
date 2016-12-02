@@ -71,6 +71,8 @@ public class Earn extends Fragment {
                     snackbar.show();*/
                 } else {
 
+                    // String macAddress = Utility.getMacAddress(getContext());
+
                     PointHubMessage msg = new PointHubMessage("Earn", billAmount, userId, storName, billAmount);
                     String earnString = "";
                     try {

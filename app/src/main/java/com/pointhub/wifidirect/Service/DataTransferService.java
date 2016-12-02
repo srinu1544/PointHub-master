@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.pointhub.util.Utility;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,6 +36,24 @@ public class DataTransferService extends IntentService {
 
     public DataTransferService() {
         super("DataTransferService");
+    }
+
+    private static DataTransferService instance = null;
+
+    public static boolean isInstanceCreated() {
+        return instance != null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        instance = null;
     }
 
     /*
@@ -75,14 +95,6 @@ public class DataTransferService extends IntentService {
                 outputStream.write(message.getBytes());
                 outputStream.flush();
 
-                // Get data from seller.
-                /*int ch;
-                StringBuilder sb = new StringBuilder();
-                inputStream = socket.getInputStream();
-                while((ch = inputStream.read()) != -1) {
-                    sb.append((char) ch);
-                }
-                String msgFromServer = sb.toString();*/
 
             } catch (IOException e) {
 

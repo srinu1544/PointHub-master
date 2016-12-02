@@ -1,6 +1,8 @@
 package com.pointhub.util;
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
@@ -18,7 +20,7 @@ public class Utility {
 
     static Gson gson = null;
 
-    static boolean testing = false;
+    static boolean testing = true;
 
     public static synchronized Gson getGsonObject() {
 
@@ -111,6 +113,18 @@ public class Utility {
         int pp=Integer.parseInt(presentPoints);
         int addPoints=storePoints+pp;
         return addPoints;
+    }
+
+    public static String getMacAddress(Context context){
+        String macAddress = null;
+        try{
+            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wInfo = wifiManager.getConnectionInfo();
+            macAddress = wInfo.getMacAddress();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return macAddress;
     }
 
 }

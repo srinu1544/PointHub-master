@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 import com.pointhub.login.LoginActivity;
+import com.pointhub.util.Utility;
 
 
 public class Reedem extends Fragment {
@@ -111,6 +112,7 @@ public class Reedem extends Fragment {
                             snackbar.show();
                         } else {
 
+                            // String macAddress = Utility.getMacAddress(getContext());
                             PointHubMessage msg = new PointHubMessage("Redeem", billAmount, userid, storName, points);
 
                             Gson gson = new Gson();

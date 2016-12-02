@@ -1,5 +1,6 @@
 package com.pointhub.wifidirect;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -52,8 +53,6 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private WifiP2pInfo info;
 
     DataServerAsyncTask acknowledgementFromSellerTask = null;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,19 +135,21 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
                 mAdapter = new WifiAdapter(peersshow);
                 mRecyclerView.setAdapter(mAdapter);
-
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(WifiDirectSend.this));
 
                 mAdapter.SetOnItemClickListener(new WifiAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
+                        // createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
+                        createConnect(peersshow.get(position).get("address"));
                     }
+
                     @Override
                     public void OnItemLongClick(View view, int position) {
 
                     }
                 });
+
             }
         };
 
@@ -159,9 +160,6 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
                 Log.i("xyz", "InfoAvailable is on");
                 info = minfo;
-
-                // New code.
-                // sendMessage();
             }
         };
 
@@ -180,16 +178,27 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
                 peersshow.clear();
                 mAdapter = new WifiAdapter(peersshow);
                 mRecyclerView.setAdapter(mAdapter);
-                // New code End.
 
+                // Check whether service running.
+                boolean instance = DataTransferService.isInstanceCreated();
+                if(instance) {
+                    boolean serviceRunning = isDataTransferServiceRunning();
+                }
+
+                // New code End.
                 Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
                 discoverPeers();
             }
         });
 
-        acknowledgementFromSellerTask = new DataServerAsyncTask(getApplicationContext());
-        acknowledgementFromSellerTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if(null == acknowledgementFromSellerTask) {
+            acknowledgementFromSellerTask = new DataServerAsyncTask(getApplicationContext());
+            acknowledgementFromSellerTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
     }
+
+    Intent serviceIntent = null;
 
     private void sendMessage() {
 
@@ -202,23 +211,23 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             Intent intent = getIntent();
             String sendText = intent.getExtras().getString("earnRedeemString");
 
+            boolean instance = DataTransferService.isInstanceCreated();
+            if(!instance) {
+                serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
+            }
+
             // Send msg to seller.
-            Intent serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
             if (null != sendText) {
                 serviceIntent.putExtra(DataTransferService.MESSAGE, sendText);
             }
 
-            Log.i("bizzmark", "owenerip is " + info.groupOwnerAddress.getHostAddress());
+            Log.i("bizzmark", "Seller Address: " + info.groupOwnerAddress.getHostAddress());
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
 
             // Start service.
             startService(serviceIntent);
-
-            // Move to Points report.
-           /* Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
-            startActivity(i);*/
 
         } catch (Throwable th) {
             th.printStackTrace();
@@ -229,7 +238,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     and you can send file or data by socket,what is the most important is that you can set
     which device is the client or service.*/
 
-    private void createConnect(String address, String name) {
+    private void createConnect(String address) {
 
         WifiP2pConfig config = initWifiP2pConfig(address);
 
@@ -237,7 +246,8 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onSuccess() {
-                // Old code.
+
+                // Send message to seller.
                 sendMessage();
             }
 
@@ -358,6 +368,18 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         }*/
     }
 
+    private boolean isDataTransferServiceRunning() {
 
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+
+            if ("com.pointhub.wifidirect.Service.DataTransferService".equals(service.service.getClassName())) {
+
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
