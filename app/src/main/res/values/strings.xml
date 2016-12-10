@@ -27,10 +27,6 @@
     <string name="title_activity_privact_policy">title_activity_privact_policy</string>
 
 
-
-
-
-
     //strings for FAQ
     <string name="a">what is smart points?</string>
     <string name="aans">Smartpoints  is a reward program that enables you to "earn points every time you make a purchase"
@@ -46,7 +42,6 @@
 
     <string name="c">are there any joining fee?</string>
     <string name="cans">No its free and always will be</string>
-
 
 
     <string name="d">what is reedem?</string>
@@ -87,7 +82,6 @@
 
     <string name="k">What is the value of my Smartpoints ?</string>
     <string name="kans">One Smartpoint  is equal to 1 rupee.</string>
-
 
 
     <string name="title_activity_ad_mobs">AdMobsActivity</string>
@@ -348,7 +342,6 @@ privacy policy.
 </string>
 
 
-
     //strings for terms and conditions
 
     <string name="The_Terms_and_Conditions_Terms">The Terms and Conditions ("Terms") explain the nature and scope of the relationship between smartpoints {owned by Bizzmark }  herein referred to as "smartpoints" or "We" (as owner and management for the program) and you, for downloading, accessing or using the mobile applications, websites or other products and services of Bizzmark . These terms affect your legal rights and In the event you use a service, feature, orfunctionality that is operated by a thirdparty and made available through ourServices (including Services we jointly offerwith the third party), each partys terms willgovern as to the respective partysrelationship with you.Please read these terms carefully, beforeusing our services.</string>
@@ -439,7 +432,6 @@ whatsoever, without informing smartpointsmembers.\n
 11. We will not be responsible for the consequences ofsmartpoints Merchant on accepting wrong, and incorrect bill amount by the smartpointsmember.As the smartpoints Merchant has two verification steps that he accepts before granting any smartpoints to the smartpoints member.\n
 
 </string>
-
 
 
 </resources>

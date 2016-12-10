@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
 import com.pointhub.login.LoginActivity;
-import com.pointhub.util.Utility;
 
 
 public class Reedem extends Fragment {
@@ -122,6 +121,8 @@ public class Reedem extends Fragment {
 
                             Intent intent = new Intent(getActivity(),LoginActivity.class);
                             intent.putExtra("earnRedeemString", redeemString);
+                            intent.putExtra("reedemBillamount",billAmount);
+                            intent.putExtra("reedemPoints",points);
                             startActivity(intent);
                         }
                     }

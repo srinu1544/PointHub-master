@@ -7,4 +7,5 @@ package com.pointhub.wifidirect.Task;
 public interface AsyncResponse {
 
     void processFinish(String output);
+
 }

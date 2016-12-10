@@ -45,7 +45,7 @@ public class Createdb extends Activity {
                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
                 Points pts = new Points();
 
-                pts.setStoreName(csnamej.getText().toString());
+               /* pts.setStoreName(csnamej.getText().toString());*/
                 //  Log.i("Tag", "points : >> " +pts.getPoints());
 
                 pts.setPoints(cpointsj.getText().toString());

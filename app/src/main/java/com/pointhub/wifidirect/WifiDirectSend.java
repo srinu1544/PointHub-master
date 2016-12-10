@@ -3,6 +3,7 @@ package com.pointhub.wifidirect;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
@@ -15,6 +16,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,20 +25,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.pointhub.PointListActivity;
+import com.google.gson.Gson;
+import com.pointhub.PointHubMessage;
 import com.pointhub.R;
+import com.pointhub.db.AcknowledgePoints;
+import com.pointhub.db.PointsBO;
+import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
 import com.pointhub.wifidirect.Service.DataTransferService;
 import com.pointhub.wifidirect.Task.AsyncResponse;
 import com.pointhub.wifidirect.Task.DataServerAsyncTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class WifiDirectSend extends AppCompatActivity implements View.OnClickListener, AsyncResponse {
+public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
+
 
     private Button btRefresh;
 
@@ -44,14 +53,21 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
     private List<HashMap<String, String>> peersshow = new ArrayList();
-
+    Calendar calander;
+    SimpleDateFormat simpledateformat;
     private WifiP2pManager mManager;
     private WifiP2pManager.Channel mChannel;
     private BroadcastReceiver mReceiver;
     private IntentFilter mFilter;
+    public PointHubMessage pointHubMessage;
+    public String earnbillamount;
+    public String reedembillamount ;
 
     // Connection info object.
     private WifiP2pInfo info;
+    private String Date;
+    private String storename;
+    private String reedempoints;
 
     DataServerAsyncTask acknowledgementFromSellerTask = null;
 
@@ -77,19 +93,20 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         AdView adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);*/
+
     }
 
     /**
      * Initialize all the views.
      */
     private void initView() {
-
         btRefresh = (Button) findViewById(R.id.btnRefresh);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
+
     }
 
     /**
@@ -144,7 +161,6 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
                         // createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
                         createConnect(peersshow.get(position).get("address"));
                     }
-
                     @Override
                     public void OnItemLongClick(View view, int position) {
 
@@ -188,7 +204,13 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
                 // New code End.
                 Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+
+                // ResetReceiver();
+
                 discoverPeers();
+             /*   Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+                discoverPeers();
+*/
             }
         });
 
@@ -209,6 +231,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         try {
 
             if (null == info) {
+
                 return;
             }
 
@@ -232,10 +255,20 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
             // Start service.
             startService(serviceIntent);
+            WifiDirectSend.this.startService(serviceIntent);
+
 
         } catch (Throwable th) {
             th.printStackTrace();
         }
+    }
+
+    public void ResetReceiver() {
+
+        unregisterReceiver(mReceiver);
+
+        // deletePersistentGroups();
+        registerReceiver(mReceiver, mFilter);
     }
 
     /*A demo base on API which you can connect android device by wifidirect,
@@ -357,19 +390,24 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    @Override
-    public void onClick(View v)
-    {
-        /*if(v==btSignOut)
-        {
-            firebaseAuth.signOut();
 
-            // Closing activity.
-            finish();
+    public void showMessage(String title, String Message) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-            startActivity(new Intent(this, Navigation.class));
-        }*/
+             /*  // Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
+                startActivity(i);
+*/
+            }
+        });
+        builder.show();
     }
 
     private boolean isDataTransferServiceRunning() {
@@ -387,10 +425,29 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void processFinish(String output) {
-        // Move to Points report.
-        Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
-        startActivity(i);
+    public void processFinish(String result) {
+
+        Gson gson = Utility.getGsonObject();
+        AcknowledgePoints acknowledgePoints = gson.fromJson(result, AcknowledgePoints.class);
+        String status = acknowledgePoints.getStatus();
+
+        String earnRedeemString =  acknowledgePoints.getEarnRedeemString();
+        PointsBO msg =  gson.fromJson(earnRedeemString, PointsBO.class);
+
+        if ("success".equalsIgnoreCase(status)) {
+
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("Bill amount :" + msg.getBillAmount() + "\n\n");
+            buffer.append("Type : " + msg.getType() + "\n\n");
+            buffer.append("Points :" + msg.getPoints() + "\n\n");
+            buffer.append("Time :" + msg.getTime() + "\n\n");
+            showMessage(msg.getStoreName(), buffer.toString());
+        } else {
+
+            showMessage(msg.getStoreName(), "Seller has rejected your transaction.");
+        }
     }
+
 }
+
 

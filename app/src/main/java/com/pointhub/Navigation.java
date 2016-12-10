@@ -37,8 +37,11 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
 
     public FirebaseAuth firebaseAuth;
+
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private static final int REQUEST_READ_PHONE_STATE = 1;
+
+
 
     ImageView menuButtom;
     ImageButton log_out;
@@ -46,6 +49,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     ImageView share;
     final Context context = this;
     private boolean doubleBackToExitPressedOnce = false;
+    private String Date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +71,13 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 firebaseAuth = FirebaseAuth.getInstance();
                 if (firebaseAuth.getCurrentUser()!=null) {
                     firebaseAuth.signOut();
-                    Toast.makeText(getApplicationContext(), "signedout successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), " You alredy signedout ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "You already signed out", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
-
 
         // share button
         share = (ImageView) findViewById(R.id.share);
@@ -92,21 +94,24 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                     shareFromBluetooth();
                 }
+
             }
         });
 
 
-        // Points button
+        // Points button2016-12-03 17:21:56
         points = (Button) findViewById(R.id.pointsbutton);
         points.setOnClickListener(new View.OnClickListener() {
 
+            /*@RequiresApi(api = Build.VERSION_CODES.M)*/
             @Override
             public void onClick(View v) {
 
+
                 if(Utility.isTesting()) {
 
-                    /*PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
-                    Utility.saveToDB(getApplicationContext(), msg);*/
+                    PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
+                    Utility.saveToDB(getApplicationContext(), msg);
 
                     Intent i = new Intent(Navigation.this, Createdb.class);
                     startActivity(i);
@@ -115,6 +120,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     Intent intent = new Intent(Navigation.this, PointListActivity.class);
                     startActivity(intent);
                 }
+
             }
         });
 
@@ -289,6 +295,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 
+
     private void showCameraPreview() {
 
         // BEGIN_INCLUDE(startCamera)
@@ -337,3 +344,5 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 }
+
+

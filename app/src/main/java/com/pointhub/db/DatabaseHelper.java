@@ -183,7 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	/**
 	 * getting all todos
 	 * */
-	public List<Points> getAllPoints() {
+	public List<Points>  getAllPoints() {
 
 		List<Points> todos = new ArrayList<Points>();
 		String selectQuery = "SELECT  * FROM " + TABLE_POINTS;
