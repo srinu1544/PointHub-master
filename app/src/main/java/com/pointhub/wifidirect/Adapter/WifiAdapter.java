@@ -53,7 +53,9 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
     public void onBindViewHolder(final MyHolder holder, final int position) {
 
         holder.tvname.setText(mList.get(position).get("name"));
-        holder.tvaddress.setText(mList.get(position).get("address"));
+        // holder.tvaddress.setText(mList.get(position).get("address"));
+
+        holder.tvaddress.setText("");
 
         if (mOnItemClickListener != null) {
 
