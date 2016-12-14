@@ -204,13 +204,13 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
     Intent serviceIntent = null;
 
-    private void sendMessage() {
+    private void sendMessage(String hostAddress) {
 
         try {
 
-            if (null == info) {
+            /*if (null == info) {
                 return;
-            }
+            }*/
 
             Intent intent = getIntent();
             String sendText = intent.getExtras().getString("earnRedeemString");
@@ -222,12 +222,16 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
 
             // Send msg to seller.
             serviceIntent.setAction(DataTransferService.ACTION_SEND_DATA);
-            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+            // serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+
+            serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_ADDRESS, hostAddress);
             if (null != sendText) {
                 serviceIntent.putExtra(DataTransferService.MESSAGE, sendText);
             }
 
-            Log.i("bizzmark", "Seller Address: " + info.groupOwnerAddress.getHostAddress());
+            // Log.i("bizzmark", "Seller Address: " + info.groupOwnerAddress.getHostAddress());
+
+            Log.i("bizzmark", "Seller Address: " + hostAddress);
             serviceIntent.putExtra(DataTransferService.EXTRAS_GROUP_OWNER_PORT, 8888);
 
             // Start service.
@@ -242,7 +246,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
     and you can send file or data by socket,what is the most important is that you can set
     which device is the client or service.*/
 
-    private void createConnect(String address) {
+    private void createConnect(final String address) {
 
         WifiP2pConfig config = initWifiP2pConfig(address);
 
@@ -252,7 +256,7 @@ public class WifiDirectSend extends AppCompatActivity implements View.OnClickLis
             public void onSuccess() {
 
                 // Send message to seller.
-                sendMessage();
+                sendMessage(address);
             }
 
             @Override
