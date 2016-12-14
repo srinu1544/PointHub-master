@@ -432,6 +432,7 @@ whatsoever, without informing smartpointsmembers.\n
 11. We will not be responsible for the consequences ofsmartpoints Merchant on accepting wrong, and incorrect bill amount by the smartpointsmember.As the smartpoints Merchant has two verification steps that he accepts before granting any smartpoints to the smartpoints member.\n
 
 </string>
+    <string name="title_activity_recycle_firebase">RecycleFirebase</string>
 
 
 </resources>

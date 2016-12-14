@@ -85,13 +85,13 @@
                 >
 
 
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="0.4"
-                    android:text="Last Visited"
-                    android:textColor="@color/butcolor"
-                    android:textSize="20dp" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.4"
+                android:text="Last Visited"
+                android:textColor="@color/butcolor"
+                android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/datemd"

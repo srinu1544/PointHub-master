@@ -32,7 +32,7 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
 
-             Log.i("bizzmark", "data doing back");
+             Log.i("bizzmark", "data doing  `back");
              ServerSocket serverSocket = new ServerSocket(9999);
              serverSocket.setReuseAddress(true);
 
