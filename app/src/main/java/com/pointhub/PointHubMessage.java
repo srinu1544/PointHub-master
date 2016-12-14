@@ -11,16 +11,16 @@ public class PointHubMessage {
     String points;
     String deviceid;
 
-    private PointHubMessage(){
-
-    }
-
     public PointHubMessage(String type, String billAmount, String deviceid, String storeName, String points){
+
         this.type = type;
         this.billAmount = billAmount;
         this.deviceid=deviceid;
         this.storeName = storeName;
         this.points = points;
+    }
+
+    public PointHubMessage() {
     }
 
     public String getType() {

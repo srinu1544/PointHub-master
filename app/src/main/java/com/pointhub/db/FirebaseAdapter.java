@@ -10,29 +10,25 @@ import android.widget.TextView;
 import com.pointhub.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by venu gopal on 04-10-2016.
+ * Created by Lenovo1 on 13-12-2016.
  */
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+
+public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Points> listitems;
+    private ArrayList<PointsBO> listitems;
     private int itemLayout;
 
-    public Adapter(Context context, ArrayList<Points> listitems) {
+    public FirebaseAdapter(Context context, ArrayList<PointsBO> listitems) {
         this.context = context;
         this.listitems = listitems;
     }
 
-    public Adapter(RecycleViewFirebase context, List<PointsBO> pointsBOs) {
-
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayoutfirebse, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -40,10 +36,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Points point = listitems.get(position);
+        PointsBO point = listitems.get(position);
         holder.storeName.setText(point.getStoreName());
         holder.points.setText(point.getPoints());
-        holder.datemod.setText(point.getLastVisited());
+        holder.datemod.setText(point.getBillAmount());
 
     }
 

@@ -86,7 +86,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
         notifyItemRemoved(position);
     }
 
-    public void RefreshView() {
+    public void refreshView() {
         for (int i = 0; i < getItemCount(); i++)
             removeData(i);
         for (int i = 0; i < getItemCount(); i++)

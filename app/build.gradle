@@ -59,7 +59,7 @@ dependencies {
 
     // Zxing libraries
 
-    
+
 
     compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
     compile 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
@@ -75,10 +75,10 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.8.0'
     compile 'com.google.android.gms:play-services-ads:9.8.0'
     compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.firebase:firebase-database:9.8.0'
     compile 'com.google.firebase:firebase-ads:9.8.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     testCompile 'junit:junit:4.12'
-
 }
 
 

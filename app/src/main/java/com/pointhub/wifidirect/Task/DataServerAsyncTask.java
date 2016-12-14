@@ -1,19 +1,16 @@
 package com.pointhub.wifidirect.Task;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
-
-import com.google.gson.Gson;
-import com.pointhub.PointListActivity;
-import com.pointhub.db.AcknowledgePoints;
-import com.pointhub.util.Utility;
-import com.pointhub.wifidirect.WifiDirectSend;
+import com.pointhub.earnredeemtab.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -23,6 +20,7 @@ import java.net.Socket;
 public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
 
     Context context = null;
+
     public AsyncResponse delegate = null;
 
 
@@ -34,7 +32,7 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
 
-             Log.i("bizzmark", "data doing back");
+             Log.i("bizzmark", "data doing  `back");
              ServerSocket serverSocket = new ServerSocket(9999);
              serverSocket.setReuseAddress(true);
 
@@ -61,38 +59,32 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
         }
     }
 
-
     @Override
     protected void onPostExecute(String result) {
 
         delegate.processFinish(result);
-
         Log.i("bizzmark", "data on post execute.Result: " + result);
-
-        if (result != null) {
-
-            try {
-
-                Gson gson = Utility.getGsonObject();
-                AcknowledgePoints acknowledgePoints = gson.fromJson(result, AcknowledgePoints.class);
-                String status = acknowledgePoints.getStatus();
-
-
-                Log.i("bizzmark", "Acknowledgement: " + result);
-
-                if("success".equalsIgnoreCase(status)) {
-
-                    Utility.savePointsToMobile(context, acknowledgePoints.getEarnRedeemString());
-                } else {
-
-                    showToast("Store owner rejected to give points.");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
+
+    private void showMessageIfCancel() {
+
+       AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle("Response from Seller ");
+        builder.setMessage("seller Rejected your transaction, send again");
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Toast.makeText(context.getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(null,MainActivity.class);
+                context.startActivity(i);
+
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     protected void onPreExecute() {

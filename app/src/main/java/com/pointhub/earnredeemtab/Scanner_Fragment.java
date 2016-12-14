@@ -1,18 +1,27 @@
 package com.pointhub.earnredeemtab;
 
-
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+import com.pointhub.PointHubMessage;
+import com.pointhub.db.Points;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -25,10 +34,35 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
 
     // Context mContext;
     ZXingScannerView mScannerView;
+    private List<HashMap<String, String>> peersshow = new ArrayList();
+    Calendar calander;
+    SimpleDateFormat simpledateformat;
+    private String Date;
+    private String deviceid;
+   PointHubMessage pointHubMessage;
+    Points pts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        deviceid=getImeistring();
+
+
+
+    }
+    public String getImeistring() {
+
+        String imeistring = null;
+        try {
+
+            TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            // getDeviceId() function Returns the unique device ID.
+            imeistring = telephonyManager.getDeviceId();
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+        return imeistring;
     }
 
 

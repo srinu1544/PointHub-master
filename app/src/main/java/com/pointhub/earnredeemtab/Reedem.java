@@ -17,8 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
-import com.pointhub.login.LoginActivity;
-import com.pointhub.util.Utility;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 
 public class Reedem extends Fragment {
@@ -120,8 +119,13 @@ public class Reedem extends Fragment {
 
                             Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem())  + "points", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                            /*Intent intent = new Intent(getActivity(),LoginActivity.class);*/
+
+                            Intent intent = new Intent(getActivity(),WifiDirectSend.class);
+
                             intent.putExtra("earnRedeemString", redeemString);
+                            intent.putExtra("reedemBillamount",billAmount);
+                            intent.putExtra("reedemPoints",points);
                             startActivity(intent);
                         }
                     }

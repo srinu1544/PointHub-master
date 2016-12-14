@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.pointhub.R;
-
 import java.util.List;
 
 
@@ -96,9 +94,9 @@ public class PointsAdapter extends BaseAdapter {
 
         for (Points place : places) {
 
-            if (place.getId() == id) {
+            /*if (place.getId() == id) {
                 return place;
-            }
+            }*/
         }
         return null;
     }

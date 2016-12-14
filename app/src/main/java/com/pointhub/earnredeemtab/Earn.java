@@ -91,8 +91,10 @@ public class Earn extends Fragment {
                     } else {
                        // Intent intent = new Intent(getContext(),com.pointhub.wifidirect.WifiDirectSend.class);
                         Intent intent = new Intent(getContext(),WifiDirectSend.class);
-
                         intent.putExtra("earnRedeemString", earnString);
+                        intent.putExtra("earnBillamount",billAmount);
+
+
                         startActivity(intent);
                     }
                 }

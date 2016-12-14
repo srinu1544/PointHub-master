@@ -3,12 +3,10 @@ package com.pointhub.util;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
-
 import java.util.ArrayList;
 
 /**

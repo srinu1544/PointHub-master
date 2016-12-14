@@ -16,18 +16,6 @@
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id" />
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnRefresh"
-        android:background="@drawable/ic_loop_black_24dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/tollbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
@@ -69,5 +57,32 @@
             android:textColor="@color/zxing_encode_view"
             android:layout_centerInParent="true"
             android:id="@+id/textView8" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="back"
+            android:id="@+id/testing2"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@id/testing"/>
+
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRefresh"
+        android:background="@drawable/ic_loop_black_24dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/tollbar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

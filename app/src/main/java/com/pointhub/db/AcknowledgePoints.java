@@ -14,6 +14,9 @@ public class AcknowledgePoints {
         this.earnRedeemString = earnRedeemString;
     }
 
+    public AcknowledgePoints() {
+    }
+
     public String getStatus() {
         return status;
     }

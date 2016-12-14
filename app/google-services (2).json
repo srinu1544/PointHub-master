@@ -27,55 +27,7 @@
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD1um_Si2Wq-STePiG3vTTtumN588nd5ss"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "210811530308-gi19erh93fgr898181pg8t8eba5v0cve.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:210811530308:android:dea9383b5d9a72a6",
-        "android_client_info": {
-          "package_name": "com.smartpoints"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "210811530308-96h3u5aohm4r7rl5i67so4ar11kkj4qg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.smartpoints",
-            "certificate_hash": "3EBE2002BBA0FBAE2BCCC2C9E46592474A6E6870"
-          }
-        },
-        {
-          "client_id": "210811530308-gi19erh93fgr898181pg8t8eba5v0cve.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD1um_Si2Wq-STePiG3vTTtumN588nd5ss"
-        }
-      ],
+      "api_key": [],
       "services": {
         "analytics_service": {
           "status": 1
