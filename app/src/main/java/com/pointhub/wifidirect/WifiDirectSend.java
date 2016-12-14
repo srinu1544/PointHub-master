@@ -543,6 +543,10 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     @Override
     public void processFinish(String result) {
 
+        if(null == result || "".equalsIgnoreCase(result)){
+            return;
+        }
+
         Gson gson = Utility.getGsonObject();
         AcknowledgePoints acknowledgePoints = gson.fromJson(result, AcknowledgePoints.class);
         String status = acknowledgePoints.getStatus();
