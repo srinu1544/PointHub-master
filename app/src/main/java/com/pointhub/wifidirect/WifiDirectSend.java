@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.pointhub.Navigation;
-import com.pointhub.PointHubMessage;
 import com.pointhub.PointListActivity;
 import com.pointhub.R;
 import com.pointhub.db.AcknowledgePoints;
@@ -50,13 +49,14 @@ import java.util.List;
 
 public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
-    // PointsBO points = null;
+    PointsBO points=null;
+
 
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
     private List<HashMap<String, String>> peersshow = new ArrayList();
-    // Calendar calander;
+    Calendar calander;
     SimpleDateFormat simpledateformat;
     private WifiP2pManager mManager;
     private WifiP2pManager.Channel mChannel;
@@ -76,7 +76,6 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     // PointsBO msg;
 
     private Button btRefresh;
-
     //private Button testing,testing2;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
@@ -102,9 +101,9 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
      */
     private void initView() {
         btRefresh = (Button) findViewById(R.id.btnRefresh);
-        //testing = (Button) findViewById(R.id.testing);
-        //testing2 = (Button) findViewById(R.id.testing2);
-
+       // testing = (Button) findViewById(R.id.testing);
+       /* testing2 = (Button) findViewById(R.id.testing2);
+*/
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
         mRecyclerView.setAdapter(mAdapter);
@@ -175,27 +174,43 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                         // If connection info not available create connection.
                         if(null == info) {
 
+                            Toast.makeText(getApplicationContext(),"Connection not established.", Toast.LENGTH_SHORT).show();
                             createConnect(peersshow.get(position).get("address"));
 
                             // if connection is available.
                         } else {
 
+                            Toast.makeText(getApplicationContext(),"Connection established.", Toast.LENGTH_SHORT).show();
                             String groupOwnerAddress = info.groupOwnerAddress.getHostAddress();
 
-                            // If connection is for the selected seller.
-                            if(address.equalsIgnoreCase(groupOwnerAddress)) {
+                            /*String groupOwnerMac = null;
+                            try {
 
-                                sendMessage(address);
+                                NetworkInterface network = NetworkInterface.getByInetAddress(info.groupOwnerAddress);
+                                groupOwnerMac = new String(network.getHardwareAddress());
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }*/
+
+
+                            //Toast.makeText(getApplicationContext(),"groupOwnerAddress: " + groupOwnerMac + " address: " + address, Toast.LENGTH_LONG).show();
+
+                            // If connection is for the selected seller.
+                           //if(address.equalsIgnoreCase(groupOwnerMac)) {
+
+                                Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
+                                sendMessage(groupOwnerAddress);
+                            info = null;
 
                                 // If connection is for different seller again establish connection.
-                            } else {
+                           /* } else {
 
                                 createConnect(peersshow.get(position).get("address"));
-                            }
+                            }*/
                         }
                     }
-                    @Override
 
+                    @Override
                     public void OnItemLongClick(View view, int position) {
 
                     }
@@ -248,50 +263,55 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             }
         });
 
-        /*testing.setOnClickListener(new View.OnClickListener() {
+
+
+  /*      testing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-            PointsBO msg=new PointsBO();
-                msg.setType("earn");
-                msg.setBillAmount("1000");
-                msg.setDeviceId("125689874");
-                msg.setStoreName("dmart");
-                msg.setDisCountAmount("100");
-                msg.setPoints("500");
-                msg.setTime("10-12-2016");
+                String id = getImeistring();
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference myRef = database.child("customer");
 
-                String dateandtime=getTimeAndDate();
-                String id=getImeistring();
-
-                DatabaseReference customer =database.child("customer");
-                DatabaseReference customerid = customer.child(id);
-                DatabaseReference timebase = customerid.child(dateandtime);
-                timebase.child("Type").setValue(msg.getType());
-                timebase.child("Billamount").setValue(msg.getBillAmount());
-                timebase.child("Device id").setValue(msg.getDeviceId());
-                timebase.child("Store name").setValue(msg.getStoreName());
-                timebase.child("Discount amount").setValue(msg.getDisCountAmount());
-                timebase.child("Points").setValue(msg.getPoints());
-                timebase.child("Time").setValue(msg.getTime());
-            }
-        });*/
-
-        /*testing2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                database.addValueEventListener(new ValueEventListener() {
+                myRef.addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot timeStampSnapShot : dataSnapshot.getChildren()) {
 
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            HashMap<String, String> timeStampKey = (HashMap)timeStampSnapShot.getValue();
 
-                            //* String s=null;
-                           String s=postSnapshot.getValue().toString();
-                            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();*/
+                            String s=timeStampKey.toString();
+
+                            Gson gson=new Gson();
+                            PointsBO msg =  gson.fromJson(s, PointsBO.class);
+                            Toast.makeText(getApplicationContext(),msg.getBillAmount().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),msg.getPoints().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),msg.getType().toString(),Toast.LENGTH_SHORT).show();
+
+                            *//*String type = timeStampKey.get("type");
+                            String pointsStr = timeStampKey.get("points");
+                            String billAmountStr = timeStampKey.get("billAmount");
+                            String discountAmountStr = timeStampKey.get("disCountAmount");
+*//*
+
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+            }
+            });
+
+*/
+
+
 
                            /* Map<String, String> value = (Map<String, String>) postSnapshot.getValue();
                             String type = value.get("Type");
@@ -299,6 +319,8 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                             String billamount = value.get("Billamount");
                             Toast.makeText(getApplication(), type, Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplication(), billamount, Toast.LENGTH_SHORT).show();
+
+
 
                             HashMap<String, String> timeStampKey = (HashMap) timeStampSnapShot.getValue();
                             String type = timeStampKey.get("type");
@@ -317,20 +339,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                             Toast.makeText(getApplication(), time, Toast.LENGTH_SHORT).show();
                             Toast.makeText(getApplication(), storename, Toast.LENGTH_SHORT).show();
 
-*/
-                       /* }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
-
-            }
-
-            });*/
-
-
-        if(null == acknowledgementFromSellerTask) {
+*/if(null == acknowledgementFromSellerTask) {
 
             acknowledgementFromSellerTask = new DataServerAsyncTask(getApplicationContext());
             //this to set delegate/listener back to this class
@@ -369,26 +378,26 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
         // Toast.makeText(getApplicationContext(),"Inside create connect.", Toast.LENGTH_SHORT).show();
 
-        WifiP2pConfig config = initWifiP2pConfig(address);
+        // WifiP2pConfig config = initWifiP2pConfig(address);
 
         // For the first time.
-        if(null == config) {
+        //if(null == config) {
 
             connectToWIFIDirect(address);
-        } else {
+       /* } else {
 
             // On selection of different seller.
             if(!config.deviceAddress.equalsIgnoreCase(address)) {
                 connectToWIFIDirect(address);
             }
-        }
+        }*/
     }
 
     private void connectToWIFIDirect(String address) {
 
         try {
 
-            config = initWifiP2pConfig(address);
+            WifiP2pConfig config = initWifiP2pConfig(address);
 
             mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
@@ -411,7 +420,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-    WifiP2pConfig config = null;
+   // WifiP2pConfig config = null;
 
     /**
      * Initialize P2PConfiguration.
@@ -419,9 +428,10 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
      */
     private WifiP2pConfig initWifiP2pConfig(String address) {
 
+        // WifiP2pDevice device;
+        WifiP2pConfig config = new WifiP2pConfig();
+
         try {
-            // WifiP2pDevice device;
-            config = new WifiP2pConfig();
             Log.i("bizzmark", address);
 
             config.deviceAddress = address;
