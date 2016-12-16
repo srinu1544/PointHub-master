@@ -40,6 +40,7 @@ import com.pointhub.wifidirect.Service.DataTransferService;
 import com.pointhub.wifidirect.Task.AsyncResponse;
 import com.pointhub.wifidirect.Task.DataServerAsyncTask;
 
+import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -198,9 +199,11 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                             // If connection is for the selected seller.
                            //if(address.equalsIgnoreCase(groupOwnerMac)) {
 
-                                Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
-                                sendMessage(groupOwnerAddress);
-                            info = null;
+                            Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
+
+                            // Send message to seller.
+                            sendMessage(groupOwnerAddress);
+
 
                                 // If connection is for different seller again establish connection.
                            /* } else {
@@ -522,18 +525,20 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(Message);
+
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-
-
-              Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(WifiDirectSend.this, PointListActivity.class);
                 startActivity(i);
             }
         });
         builder.show();
+
+        // Remove the entire group and interrupt the existing network connection.
+        StopConnect();
     }
 
     private boolean isDataTransferServiceRunning() {
@@ -568,12 +573,14 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
             Toast.makeText(getApplicationContext(),msg.toString(),Toast.LENGTH_SHORT).show();
 
-            //save to firebase
-            String dateandtime=getTimeAndDate();
-            String id=getImeistring();
+            // Save to firebase.
+            String dateandtime = getTimeAndDate();
+            String imeiNumber = getImeistring();
+
             DatabaseReference customer =database.child("customer");
-            DatabaseReference customerid = customer.child(id);
-            DatabaseReference timebase = customerid.child(dateandtime);
+            DatabaseReference imeiNumberDB = customer.child(imeiNumber);
+            DatabaseReference timebase = imeiNumberDB.child(dateandtime);
+
             timebase.child("Type").setValue(msg.getType());
             timebase.child("Billamount").setValue(msg.getBillAmount());
             timebase.child("Device id").setValue(msg.getDeviceId());
@@ -583,10 +590,12 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             timebase.child("Time").setValue(msg.getTime());
 
             StringBuffer buffer = new StringBuffer();
+
             buffer.append("Bill amount :" + msg.getBillAmount() + "\n\n");
             buffer.append("Type : " + msg.getType() + "\n\n");
             buffer.append("Points :" + msg.getPoints() + "\n\n");
             buffer.append("Time :" + msg.getTime() + "\n\n");
+
             showMessage(msg.getStoreName(), buffer.toString());
         } else {
 
