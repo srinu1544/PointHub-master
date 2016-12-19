@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.pointhub.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by venu gopal on 04-10-2016.
@@ -26,9 +25,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.listitems = listitems;
     }
 
-    public Adapter(RecycleViewFirebase context, List<PointsBO> pointsBOs) {
 
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

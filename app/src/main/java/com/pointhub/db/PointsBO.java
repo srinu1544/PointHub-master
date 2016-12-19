@@ -31,10 +31,6 @@ public class PointsBO {
         this.points = points;
         this.deviceId = deviceId;
         this.disCountAmount = disCountAmount;
-
-        //SimpleDateFormat acceptdate = new SimpleDateFormat("ddMMyyyy");
-        //String accept = acceptdate.format(time);
-
         this.time = time;
     }
 

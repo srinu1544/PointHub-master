@@ -10,54 +10,59 @@ import android.widget.TextView;
 import com.pointhub.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Lenovo1 on 13-12-2016.
+ * Created by Lenovo1 on 15-12-2016.
  */
 
-public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.ViewHolder> {
+public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.MyViewHolder>{
 
-    Context context;
-    private ArrayList<PointsBO> listitems;
-    private int itemLayout;
 
-    public FirebaseAdapter(Context context, ArrayList<PointsBO> listitems) {
-        this.context = context;
-        this.listitems = listitems;
+     Context context;
+
+    private List<FirebaseData> firebaseDatas= new ArrayList<FirebaseData>();
+
+    public FirebaseAdapter(Context context, List<FirebaseData> firebaseDatas) {
+        this.context=context;
+        this.firebaseDatas=firebaseDatas;
+
     }
 
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayoutfirebse, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.firebase_row, parent, false);
+
+        MyViewHolder holder= new MyViewHolder(itemView);
         return holder;
+
     }
 
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        PointsBO point = listitems.get(position);
-        holder.storeName.setText(point.getStoreName());
-        holder.points.setText(point.getPoints());
-        holder.datemod.setText(point.getBillAmount());
-
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        FirebaseData firebaseData = firebaseDatas.get(position);
+        holder.storename.setText(firebaseData.getStorename());
+        holder.points.setText(firebaseData.getPoints());
+        holder.billamount.setText(firebaseData.getBillamount());
     }
 
     @Override
     public int getItemCount() {
-        return listitems.size();
+        return firebaseDatas.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView storeName, points, datemod;
-
-        public ViewHolder(View itemView) {
-
+        public TextView storename,points,billamount;
+        public MyViewHolder(View itemView) {
             super(itemView);
-            storeName = (TextView) itemView.findViewById(R.id.storeName);
-            points = (TextView) itemView.findViewById(R.id.pointssss);
-            datemod = (TextView) itemView.findViewById(R.id.datemd);
+
+            storename = (TextView)itemView.findViewById(R.id.storeName);
+            points = (TextView) itemView.findViewById(R.id.points);
+            billamount = (TextView)itemView.findViewById(R.id.billamount);
         }
     }
 }
