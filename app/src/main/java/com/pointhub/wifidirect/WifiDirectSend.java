@@ -68,7 +68,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     // Connection info object.
     private WifiP2pInfo info;
 
-    DataServerAsyncTask acknowledgementFromSellerTask = null;
+    // DataServerAsyncTask acknowledgementFromSellerTask = null;
 
     private DataServerAsyncTask acknowledgementFromSellerTask = null;
     private Button btRefresh;
