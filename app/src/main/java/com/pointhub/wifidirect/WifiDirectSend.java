@@ -52,11 +52,13 @@ import java.util.List;
 
 public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
+    PointsBO points = null;
+
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
     private List peers = new ArrayList();
     private List<HashMap<String, String>> peersshow = new ArrayList();
-
+    Calendar calander;
     SimpleDateFormat simpledateformat;
     private WifiP2pManager mManager;
     private WifiP2pManager.Channel mChannel;
@@ -68,9 +70,8 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     // Connection info object.
     private WifiP2pInfo info;
 
-    // DataServerAsyncTask acknowledgementFromSellerTask = null;
+    DataServerAsyncTask acknowledgementFromSellerTask = null;
 
-    private DataServerAsyncTask acknowledgementFromSellerTask = null;
     private Button btRefresh;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
@@ -92,15 +93,14 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         initReceiver();
         initEvents();
         discoverPeers();
-
         Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+
     }
 
     /**
      * Initialize all the views.
      */
     private void initView() {
-
         btRefresh = (Button) findViewById(R.id.btnRefresh);
        // testing = (Button) findViewById(R.id.testing);
        /* testing2 = (Button) findViewById(R.id.testing2);
@@ -125,7 +125,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         mFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
     }
 
-    boolean firstClick = false;
+    boolean firstClick = true;
 
     /**
      * Initialize the receiver for P2P service.
@@ -170,32 +170,20 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                     @Override
                     public void OnItemClick(View view, int position) {
 
+                        // createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
 
-
-                        if(!firstClick) {
-
-                            firstClick = true;
-                            createConnect(peersshow.get(position).get("address"));
-                        } else {
-
-                            if(null == info) {
-                                Toast.makeText(getApplicationContext(),"Connection not established.", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            String groupOwnerAddress = info.groupOwnerAddress.getHostAddress();
-                            sendMessage(groupOwnerAddress);
-                            firstClick = false;
-                        }
-
-
-                        /*String address = peersshow.get(position).get("address");
+                        String address = peersshow.get(position).get("address");
 
                         // If connection info not available create connection.
                         if(null == info) {
 
-                            Toast.makeText(getApplicationContext(),"Connection not established.", Toast.LENGTH_SHORT).show();
-                            createConnect(peersshow.get(position).get("address"));
+                            if(firstClick) {
+
+                                Toast.makeText(getApplicationContext(),"Connection not established.", Toast.LENGTH_SHORT).show();
+                                createConnect(peersshow.get(position).get("address"));
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Waiting for connection establishment.", Toast.LENGTH_SHORT).show();
+                            }
 
                             // if connection is available.
                         } else {
@@ -210,7 +198,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                                 groupOwnerMac = new String(network.getHardwareAddress());
                             } catch (Exception ex) {
                                 ex.printStackTrace();
-                            }
+                            }*/
 
 
                             //Toast.makeText(getApplicationContext(),"groupOwnerAddress: " + groupOwnerMac + " address: " + address, Toast.LENGTH_LONG).show();
@@ -218,21 +206,22 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                             // If connection is for the selected seller.
                             //if(address.equalsIgnoreCase(groupOwnerMac)) {
 
-                            Toast.makeText(getApplicationContext(), "Sending message.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Sending message. to " + groupOwnerAddress, Toast.LENGTH_SHORT).show();
                             sendMessage(groupOwnerAddress);
-                            info = null;
-                            Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
+                            firstClick = true;
+                            // info = null;
+                            // Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
 
                             // Send message to seller.
-                            sendMessage(groupOwnerAddress);*/
+                            // sendMessage(groupOwnerAddress);
 
 
                             // If connection is for different seller again establish connection.
                            /* } else {
 
                                 createConnect(peersshow.get(position).get("address"));
-                            }
-                        }*/
+                            }*/
+                        }
                     }
 
                     @Override
@@ -346,6 +335,8 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
             WifiP2pConfig config = initWifiP2pConfig(address);
 
+            firstClick = false;
+
             mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
                 @Override
@@ -358,8 +349,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
                 @Override
                 public void onFailure(int reason) {
-
-                    firstClick = false;
+                    firstClick = true;
                     Toast.makeText(getApplicationContext(), "WifiP2pManager connect failure. Reason: " + reason, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -540,8 +530,6 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
         // Remove the entire group and interrupt the existing network connection.
         StopConnect();
-
-        // mManager.ca
     }
 
     private boolean isDataTransferServiceRunning() {
@@ -644,6 +632,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             Intent intent = getIntent();
             String sendText = intent.getExtras().getString("earnRedeemString");
 
+            Toast.makeText(getApplicationContext(), "Msg: " + sendText, Toast.LENGTH_SHORT).show();
             boolean instance = DataTransferService.isInstanceCreated();
             if (!instance) {
                 serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);
