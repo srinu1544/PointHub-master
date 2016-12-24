@@ -62,6 +62,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     final Context context = this;
     private boolean doubleBackToExitPressedOnce = false;
     private String Date;
+    PackageInfo packageInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_navigation);
 
         try {
-            showAppVersion();
             showCameraPreview();
             requestMobilePermission();
             firebaseAuth = FirebaseAuth.getInstance();
@@ -104,7 +104,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             public void onClick(View v) {
 
                 if(Utility.isTesting()) {
-
                     Intent i = new Intent(Navigation.this, MainActivity.class);
                     i.putExtra("storename", "teststore");
                     startActivity(i);
@@ -162,12 +161,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         View navHeader = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
         appVersion = (TextView) navHeader.findViewById(R.id.appVer);
-        appVersion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAppVersion();
-            }
-        });
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            appVersion.setText("SmartPoints v. " + packageInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         userEmail = (TextView) navHeader.findViewById(R.id.userEmail);
         circleImageView = (CircleImageView) navHeader.findViewById(R.id.circleView);
         circleImageView.setOnClickListener(new View.OnClickListener() {
@@ -297,21 +296,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    private void showAppVersion() {
-        try {
-            PackageInfo packageInfo = null;
-            try {
-                packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-            appVersion.setText("SmartPoints v. " + packageInfo.versionName);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 
     private void showCameraPreview() {
 

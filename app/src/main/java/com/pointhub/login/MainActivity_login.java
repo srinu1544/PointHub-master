@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +39,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity_login extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String MY_PREFS_NAME =  "my_data";
+    private static final String MY_PREFS_NAME = "my_data";
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int MAX_IMAGE_SIZE = 358400;
 
     // Defining view objects.
     private EditText editTextEmail;
@@ -71,10 +73,6 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             finish();
             startActivity(new Intent(MainActivity_login.this, WifiDirectSend.class));
         }
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-
         // Initializing views.
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -121,16 +119,18 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
 
                         // Checking if success.
                         if (task.isSuccessful()) {
-                            finish();
-                            startActivity(new Intent(getApplicationContext(),WifiDirectSend.class));
                             firebaseAuth = FirebaseAuth.getInstance();
+                            firebaseDatabase = FirebaseDatabase.getInstance();
+                            databaseReference = firebaseDatabase.getReference();
                             user_id = firebaseAuth.getCurrentUser().getUid();
                             try {
                                 details = new RegistrationDB(email, downloadUrl.toString(), "", "", "", "", "");
                                 databaseReference.child("Users").child(user_id).setValue(details);
-                            }catch (Exception ex){
+                            } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), WifiDirectSend.class));
                         } else {
 
                             // Display some message here.
@@ -177,16 +177,17 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            // Log.d(TAG, String.valueOf(bitmap));
-            circleImageView.setImageBitmap(bitmap);
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference=storage.getReferenceFromUrl("gs://smartpoints-8ef37.appspot.com");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] bytes = baos.toByteArray();
-
+            byte [] bytes = baos.toByteArray();
+            Log.i("Byte length", String.valueOf(bytes.length));
+            if (bytes.length < MAX_IMAGE_SIZE) {
+                circleImageView.setImageBitmap(bitmap);
+            } else {
+                Toast.makeText(getApplicationContext(), "Select Image having Size less than 350 kB !", Toast.LENGTH_LONG).show();
+            }
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference=storage.getReferenceFromUrl("gs://smartpoints-8ef37.appspot.com");
             StorageReference reference=storageReference.child("Profile Pictures/"+bytes);
 
             StorageMetadata metadata = new StorageMetadata.Builder()
