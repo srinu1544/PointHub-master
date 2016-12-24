@@ -2,7 +2,6 @@ package com.pointhub;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -15,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -24,27 +22,41 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pointhub.db.Createdb;
 import com.pointhub.earnredeemtab.MainActivity;
 import com.pointhub.util.Utility;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     public FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    DatabaseReference userDatabase;
 
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
-
-
     ImageView menuButtom;
     ImageButton log_out;
+    TextView userEmail,appVersion;
+    String user_id,profilePicture,email;
+    CircleImageView circleImageView;
     Button points;
     ImageView share;
     final Context context = this;
@@ -58,8 +70,14 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_navigation);
 
         try {
+            showAppVersion();
             showCameraPreview();
             requestMobilePermission();
+            firebaseAuth = FirebaseAuth.getInstance();
+            user_id = firebaseAuth.getCurrentUser().getUid();
+            if(user_id != null){
+                showProfileImage();
+            }
         }catch(Exception ex){
             ex.printStackTrace();
         }
@@ -141,7 +159,23 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View navHeader = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
+        appVersion = (TextView) navHeader.findViewById(R.id.appVer);
+        appVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAppVersion();
+            }
+        });
+        userEmail = (TextView) navHeader.findViewById(R.id.userEmail);
+        circleImageView = (CircleImageView) navHeader.findViewById(R.id.circleView);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Navigation.this,EditProfile.class));
+            }
+        });
     }
 
     private void requestMobilePermission() {
@@ -252,10 +286,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                 shareFromBluetooth();
             }
-
-        }else if (id== R.id.nav_version) {
-
-            showAppVersion();
         } else if (id == R.id.nav_back) {
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -270,26 +300,13 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     private void showAppVersion() {
         try {
-
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
             PackageInfo packageInfo = null;
             try {
                 packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
-            builder1.setMessage("SmartPoints\nVersion: " + packageInfo.versionName);
-            builder1.setCancelable(true);
-            builder1.setIcon(R.drawable.smartpoints_logo);
-            builder1.setPositiveButton(
-                    "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+            appVersion.setText("SmartPoints v. " + packageInfo.versionName);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -341,6 +358,32 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
             default:
                 break;
+        }
+    }
+
+    private void showProfileImage(){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        userDatabase = firebaseDatabase.getReference();
+        firebaseAuth=FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() != null) {
+            DatabaseReference userRefer = userDatabase.child("Users").child(user_id);
+            userRefer.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Map<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
+                        email = map.get("emailID").toString();
+                        userEmail.setText(email);
+                        profilePicture = map.get("profileImage").toString();
+                        Picasso.with(Navigation.this).load(profilePicture).into(circleImageView);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 }
