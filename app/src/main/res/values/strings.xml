@@ -440,9 +440,9 @@ whatsoever, without informing smartpointsmembers.\n
 
 </string>
     <string name="dob">Date Of Birth</string>
-    <string name="sex">Sex</string>
-    <string name="male">M</string>
-    <string name="female">F</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
     <string name="mobile">Mobile Number</string>
     <string name="email">Email</string>
     <string name="lastname">Last Name</string>

@@ -11,14 +11,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,11 +49,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfile extends Activity {
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int MAX_IMAGE_SIZE = 358400;
 
     ImageButton backbutton;
     EditText firstname_edit,lastname_edit,email_edit,mobilenumber_edit,dob_edit;
-    CheckBox male,female;
-    Button updatebutton,calendarButton;
+    RadioButton male,female;
+    private RadioGroup radioGroup;
+    Button updatebutton;
+    ImageButton editButton;
     String firstName,lastName,emailAddress,mobileNumber,dob,profileImage,gender,profilePicture,user_id;
     RegistrationDB details;
     private FirebaseAuth firebaseAuth;
@@ -62,6 +68,7 @@ public class EditProfile extends Activity {
     static final int DATE_PICKER_ID = 1111;
     FirebaseDatabase firebaseDatabase;
     FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +82,7 @@ public class EditProfile extends Activity {
         database=firebaseDatabase.getReference();
         user = firebaseAuth.getCurrentUser();
         if(user!=null){user_id=user.getUid();
-
-        getUpdatedData();}
+            getUpdatedData();}
 
         firstname_edit=(EditText)findViewById(R.id.firstname);
         lastname_edit=(EditText)findViewById(R.id.lastname);
@@ -85,25 +91,23 @@ public class EditProfile extends Activity {
         mobilenumber_edit=(EditText)findViewById(R.id.mobilenumber);
         dob_edit=(EditText)findViewById(R.id.dob);
         circleImageView=(CircleImageView)findViewById(R.id.circleView);
-
-        male=(CheckBox)findViewById(R.id.malecheck);
-        female=(CheckBox)findViewById(R.id.femalecheck);
+        editButton = (ImageButton) findViewById(R.id.edit_button);
+        radioGroup = (RadioGroup) findViewById(R.id.radioSex);
+        male= (RadioButton) findViewById(R.id.maleradio);
+        female = (RadioButton) findViewById(R.id.femaleradio);
+        if( !male.isChecked()){
+            gender = "Female";
+        }else {
+            gender = "Male";
+        }
         backbutton=(ImageButton) findViewById(R.id.back_button);
         updatebutton=(Button)findViewById(R.id.update);
-        calendarButton=(Button)findViewById(R.id.calendar);
-
-        calendarButton.setOnClickListener(new View.OnClickListener(){
+        updatebutton.setClickable(false);
+        dob_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 showDialog(DATE_PICKER_ID);
-            }
-        });
-
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
             }
         });
 
@@ -117,20 +121,6 @@ public class EditProfile extends Activity {
             emailAddress=user.getEmail();
             email_edit.setText(emailAddress);
         }
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gender="Male";
-                female.setChecked(false);
-            }
-        });
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gender="Female";
-                male.setChecked(false);
-            }
-        });
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,13 +130,28 @@ public class EditProfile extends Activity {
 
         if(firebaseAuth.getCurrentUser() != null) {
 
-            updatebutton.setOnClickListener(new View.OnClickListener() {
+            editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateToFirebase();
+                    circleImageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            selectImage();
+                        }
+                    });
+                    updatebutton.setClickable(true);
+                    updatebutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateToFirebase();
+                        }
+                    });
 
-                    Toast.makeText(getApplicationContext(),"Updated Successfully",Toast.LENGTH_LONG).show();
-
+                    firstname_edit.setEnabled(true);firstname_edit.setFocusableInTouchMode(true);
+                    lastname_edit.setEnabled(true);lastname_edit.setFocusableInTouchMode(true);
+                    mobilenumber_edit.setEnabled(true);mobilenumber_edit.setFocusableInTouchMode(true);
+                    dob_edit.setEnabled(true);dob_edit.setFocusableInTouchMode(true);
+                    male.setClickable(true);female.setClickable(true);
                 }
             });
 
@@ -178,16 +183,17 @@ public class EditProfile extends Activity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            // Log.d(TAG, String.valueOf(bitmap));
-            circleImageView.setImageBitmap(bitmap);
-
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference=storage.getReferenceFromUrl("gs://smartpoints-8ef37.appspot.com");
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] bytes = baos.toByteArray();
+            if (bytes.length < MAX_IMAGE_SIZE) {
+                circleImageView.setImageBitmap(bitmap);
+            } else {
+                Toast.makeText(getApplicationContext(), "Select Image having Size less than 350 kB !", Toast.LENGTH_LONG).show();
+            }
 
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference=storage.getReferenceFromUrl("gs://smartpoints-8ef37.appspot.com");
             StorageReference reference=storageReference.child("Profile Pictures/"+bytes);
 
             StorageMetadata metadata = new StorageMetadata.Builder()
@@ -217,10 +223,28 @@ public class EditProfile extends Activity {
         if(lastname_edit.getText().toString().trim() != null){lastName=lastname_edit.getText().toString().trim();}
         if(mobilenumber_edit.getText().toString().trim() != null){mobileNumber=mobilenumber_edit.getText().toString().trim();}
         if(dob_edit.getText().toString().trim() != null){dob=dob_edit.getText().toString().trim();}
+        if( male.isChecked()){
+            gender = "Male";
+        }else {
+            gender = "Female";
+        }
         if(downloadUrl != null){profileImage=downloadUrl.toString();}
         else {profileImage = profilePicture;}
         details=new RegistrationDB(emailAddress,profileImage,firstName,lastName,mobileNumber,dob,gender);
-        database.child("Users").child(user_id).setValue(details);
+        database.child("Users").child(user_id).setValue(details).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"Profile Saved Successfully!",Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),EditProfile.class));
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Update Failed!!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void getUpdatedData(){
@@ -239,11 +263,9 @@ public class EditProfile extends Activity {
                         if(map.get("gender").toString() != null){gender = map.get("gender").toString();
                         if (gender.equalsIgnoreCase("male")) {
                             male.setChecked(true);
-                            female.setChecked(false);
                         }
                         if (gender.equalsIgnoreCase("female")) {
                             female.setChecked(true);
-                            male.setChecked(false);
                         }}
                         profilePicture=map.get("profileImage").toString();
                         Picasso.with(EditProfile.this).load(profilePicture).into(circleImageView);
@@ -257,6 +279,7 @@ public class EditProfile extends Activity {
             });
         }
     }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
