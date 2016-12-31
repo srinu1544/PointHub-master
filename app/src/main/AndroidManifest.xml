@@ -49,6 +49,9 @@
             android:name=".wifidirect.Service.DataTransferService"
             android:enabled="true"
             android:exported="true" />
+        <activity android:name=".EditProfile"
+            android:label="Edit Profile"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".db.FireBaseRecyclerview"

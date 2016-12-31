@@ -6,30 +6,31 @@
     android:background="@color/btncolor"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/smartpoints_logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.53" />
+        android:id="@+id/circleView"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/unknown" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Smart Points"
+        android:layout_marginTop="1dp"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/tvUserName" />
+        android:id="@+id/userEmail" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:id="@+id/appVer" />
 
     <TextView
         android:id="@+id/tvUserEmailId"

@@ -3,35 +3,59 @@ package com.pointhub.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pointhub.R;
-import com.pointhub.earnredeemtab.MainActivity;
+import com.pointhub.RegistrationDB;
 import com.pointhub.wifidirect.WifiDirectSend;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity_login extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String MY_PREFS_NAME =  "my_data";
+    private static final String MY_PREFS_NAME = "my_data";
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int MAX_IMAGE_SIZE = 358400;
 
     // Defining view objects.
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignup;
+    private CircleImageView circleImageView;
+    Bitmap bitmap;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    private Uri downloadUrl;
+    DatabaseReference databaseReference;
+    private String user_id;
+    RegistrationDB details;
 
     @Override
 
@@ -49,12 +73,17 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             finish();
             startActivity(new Intent(MainActivity_login.this, WifiDirectSend.class));
         }
-
         // Initializing views.
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
-
+        circleImageView = (CircleImageView) findViewById(R.id.circleView);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
         progressDialog = new ProgressDialog(this);
 
         // Attaching listener to button.
@@ -64,7 +93,7 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
     private void registerUser() {
 
         // Getting email and password from edit texts.
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         // Checking if email and passwords are empty.
@@ -90,8 +119,18 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
 
                         // Checking if success.
                         if (task.isSuccessful()) {
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            firebaseDatabase = FirebaseDatabase.getInstance();
+                            databaseReference = firebaseDatabase.getReference();
+                            user_id = firebaseAuth.getCurrentUser().getUid();
+                            try {
+                                details = new RegistrationDB(email, downloadUrl.toString(), "", "", "", "", "");
+                                databaseReference.child("Users").child(user_id).setValue(details);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                             finish();
-                            startActivity(new Intent(getApplicationContext(),WifiDirectSend.class));
+                            startActivity(new Intent(getApplicationContext(), WifiDirectSend.class));
                         } else {
 
                             // Display some message here.
@@ -114,7 +153,61 @@ public class MainActivity_login extends AppCompatActivity implements View.OnClic
             editor.putString("password", editTextPassword.getText().toString().trim());
             editor.apply();
         }
+    }
 
+    private void selectImage() {
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte [] bytes = baos.toByteArray();
+            Log.i("Byte length", String.valueOf(bytes.length));
+            if (bytes.length < MAX_IMAGE_SIZE) {
+                circleImageView.setImageBitmap(bitmap);
+            } else {
+                Toast.makeText(getApplicationContext(), "Select Image having Size less than 350 kB !", Toast.LENGTH_LONG).show();
+            }
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference=storage.getReferenceFromUrl("gs://smartpoints-8ef37.appspot.com");
+            StorageReference reference=storageReference.child("Profile Pictures/"+bytes);
+
+            StorageMetadata metadata = new StorageMetadata.Builder()
+                    .setContentType("image/jpg")
+                    .build();
+
+            UploadTask uploadTask = reference.putBytes(bytes,metadata);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(getApplicationContext(),"Upload Failed",Toast.LENGTH_LONG).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    downloadUrl = taskSnapshot.getDownloadUrl();
+                }
+            });
+        }
     }
 }
