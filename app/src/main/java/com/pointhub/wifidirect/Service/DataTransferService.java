@@ -1,17 +1,12 @@
 package com.pointhub.wifidirect.Service;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.pointhub.util.Utility;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -101,19 +96,19 @@ public class DataTransferService extends IntentService {
                 Log.e("bizzmark", e.getMessage());
             } finally {
 
-                try{
+                try {
                     if (outputStream != null) {
                         outputStream.close();
                     }
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
-                try{
+                try {
                     if (inputStream != null) {
                         inputStream.close();
                     }
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 

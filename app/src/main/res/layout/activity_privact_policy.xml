@@ -74,14 +74,7 @@
                 android:layout_gravity="left"
                 android:id="@+id/textView2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/our_privacy"
-                android:textColor="@color/butcolor"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="left"
-                />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -106,12 +99,6 @@
                 android:id="@+id/textView9" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="left"
-                android:text="@string/Our_primary_purpose_in_collecting"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,14 +134,6 @@
                 android:text="@string/AutomaticInformation"
                 android:layout_gravity="left"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/Dateandtimeofyourvisit"
-                android:layout_gravity="left"
-                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,13 +146,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"/>
 
-            <TextView
+           <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/We_do_not_rent"
-                android:layout_gravity="left"/>-->
+                android:layout_gravity="left"/>
 
             <TextView
                 android:layout_width="wrap_content"

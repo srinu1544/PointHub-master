@@ -3,10 +3,12 @@ package com.pointhub.util;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.db.DatabaseHelper;
 import com.pointhub.db.Points;
+
 import java.util.ArrayList;
 
 /**
@@ -22,26 +24,26 @@ public class Utility {
 
     public static synchronized Gson getGsonObject() {
 
-        if(null == gson){
+        if (null == gson) {
             gson = new Gson();
         }
 
         return gson;
     }
 
-    public static synchronized boolean isTesting () {
-        return testing;
+    public static synchronized boolean isTesting() {
+        return false;
     }
 
     public static synchronized boolean savePointsToMobile(Context context, String pointString) {
         boolean success = false;
-         try{
+        try {
 
-             PointHubMessage pointHubMessage = getGsonObject().fromJson(pointString, PointHubMessage.class);
-             success = saveToDB(context, pointHubMessage);
+            PointHubMessage pointHubMessage = getGsonObject().fromJson(pointString, PointHubMessage.class);
+            success = saveToDB(context, pointHubMessage);
 
-             success = true;
-           }catch (Exception ex){
+            success = true;
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return success;
@@ -61,65 +63,65 @@ public class Utility {
 
             ArrayList<Points> storePoints = dbHelper.getAllPoints(storeName);
             int sPoints = 0;
-            if(null == storePoints || storePoints.size()==0) {
+            if (null == storePoints || storePoints.size() == 0) {
                 sPoints = 0;
             } else {
                 newStore = false;
-                for(Points pts:storePoints){
+                for (Points pts : storePoints) {
                     try {
                         int p = Integer.parseInt(pts.getPoints());
                         sPoints = sPoints + p;
-                    }catch (Exception ex){
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
             }
 
 
-            Integer calculatedPoints=null;
-            if("Earn".equalsIgnoreCase(type)){
-                calculatedPoints  = addPoints(sPoints, presentPoints);
+            Integer calculatedPoints = null;
+            if ("Earn".equalsIgnoreCase(type)) {
+                calculatedPoints = addPoints(sPoints, presentPoints);
             } else {
-                calculatedPoints  = deductPoints(sPoints, presentPoints);
+                calculatedPoints = deductPoints(sPoints, presentPoints);
             }
 
             String lastUpdate = DatabaseHelper.getInstance(context).getDateTime();
             Points updatedPoints = new Points(storeName, calculatedPoints.toString(), lastUpdate);
 
-            if(newStore)
+            if (newStore)
                 dbHelper.createPoints(updatedPoints);
             else
                 dbHelper.updatePoints(updatedPoints);
 
             success = true;
 
-    }catch (Exception ex){
-        ex.printStackTrace();
-    }
-    return success;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return success;
     }
 
     private static Integer deductPoints(int storePoints, String presentPoints) {
 
-        int pp=Integer.parseInt(presentPoints);
-        int deducedPoints=storePoints-pp;
+        int pp = Integer.parseInt(presentPoints);
+        int deducedPoints = storePoints - pp;
         return deducedPoints;
     }
 
     private static Integer addPoints(int storePoints, String presentPoints) {
 
-        int pp=Integer.parseInt(presentPoints);
-        int addPoints=storePoints+pp;
+        int pp = Integer.parseInt(presentPoints);
+        int addPoints = storePoints + pp;
         return addPoints;
     }
 
-    public static String getMacAddress(Context context){
+    public static String getMacAddress(Context context) {
         String macAddress = null;
-        try{
+        try {
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
             WifiInfo wInfo = wifiManager.getConnectionInfo();
             macAddress = wInfo.getMacAddress();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return macAddress;

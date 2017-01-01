@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPageAdapter viewPagerAdapter;
-    TextView strnm, points;
+
 
     String storeName;
 
@@ -25,14 +25,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.earn_redeem_tab);
+        setContentView(R.layout.wifidirectsend);
 
         // Make two icons invisible.
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        strnm = (TextView)findViewById(R.id.strn);
+
         viewPagerAdapter = new ViewPageAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new Earn(), "EARN");
         viewPagerAdapter.addFragments(new Reedem(), "REDEEM");
@@ -41,21 +41,17 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
+        /*if (extras != null) {
             storeName = extras.getString("storename");
             strnm.setText(storeName);
-        }
+        }*/
 
 
         TextView points = (TextView) findViewById(R.id.points);
         // Points pts = new Points();
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         Points pts = dbHelper.getPoints(storeName);
-        if(null == pts) {
-            points.setText("0");
-        } else {
-            points.setText(pts.getPoints());
-        }
+
 
         /*MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
 

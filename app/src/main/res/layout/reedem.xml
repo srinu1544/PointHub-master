@@ -16,8 +16,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
@@ -29,24 +30,15 @@
                 android:inputType="numberDecimal"
                 android:id="@+id/redeemBillAmountText"
                 android:ems="4"
+                android:imeOptions="actionDone"
+                android:focusableInTouchMode="true"
                 android:layout_gravity="center"
                 android:hint="@string/pleaseenterbillno" />
 
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/layout2"
-        android:weightSum="2"
-        android:background="@drawable/textviewbackgeound"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/layout1"
-        android:layout_marginTop="10dp">
 
-    </LinearLayout>
 
 
     <LinearLayout
@@ -56,12 +48,26 @@
         android:layout_gravity="center"
         android:background="@drawable/edittextshape"
         android:id="@+id/layout3"
-        android:layout_below="@+id/layout2"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/layout1"
+        android:layout_marginTop="10dp"
         android:layout_alignRight="@+id/layout1"
-        android:layout_alignEnd="@+id/layout1"
-        android:layout_toRightOf="@+id/layout2"
-        android:layout_toEndOf="@+id/layout2">
+        android:layout_alignEnd="@+id/layout1">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Select points"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@drawable/edittextshape"
+            android:id="@+id/textView10"
+            android:paddingLeft="5dp"
+            android:layout_alignTop="@+id/layout3"
+            android:layout_alignRight="@+id/layout2"
+            android:layout_alignEnd="@+id/layout2"
+            android:layout_alignBottom="@+id/layout3" />
+
 
 
         <Spinner
@@ -76,34 +82,7 @@
             android:layout_marginLeft="10dp"
             android:entries="@array/point_arrays"/>
 
+
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_gravity="right"
-        android:background="@drawable/edittextshape"
-        android:id="@+id/submitButton"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/layout3"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/layout1"
-        android:layout_alignEnd="@+id/layout1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Select points"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:background="@drawable/edittextshape"
-        android:id="@+id/textView10"
-        android:paddingLeft="5dp"
-        android:layout_alignTop="@+id/layout3"
-        android:layout_alignRight="@+id/layout2"
-        android:layout_alignEnd="@+id/layout2"
-        android:layout_alignBottom="@+id/layout3" />
-
 
 </RelativeLayout>

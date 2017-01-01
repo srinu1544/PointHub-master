@@ -12,12 +12,13 @@ import android.widget.ImageView;
 import com.pointhub.R;
 import com.pointhub.db.Createdb;
 
-public class NewQRcode extends AppCompatActivity  {
+public class NewQRcode extends AppCompatActivity {
 
     ImageView createPoints;
 
 
     private static final int PERMISSION_REQUEST_CAMERA = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,7 +27,7 @@ public class NewQRcode extends AppCompatActivity  {
 
         try {
             showCameraPreview();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 

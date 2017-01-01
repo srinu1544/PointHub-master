@@ -1,6 +1,5 @@
 package com.pointhub.wifidirect.BroadcastReceiver;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +8,8 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.pointhub.wifidirect.WifiDirectSend;
+
 /**
  * Created by Venu gopal on 24-10-2016.
  */
@@ -16,13 +17,13 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
     private WifiP2pManager mManager;
     private WifiP2pManager.Channel mChannel;
-    private Activity mActivity;
+    private WifiDirectSend mActivity;
     private WifiP2pManager.PeerListListener mPeerListListener;
     private WifiP2pManager.ConnectionInfoListener mInfoListener;
 
-    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, Activity activity,
+    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, WifiDirectSend activity,
                                        WifiP2pManager.PeerListListener peerListListener,
-                                       WifiP2pManager.ConnectionInfoListener infoListener ) {
+                                       WifiP2pManager.ConnectionInfoListener infoListener) {
 
         this.mManager = manager;
         this.mChannel = channel;
@@ -52,10 +53,10 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
             int State = intent.getIntExtra(WifiP2pManager.EXTRA_DISCOVERY_STATE, -1);
             if (State == WifiP2pManager.WIFI_P2P_DISCOVERY_STARTED) {
 
-                Toast.makeText(mActivity, "P2P discovery started.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "P2P discovery started.", Toast.LENGTH_SHORT).show();
             } else if (State == WifiP2pManager.WIFI_P2P_DISCOVERY_STOPPED) {
 
-                Toast.makeText(mActivity, "P2P discovery stopped.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "P2P discovery stopped.", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,13 +16,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.pointhub.PointHubMessage;
 import com.pointhub.R;
-import com.pointhub.wifidirect.WifiDirectSend;
+import com.pointhub.login.LoginActivity;
 
 
 public class Reedem extends Fragment {
 
     private Spinner spinner;
-    Button submitButton;
+
     TextView redeemBillAmountText;
 
 
@@ -48,7 +47,6 @@ public class Reedem extends Fragment {
     private void findViewByid(View v) {
 
         spinner = (Spinner) v.findViewById(R.id.spinner1);
-        submitButton = (Button) v.findViewById(R.id.submitButton);
         redeemBillAmountText = (TextView) v.findViewById(R.id.redeemBillAmountText);
 
 
@@ -89,10 +87,6 @@ public class Reedem extends Fragment {
                 points = String.valueOf(spinner.getSelectedItem());
                 // Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem()), Toast.LENGTH_LONG).show();
 
-                submitButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
 
                         String billAmount = redeemBillAmountText.getText().toString();
 
@@ -119,19 +113,23 @@ public class Reedem extends Fragment {
 
                             Toast.makeText(getActivity(), "You Selected  " + String.valueOf(spinner.getSelectedItem())  + "points", Toast.LENGTH_SHORT).show();
 
-                            /*Intent intent = new Intent(getActivity(),LoginActivity.class);*/
+                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
 
-                            Intent intent = new Intent(getActivity(),WifiDirectSend.class);
 
+                            /* Intent intent = new Intent(getActivity(),WifiDirectSend.class);
                             intent.putExtra("earnRedeemString", redeemString);
                             intent.putExtra("reedemBillamount",billAmount);
                             intent.putExtra("reedemPoints",points);
                             startActivity(intent);
+                            getActivity().finish(); */
+
                         }
                     }
-                });
 
-            }
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

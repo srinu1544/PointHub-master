@@ -23,10 +23,10 @@ public class PointsBO {
                     String points,
                     String deviceId,
                     String disCountAmount,
-                    String time){
+                    String time) {
 
         this.type = type;
-        this.billAmount =billAmount;
+        this.billAmount = billAmount;
         this.storeName = storeName;
         this.points = points;
         this.deviceId = deviceId;
@@ -83,7 +83,11 @@ public class PointsBO {
         this.disCountAmount = disCountAmount;
     }
 
-    public String getTime(){return time;}
+    public String getTime() {
+        return time;
+    }
 
-    public void setTime(String time) { this.time = time;}
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

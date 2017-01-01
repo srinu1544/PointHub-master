@@ -103,9 +103,16 @@
     //Strings for privacy and policy
 
 
-    <string name="This_privacy_policy_governs">This privacy policy governs your use of products, services, content, features, technologies or functions offered by Bizzmark ("smartpoints" We") and all related sites, applications, and services (collectively "smartpoints loyalty  Program") (including, without limitation, when you provide any information in relation to your use of smartpoints loyalty  Program). You accept and consent to this privacy policy when you sign up for, access, or use the smartpoints loyalty Program thereby expressly agree to our use and disclosure of your personal information and direct us to do so in the manner described in this privacy policy.</string>
+    <string name="This_privacy_policy_governs">This privacy policy governs your use of products, services, content, features, technologies or functions offered by Bizzmark ("smartpoints" We") and all related sites, applications, and services (collectively "smartpoints loyalty  Program") (including, without limitation, when you provide any information in relation to your use of smartpoints loyalty  Program). You accept and consent to this privacy policy when you sign up for, access, or use the smartpoints loyalty Program thereby expressly agree to our use and disclosure of your personal information and direct us to do so in the manner described in this privacy policy.\n
 
-    <string name="smartpoints_collects_both_personal">smartpoints  collects both personal and non- personal information using the methods  listed below.</string>
+Our privacy policy describes the information We collect and how We use that information. smartpoints takes the processing of your information very seriously and will use your information only in accordance with the terms of this privacy policy. For the purposes of this privacy policy, the term "information" means any confidential and/or personally identifiable information or other\n
+information related to users of smartpoints loyalty Program, including but not limited to smartpoints  members and smartpoints  partners. We will not sell or rent your information to third parties for their marketing purposes without your explicit consent. However, in order for us to offer smartpoints  loyalty  Program to our users; enhance the quality of smartpoints  services from time to time; and protect the interests of our users, We will in limited circumstances share some of your information with third parties under strict restrictions. \n
+This privacy policy is intended to govern the use of smartpoints  services by our users (including, without limitation those who use the smartpoints  services in the course of their trade or business) unless otherwise agreed through contract. While the word "privacy" may mean different things to different people, we believe that once you understand how we use your information; the steps we take to protect it, and the resulting benifits to you, you will not only feel confident when sharing information with us, but will also find your participation in the program a very rewarding experience.\n
+.
+
+</string>
+
+    <string name="smartpoints_collects_both_personal">smartpoints  collects both personal and non-personal information using the methods listed below. Our primary purpose in collecting such information is to provide you with a personalized smartpoints  experience by displaying content and delivering offers that are likely to be of interest to you according to your preferences.</string>
 
     <string name="Our_primary_purpose_in_collecting">smartpoints  collects both personal and non-
 personal information using the methods
@@ -159,42 +166,19 @@ rewarding experience.
 
 </string>
 
-    <string name="Totakeadvantage">To take advantage of the offers available at
-smartpoints  loyalty Program, you must
-register for our service and become a
-smartpoints  Member/Partner. smartpoints  may
-collect personal information when you
-register with us and when you use smartpoints
-services. smartpoints  may combine information
-about you that We have, with information
-We obtain from smartpoints  Partners. During
-registration, We may require members to
-give us basic contact information (such as
-your first name, last name and e-mail
-address) and demographic information
-(such as your zip code, age and gender).
+    <string name="Totakeadvantage">To take advantage of the offers available at smartpoints  loyalty Program, you must register for our service and become a smartpoints  Member/Partner. smartpoints  may collect personal information when you register with us and when you use smartpoints  services. smartpoints  may combine information about you that We have, with information We obtain from smartpoints  merchants. During registration, We may require members to give us basic contact information (such as your first name, last name and email address) and demographic information (such as your zip code, age and gender).
 
 
 </string>
 
-    <string name="AutomaticInformation">Automatic Information collected though
-Participation in the smartpoints  loyalty
-Program when you sign in to the smartpoints
-mobile application, the server
-automatically recognizes you by your
-cookie. This cookie acts as a unique
-identification , and is linked to your personal
-information, which allows us to personalize
-the application to your specified interests and
-allows you to access your personal
-information. It also allows us to keep track
-of your activity on our mobile
-application. This information may be added
-to your personal proﬁle and used to deliver
-offers and advertisements that are most
-relevant to your interests.
-smartpoints  also retrieves the following
-information from your application :
+    <string name="AutomaticInformation">Automatic Information collected through Participation in the smartpoints  loyalty  Program when you sign in to the smartpoints  mobile application, the server automatically recognizes you by your cookie. This cookie acts as a unique identification , and is linked to your personal information, which allows us to personalize the application to your specified interests and allows you to access your personal information. It also allows us to keep track of your activity on our mobile application. This information may be added to your personal profile and used to deliver offers and advertisements that are most relevant to your interests.\n
+
+smartpoints  also retrieves the following information from your application :\n
+
+1. Date and time of your visit.\n
+2.Your registered smartpoints  account information.\n
+3.Purchase transaction details  (from merchants.\n
+4.  Device details (like device name and software version details, imei number) This information, sometimes called log-in  or click stream data, is used to monitor  mobile applications performance and ensure they function properly. It may also be appended to your personal profile so that We may further tailor the Program to your interests.\n
 
 </string>
 
@@ -218,55 +202,9 @@ your interests.\n
 
     <string name="We_do_not_rent">
 
-We do not rent, share, trade or sell your
-personal information to anyone for
-promotional purposes without your express
-consent. When We do share data with our
-advertisers it is in aggregate form and is
-designed to ensure you are not identified
-personally. We may allow other companies,
-such as our marketing partners and
-companies that are affiliated with smartpoints
-to otherwise communicate with you about
-our smartpoints  loyalty Program. Such third
-party will be authorized to use this
-information in keeping with our contractual
-relationship with them and in accordance
-with their own privacy policy and
-information practices. We do not control
-these third parties and you agree that
-smartpoints  is not liable for their acts or any
-failure to act on their part.
-smartpoints  engages in email and direct sms
-marketing, where email/sms marketing is
-an integral part of the program, you sign up
-to receive email/sms targeted to your
-interests at the time of registration. If you
-later decide you wish to cease participation
-in this portion of the program.
-We may, without your consent, access and
-disclose your personal information, any
-communications sent or received by you,
-and any other information that We may
-have about you or your account in the
-following circumstances: as may be
-permitted or required by law, regulation,
-rule or court order; pursuant to requests
-from governmental, regulatory or
-administrative agencies or law
-enforcement authorities; or to prevent,
-investigate, identify persons or
-organizations potentially involved in, or
-take any action regarding suspected fraud,
-violations of our Terms of Service, or
-activity that appears to us to be illegal or
-may expose us to legal liability.
-Additionally, We may disclose your
-personal information in situations that We
-believe to be emergencies involving
-potential threats to the physical safety of
-any person or property if We believe that
-your personal information in any way
+We do not rent, share, trade or sell your personal information to anyone for promotional purposes without your express consent. When We do share data with our advertisers it is in aggregate form and is designed to ensure you are not identified personally. We may allow other companies, such as our marketing partners and companies that are affiliated with smartpoints  to otherwise communicate with you about our smartpoints  loyalty Program. Such third party will be authorized to use this information in keeping with our contractual relationship with them and in accordance with their own privacy policy and information practices. We do not control these third parties and you agree that smartpoints  is not liable for their acts or any failure to act on their part. smartpoints  engages in email and direct sms marketing, where email/sms marketing is an integral part of the program, you sign up to receive email/sms targeted to your interests at the time of registration. If you later decide you wish to cease participation in this portion of the program. We may, without your consent, access and disclose your personal information, any communications sent or received by you, and any other information that We may have about you or your account in the following circumstances: as may be permitted or required by law, regulation, rule or court order; pursuant to requests from governmental, regulatory or administrative agencies or law
+enforcement authorities; or to prevent, investigate, identify persons or organizations potentially involved in, or take any action regarding suspected fraud, violations of our Terms of Service, or activity that appears to us to be illegal or may expose us to legal liability.
+Additionally, We may disclose your personal information in situations that We believe to be emergencies involving potential threats to the physical safety of any person or property if We believe that your personal information in any way
 relates to that threat.
 
 
@@ -274,76 +212,27 @@ relates to that threat.
 
 
     <string name="smartpoints_is_committed">
-smartpoints  is committed to handling your
-customer information with high standards
-of information security. We use computer
-safeguards such as ﬁrewalls and data
-encryption, We enforce physical access
-controls to our buildings and ﬁles, and We
-authorize access to personal information
-only for those employees who require it to
-fulfill their job responsibilities. However, no
-data transmission over the Internet can be
-guaranteed to be completely secure.
-Accordingly, We cannot ensure or warrant
-the security of any information that you
-transmit to us, so you do so at your own
-risk.\n
-smartpoints  is committed to adequately
-protecting your information regardless of
-where the data resides and to providing
-appropriate protection for your information
-where such data is transferred outside
-India servers.\n
+smartpoints  is committed to handling your customer information with high standards of information security. We use computer safeguards such as ﬁrewalls and data encryption, We enforce physical access controls to our buildings and ﬁles, and We authorize access to personal information only for those employees who require it to fulfill their job responsibilities. However, no data transmission over the Internet can be guaranteed to be completely secure. Accordingly, We cannot ensure or warrant the security of any information that you transmit to us, so you do so at your own risk.\n
+smartpoints  is committed to adequately protecting your information regardless of where the data resides and to providing appropriate protection for your information where such data is transferred outside India servers.\n
 
-smartpoints  representatives will never
-ask you for your password, so any email or
-other communication requesting your
-password should be treated as
-unauthorized and suspicious and
-forwarded to smartpoints  customer care.
+smartpoints  representatives will never ask you for your password, so any email or other communication requesting your password should be treated as unauthorized and suspicious and forwarded to smartpoints  customer care.
+
 
 </string>
 
 
 
-    <string name="At_any_time_you_may_unsubscribe">At any time, you may unsubscribe from our
-alert email or text message or other
-newsletter or similar services through the
-mobile application . As a member, you will
-occasionally receive e-mail updates, from
-us about special offers, new services, and
-other noteworthy items. If you do not wish
-to receive them, please click on the
-"unsubscribe" link or follow the instructions
-in each email message. We reserve the
-right to limit membership to those who will
-accept such emails. smartpoints  Member will
-be notified via email prior to any actions
-taken. Further, any person who ceases to
-be a smartpoints  Member; their records may be
-removed within a period of seven days.
+    <string name="At_any_time_you_may_unsubscribe">At any time, you may unsubscribe from our alert email or text message or other newsletter or similar services through the mobile application . As a member, you will occasionally receive e-mail updates, from us about special offers, new services, and other noteworthy items. If you do not wish to receive them, please click on the "unsubscribe" link or follow the instructions in each email message. We reserve the right to limit membership to those who will accept such emails. smartpoints  Member will be notified via email prior to any actions taken. Further, any person who ceases to be a smartpoints  Member; their records may be removed within a period of seven days.
+
+
 
 
 </string>
 
 
     <string name="This_privacy_policy_may">
-This privacy policy may be revised over
-time as new features are added to the
-smartpoints  Services or as We incorporate
-suggestions from our affiliates, members
-and partners. We may change this privacy
-policy at any time by posting a revised
-version of it on our mobile application . Unless We
-have legal grounds to do otherwise, We will
-provide you a prior notice of the effective
-date of the revised privacy policy on our
-mobile application thereby both
-the smartpoints  members and smartpoints partners
-on usage of the services of smartpoints  hereby
-consent and agree to the form mentioned
-privacy policy.
+This privacy policy may be revised over time as new features are added to the smartpoints  Services or as We incorporate suggestions from our affiliates, members and partners. We may change this privacy policy at any time by posting a revised version of it on our mobile application . Unless We have legal grounds to do otherwise, We will provide you a prior notice of the effective date of the revised privacy policy on our mobile application thereby both the smartpoints  members and smartpoints partners on usage of the services of smartpoints  hereby consent and agree to the form mentioned privacy policy.
+
 
 </string>
 
@@ -449,6 +338,9 @@ whatsoever, without informing smartpointsmembers.\n
     <string name="firstname">First Name</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="update">Update</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

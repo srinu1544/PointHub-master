@@ -32,22 +32,22 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         try {
 
-             Log.i("bizzmark", "data doing  `back");
-             ServerSocket serverSocket = new ServerSocket(9999);
-             serverSocket.setReuseAddress(true);
+            Log.i("bizzmark", "data doing  `back");
+            ServerSocket serverSocket = new ServerSocket(9999);
+            serverSocket.setReuseAddress(true);
 
-             Log.i("bizzmark", "Opening socket on 9999.");
-             Socket client = serverSocket.accept();
+            Log.i("bizzmark", "Opening socket on 9999.");
+            Socket client = serverSocket.accept();
 
-             Log.i("bizzmark", "Client connected.");
-             InputStream inputstream = client.getInputStream();
-             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             int i;
-             while ((i = inputstream.read()) != -1) {
-                 baos.write(i);
-             }
+            Log.i("bizzmark", "Client connected.");
+            InputStream inputstream = client.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            int i;
+            while ((i = inputstream.read()) != -1) {
+                baos.write(i);
+            }
 
-             String str = baos.toString();
+            String str = baos.toString();
 
             serverSocket.close();
 
@@ -68,7 +68,7 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
 
     private void showMessageIfCancel() {
 
-       AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
         builder.setTitle("Response from Seller ");
         builder.setMessage("seller Rejected your transaction, send again");
@@ -77,7 +77,7 @@ public class DataServerAsyncTask extends AsyncTask<Void, Void, String> {
             public void onClick(DialogInterface dialog, int which) {
 
                 Toast.makeText(context.getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(null,MainActivity.class);
+                Intent i = new Intent(null, MainActivity.class);
                 context.startActivity(i);
 
             }

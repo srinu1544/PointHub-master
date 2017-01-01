@@ -17,7 +17,7 @@ public class FBInstaceIdService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
 
         String token = FirebaseInstanceId.getInstance().getToken();
-        String userMailaid=FirebaseInstanceId.getInstance().getId();
+        String userMailaid = FirebaseInstanceId.getInstance().getId();
         Log.e(TAG, "usermailid: >>>>>>" + userMailaid);
 
         Log.e(TAG, "Got token: " + token);
@@ -28,7 +28,7 @@ public class FBInstaceIdService extends FirebaseInstanceIdService {
 
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *

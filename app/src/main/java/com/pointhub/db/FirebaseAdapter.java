@@ -16,16 +16,16 @@ import java.util.List;
  * Created by Lenovo1 on 15-12-2016.
  */
 
-public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.MyViewHolder>{
+public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.MyViewHolder> {
 
 
-     Context context;
+    Context context;
 
-    private List<FirebaseData> firebaseDatas= new ArrayList<FirebaseData>();
+    private List<FirebaseData> firebaseDatas = new ArrayList<FirebaseData>();
 
     public FirebaseAdapter(Context context, List<FirebaseData> firebaseDatas) {
-        this.context=context;
-        this.firebaseDatas=firebaseDatas;
+        this.context = context;
+        this.firebaseDatas = firebaseDatas;
 
     }
 
@@ -36,7 +36,7 @@ public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.MyView
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.firebase_row, parent, false);
 
-        MyViewHolder holder= new MyViewHolder(itemView);
+        MyViewHolder holder = new MyViewHolder(itemView);
         return holder;
 
     }
@@ -56,13 +56,14 @@ public class FirebaseAdapter extends RecyclerView.Adapter<FirebaseAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView storename,points,billamount;
+        public TextView storename, points, billamount;
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            storename = (TextView)itemView.findViewById(R.id.storeName);
+            storename = (TextView) itemView.findViewById(R.id.storeName);
             points = (TextView) itemView.findViewById(R.id.points);
-            billamount = (TextView)itemView.findViewById(R.id.billamount);
+            billamount = (TextView) itemView.findViewById(R.id.billamount);
         }
     }
 }

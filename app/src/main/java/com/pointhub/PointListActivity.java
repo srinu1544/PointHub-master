@@ -28,13 +28,13 @@ public class PointListActivity extends Activity {
         setContentView(R.layout.activity_point_list);
 
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        ArrayList<Points> pointses= (ArrayList<Points>) DatabaseHelper.getInstance(this).getAllPoints();
-        lstPoints= (RecyclerView) findViewById(R.id.lstPoints);
+        ArrayList<Points> pointses = (ArrayList<Points>) DatabaseHelper.getInstance(this).getAllPoints();
+        lstPoints = (RecyclerView) findViewById(R.id.lstPoints);
 
         lstPoints.setLayoutManager(new LinearLayoutManager(this));
         lstPoints.setAdapter(new Adapter(PointListActivity.this, pointses));
 
-        MobileAds.initialize(getApplicationContext(),"ca-app-pub-3940256099942544/6300978111");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544/6300978111");
 
 
         // Load an ad into the AdMob banner view.

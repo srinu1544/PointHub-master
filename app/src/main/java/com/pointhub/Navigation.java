@@ -2,10 +2,13 @@ package com.pointhub;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,7 +17,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +37,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pointhub.db.Createdb;
+import com.pointhub.db.FireBaseRecyclerview;
+import com.pointhub.db.PointsBO;
 import com.pointhub.earnredeemtab.MainActivity;
+import com.pointhub.maps.MapsActivity;
 import com.pointhub.util.Utility;
 import com.squareup.picasso.Picasso;
 
@@ -52,6 +60,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private static final int REQUEST_READ_PHONE_STATE = 1;
 
+
     ImageView menuButtom;
     ImageButton log_out;
     TextView userEmail,appVersion;
@@ -64,6 +73,13 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private String Date;
     PackageInfo packageInfo;
 
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+    String finalpoints;
+    String finalbillamount;
+    String storename;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -73,24 +89,23 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         try {
             showCameraPreview();
             requestMobilePermission();
+        } catch (Exception ex) {
             firebaseAuth = FirebaseAuth.getInstance();
             user_id = firebaseAuth.getCurrentUser().getUid();
             if(user_id != null){
                 showProfileImage();
             }
-        }catch(Exception ex){
-            ex.printStackTrace();
         }
 
-        log_out= (ImageButton) findViewById(R.id.logout);
+        log_out = (ImageButton) findViewById(R.id.logout);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseAuth = FirebaseAuth.getInstance();
-                if (firebaseAuth.getCurrentUser()!=null) {
+                if (firebaseAuth.getCurrentUser() != null) {
                     firebaseAuth.signOut();
                     Toast.makeText(getApplicationContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "You already signed out", Toast.LENGTH_SHORT).show();
                 }
 
@@ -104,6 +119,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             public void onClick(View v) {
 
                 if(Utility.isTesting()) {
+
                     Intent i = new Intent(Navigation.this, MainActivity.class);
                     i.putExtra("storename", "teststore");
                     startActivity(i);
@@ -125,7 +141,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             public void onClick(View v) {
 
 
-                if(Utility.isTesting()) {
+                if (Utility.isTesting()) {
 
                     PointHubMessage msg = new PointHubMessage("Earn", "2500", "Venu", "TestStore", "250");
                     Utility.saveToDB(getApplicationContext(), msg);
@@ -134,8 +150,83 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     startActivity(i);
                 } else {
 
-                    Intent intent = new Intent(Navigation.this, PointListActivity.class);
-                    startActivity(intent);
+                    ConnectivityManager cm = (ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = cm.getActiveNetworkInfo();
+                    if (ni != null) {
+
+                        //Retrieve data from firebase
+                        String id = getImeistring();
+                        DatabaseReference customerbase = database.child("customer");
+                        DatabaseReference idbase = customerbase.child(id);
+                        idbase.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+
+
+                                int totalbillamount = 0;
+
+                                PointsBO pbo = null;
+                                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+
+                                    //Getting the data from snapshot
+                                    pbo = postSnapshot.getValue(PointsBO.class);
+
+
+                                    //Displaying it on textview
+                                    Toast.makeText(getApplicationContext(), "Type:" + pbo.getType() + "\nBillamount:"
+                                            + pbo.getBillAmount() + "\nstorename:" + pbo.getStoreName() + "\nPoints:"
+                                            + pbo.getPoints() + "\ndeviceid:" + pbo.getDeviceId() + "\n:discountamount:"
+                                            + pbo.getDisCountAmount() + "\ndate:" + pbo.getTime(), Toast.LENGTH_SHORT).show();
+
+                                    String type = pbo.getType();
+                                    int billam = 0;
+                                    storename = pbo.getStoreName();
+                                    if (type.equalsIgnoreCase("earn")) {
+
+                                        String billAmount = pbo.getBillAmount();
+                                        billam = Integer.parseInt(billAmount);
+                                        totalbillamount += billam;
+                                        finalbillamount = String.valueOf(totalbillamount);
+                                        Toast.makeText(getApplicationContext(), "totalbill : " + finalbillamount, Toast.LENGTH_SHORT).show();
+
+                                    } else {
+
+                                        int bill = Integer.parseInt(pbo.getBillAmount());
+                                        int reedembillamount = totalbillamount + bill;
+                                        finalbillamount = String.valueOf(reedembillamount);
+                                        String reedempoints = pbo.getPoints();
+                                        int reedem = Integer.parseInt(reedempoints);
+                                        int availableReedemPoints = reedembillamount - reedem;
+                                        finalpoints = String.valueOf(availableReedemPoints);
+                                        Toast.makeText(getApplicationContext(), finalpoints, Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                }
+
+                                Intent i = new Intent(Navigation.this, FireBaseRecyclerview.class);
+                                i.putExtra("storename", storename);
+                                i.putExtra("points", finalpoints);
+                                i.putExtra("billamount", finalbillamount);
+                                startActivity(i);
+                                finish();
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(getApplicationContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        });
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), "Yor are not connected to network", Toast.LENGTH_SHORT).show();
+
+                    }
+
                 }
 
             }
@@ -177,14 +268,28 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         });
     }
 
+    public String getImeistring() {
+
+        String imeistring = null;
+        try {
+
+            TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            // getDeviceId() function Returns the unique device ID.
+            imeistring = telephonyManager.getDeviceId();
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+        return imeistring;
+    }
+
     private void requestMobilePermission() {
-        try{
+        try {
             int permissionCheck = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
 
             if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -198,7 +303,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             intent.setType("*/*");
 
             // Only use Bluetooth to send .apk
-             intent.setPackage("com.android.bluetooth");
+            intent.setPackage("com.android.bluetooth");
 
             // Append file and send Intent
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
@@ -214,14 +319,15 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this,"To exit press back again.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "To exit press back again.", Toast.LENGTH_SHORT).show();
         }
-        }
+    }
 
 
     @Override
@@ -260,23 +366,27 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         if (id == R.id.nav_camera) {
 
-            Intent i = new Intent(Navigation.this,FaqExpandable.class);
+            Intent i = new Intent(Navigation.this, FaqExpandable.class);
             startActivity(i);
 
         } else if (id == R.id.nav_gallery) {
-            Intent i =new Intent(Navigation.this,TermsAndConditions.class);
+            Intent i = new Intent(Navigation.this, TermsAndConditions.class);
             startActivity(i);
 
 
         } else if (id == R.id.nav_slideshow) {
-            Intent i =new Intent(Navigation.this,Privact_policy.class);
+            Intent i = new Intent(Navigation.this, Privact_policy.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.maps) {
+
+            Intent i = new Intent(Navigation.this, MapsActivity.class);
+            startActivity(i);
+
 
         } else if (id == R.id.nav_share) {
 
-            if(Utility.isTesting()) {
+            if (Utility.isTesting()) {
 
                 Intent i = new Intent(Navigation.this, MainActivity.class);
                 i.putExtra("storename", "teststore");
@@ -285,17 +395,71 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                 shareFromBluetooth();
             }
+
+        } else if (id == R.id.nav_version) {
+            contactus();
+            //showAppVersion();
         } else if (id == R.id.nav_back) {
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-             drawer.closeDrawer(GravityCompat.START);
-                super.onBackPressed();
+            drawer.closeDrawer(GravityCompat.START);
+            super.onBackPressed();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void contactus() {
+        try {
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+
+            builder1.setMessage("www.bizzmark.in\n PH: ");
+            builder1.setCancelable(true);
+            builder1.setIcon(R.drawable.smartpoints_logo);
+            builder1.setPositiveButton(
+                    "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+   /* private void showAppVersion() {
+        try {
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+            PackageInfo packageInfo = null;
+            try {
+                packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            builder1.setMessage("SmartPoints\nVersion: " + packageInfo.versionName);
+            builder1.setCancelable(true);
+            builder1.setIcon(R.drawable.smartpoints_logo);
+            builder1.setPositiveButton(
+                    "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }*/
+
 
     private void showCameraPreview() {
 
@@ -311,6 +475,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
 
     }
+
     private void requestCameraPermission() {
 
         // Permission has not been granted and must be requested.
@@ -319,7 +484,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-           // Request the permission
+            // Request the permission
             ActivityCompat.requestPermissions(Navigation.this,
                     new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
@@ -371,5 +536,3 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         }
     }
 }
-
-

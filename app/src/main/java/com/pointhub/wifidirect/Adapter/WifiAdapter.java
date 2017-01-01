@@ -62,6 +62,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.MyHolder> {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     mOnItemClickListener.OnItemClick(holder.itemView, position);
                 }
 

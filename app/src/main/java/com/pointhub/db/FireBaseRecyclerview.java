@@ -50,7 +50,7 @@ public class FireBaseRecyclerview extends AppCompatActivity {
         String Points = getIntent().getExtras().getString("points");
         String Billamount = getIntent().getExtras().getString("billamount");
 
-        FirebaseData fbd = new FirebaseData(Storename,Points,Billamount);
+        FirebaseData fbd = new FirebaseData(Storename, Points, Billamount);
         firebaseDatas.add(fbd);
 
     }

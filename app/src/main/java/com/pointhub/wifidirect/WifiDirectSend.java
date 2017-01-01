@@ -15,6 +15,8 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +38,11 @@ import com.pointhub.Navigation;
 import com.pointhub.R;
 import com.pointhub.db.AcknowledgePoints;
 import com.pointhub.db.FireBaseRecyclerview;
+import com.pointhub.db.FirebaseData;
 import com.pointhub.db.PointsBO;
+import com.pointhub.earnredeemtab.Earn;
+import com.pointhub.earnredeemtab.Reedem;
+import com.pointhub.earnredeemtab.ViewPageAdapter;
 import com.pointhub.util.Utility;
 import com.pointhub.wifidirect.Adapter.WifiAdapter;
 import com.pointhub.wifidirect.BroadcastReceiver.WifiDirectBroadcastReceiver;
@@ -52,7 +59,13 @@ import java.util.List;
 
 public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
-    PointsBO points = null;
+
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    ViewPageAdapter viewPagerAdapter;
+    TextView tvstorename, tvpoints;
+
+
 
     private RecyclerView mRecyclerView;
     private WifiAdapter mAdapter;
@@ -65,6 +78,11 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     private BroadcastReceiver mReceiver;
     private IntentFilter mFilter;
     private DatabaseReference mDatabase;
+    private List<FirebaseData> firebaseDatas = new ArrayList<FirebaseData>();
+
+    String finalpoints;
+    String finalbillamount;
+    String storename;
 
 
     // Connection info object.
@@ -73,42 +91,49 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
     DataServerAsyncTask acknowledgementFromSellerTask = null;
 
     private Button btRefresh;
-    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-     String finalpoints = null;
-     String finalbillamount=null;
-     String storename = null;
+    DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wifi_direct_send);
+        setContentView(R.layout.wifidirectsend);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPagerAdapter = new ViewPageAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragments(new Earn(), "EARN");
+        viewPagerAdapter.addFragments(new Reedem(), "REDEEM");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
 
         info = null;
-
         initView();
         initIntentFilter();
         initReceiver();
         initEvents();
         discoverPeers();
-        Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
 
     }
+
 
     /**
      * Initialize all the views.
      */
     private void initView() {
+
+        tvstorename = (TextView) findViewById(R.id.tvstorename);
+        tvpoints = (TextView) findViewById(R.id.tvpoints);
         btRefresh = (Button) findViewById(R.id.btnRefresh);
-       // testing = (Button) findViewById(R.id.testing);
-       /* testing2 = (Button) findViewById(R.id.testing2);
-*/
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mAdapter = new WifiAdapter(peersshow);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
+
 
     }
 
@@ -125,12 +150,19 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         mFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
     }
 
-    boolean firstClick = true;
-
     /**
      * Initialize the receiver for P2P service.
      */
     private void initReceiver() {
+
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+
+            tvstorename.setText(extras.getString("storename"));
+        }
+
 
         mManager = (WifiP2pManager) getSystemService(WIFI_P2P_SERVICE);
 
@@ -170,25 +202,21 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                     @Override
                     public void OnItemClick(View view, int position) {
 
+
                         // createConnect(peersshow.get(position).get("address"), peersshow.get(position).get("name"));
 
                         String address = peersshow.get(position).get("address");
 
                         // If connection info not available create connection.
-                        if(null == info) {
+                        if (null == info ) {
 
-                            if(firstClick) {
-
-                                Toast.makeText(getApplicationContext(),"Connection not established.", Toast.LENGTH_SHORT).show();
-                                createConnect(peersshow.get(position).get("address"));
-                            } else {
-                                Toast.makeText(getApplicationContext(),"Waiting for connection establishment.", Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(getApplicationContext(), "Connection not established.", Toast.LENGTH_SHORT).show();
+                            createConnect(peersshow.get(position).get("address"));
 
                             // if connection is available.
                         } else {
 
-                            Toast.makeText(getApplicationContext(),"Connection established.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Connection established.", Toast.LENGTH_SHORT).show();
                             String groupOwnerAddress = info.groupOwnerAddress.getHostAddress();
 
                             /*String groupOwnerMac = null;
@@ -206,14 +234,13 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                             // If connection is for the selected seller.
                             //if(address.equalsIgnoreCase(groupOwnerMac)) {
 
-                            Toast.makeText(getApplicationContext(), "Sending message. to " + groupOwnerAddress, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Sending message.", Toast.LENGTH_SHORT).show();
                             sendMessage(groupOwnerAddress);
-                            firstClick = true;
-                            // info = null;
-                            // Toast.makeText(getApplicationContext(),"Sending message.", Toast.LENGTH_SHORT).show();
+                            info = null;
+                            Toast.makeText(getApplicationContext(), "Sending message.", Toast.LENGTH_SHORT).show();
 
                             // Send message to seller.
-                            // sendMessage(groupOwnerAddress);
+                            sendMessage(groupOwnerAddress);
 
 
                             // If connection is for different seller again establish connection.
@@ -222,7 +249,10 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                                 createConnect(peersshow.get(position).get("address"));
                             }*/
                         }
+
+
                     }
+
 
                     @Override
                     public void OnItemLongClick(View view, int position) {
@@ -253,6 +283,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             @Override
             public void onClick(View v) {
 
+
                 // New code Start.
                 peers.clear();
                 peersshow.clear();
@@ -263,16 +294,16 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                 //*boolean instance = DataTransferService.isInstanceCreated();
 
                 // New code End.
-                Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
 
                 // ResetReceiver();
 
                 discoverPeers();
-             //*   Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
+                //*   Toast.makeText(getApplicationContext(),"Double click on store to Earn/Redeem points.", Toast.LENGTH_SHORT).show();
                 discoverPeers();
+
             }
         });
-
 
 
         if (null == acknowledgementFromSellerTask) {
@@ -291,8 +322,9 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
             Intent i = new Intent(WifiDirectSend.this, Navigation.class);
             startActivity(i);
-        }catch(Exception ex){
-           ex.printStackTrace();
+            finish();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -335,8 +367,6 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
             WifiP2pConfig config = initWifiP2pConfig(address);
 
-            firstClick = false;
-
             mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
                 @Override
@@ -349,7 +379,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
                 @Override
                 public void onFailure(int reason) {
-                    firstClick = true;
+
                     Toast.makeText(getApplicationContext(), "WifiP2pManager connect failure. Reason: " + reason, Toast.LENGTH_SHORT).show();
                 }
             });
@@ -358,10 +388,11 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-   // WifiP2pConfig config = null;
+    // WifiP2pConfig config = null;
 
     /**
      * Initialize P2PConfiguration.
+     *
      * @param address
      */
     private WifiP2pConfig initWifiP2pConfig(String address) {
@@ -466,6 +497,7 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+
                 Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_SHORT).show();
                 //Retrieve data from firebase
                 String id = getImeistring();
@@ -474,10 +506,14 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
                 idbase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
+
+
                         int totalbillamount = 0;
 
                         PointsBO pbo = null;
                         for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+
                             //Getting the data from snapshot
                             pbo = postSnapshot.getValue(PointsBO.class);
 
@@ -490,27 +526,40 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
                             String type = pbo.getType();
                             int billam = 0;
+                            storename = pbo.getStoreName();
                             if (type.equalsIgnoreCase("earn")) {
 
                                 String billAmount = pbo.getBillAmount();
                                 billam = Integer.parseInt(billAmount);
                                 totalbillamount += billam;
-                                String finalbillamount = String.valueOf(totalbillamount);
+                                finalbillamount = String.valueOf(totalbillamount);
                                 Toast.makeText(getApplicationContext(), "totalbill : " + finalbillamount, Toast.LENGTH_SHORT).show();
 
                             } else {
 
-                                int reedembillamount=totalbillamount+billam;
-                                finalbillamount=String.valueOf(reedembillamount);
+                                int bill = Integer.parseInt(pbo.getBillAmount());
+                                int reedembillamount = totalbillamount + bill;
+                                finalbillamount = String.valueOf(reedembillamount);
                                 String reedempoints = pbo.getPoints();
                                 int reedem = Integer.parseInt(reedempoints);
-                                int availableReedemPoints = totalbillamount - reedem;
-                                String finalpoints = String.valueOf(availableReedemPoints);
+                                int availableReedemPoints = reedembillamount - reedem;
+                                finalpoints = String.valueOf(availableReedemPoints);
                                 Toast.makeText(getApplicationContext(), finalpoints, Toast.LENGTH_SHORT).show();
                             }
+
+
                         }
 
-                    }//out of loop
+
+                        Intent i = new Intent(WifiDirectSend.this, FireBaseRecyclerview.class);
+                        i.putExtra("billamount", finalbillamount);
+                        i.putExtra("points", finalpoints);
+                        i.putExtra("storename", storename);
+                        startActivity(i);
+
+
+                    }
+
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -519,18 +568,15 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
 
                 });
 
-                Intent i = new Intent(WifiDirectSend.this, FireBaseRecyclerview.class);
-                i.putExtra("storename",storename);
-                i.putExtra("points",finalpoints);
-                i.putExtra("billamount",finalbillamount);
-                startActivity(i);
             }
+
         });
         builder.show();
 
         // Remove the entire group and interrupt the existing network connection.
         StopConnect();
     }
+
 
     private boolean isDataTransferServiceRunning() {
 
@@ -573,8 +619,8 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             DatabaseReference idbase = customerbase.child(id);
             DatabaseReference timebase = idbase.child(time);
 
-            PointsBO pbo = new PointsBO(msg.getType(),msg.getBillAmount(),msg.getStoreName(),
-                    msg.getPoints() ,msg.getDeviceId() ,msg.getDisCountAmount(),msg.getTime() );
+            PointsBO pbo = new PointsBO(msg.getType(), msg.getBillAmount(), msg.getStoreName(),
+                    msg.getPoints(), msg.getDeviceId(), msg.getDisCountAmount(), msg.getTime());
             timebase.setValue(pbo);
 
             StringBuffer buffer = new StringBuffer();
@@ -632,7 +678,6 @@ public class WifiDirectSend extends AppCompatActivity implements AsyncResponse {
             Intent intent = getIntent();
             String sendText = intent.getExtras().getString("earnRedeemString");
 
-            Toast.makeText(getApplicationContext(), "Msg: " + sendText, Toast.LENGTH_SHORT).show();
             boolean instance = DataTransferService.isInstanceCreated();
             if (!instance) {
                 serviceIntent = new Intent(WifiDirectSend.this, DataTransferService.class);

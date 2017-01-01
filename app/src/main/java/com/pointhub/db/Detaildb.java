@@ -16,7 +16,7 @@ import com.pointhub.R;
 public class Detaildb extends Activity {
 
 
-    ImageView imgmenu,share;
+    ImageView imgmenu, share;
     private EditText dsnamej;
     private TextView upointsj, udatej;
     private Button usavej, updatej;
@@ -28,16 +28,16 @@ public class Detaildb extends Activity {
         setContentView(R.layout.detaildb);
 
         imgmenu = (ImageView) findViewById(R.id.imgmenu);
-        share=(ImageView) findViewById(R.id.share);
+        share = (ImageView) findViewById(R.id.share);
         imgmenu.setVisibility(View.INVISIBLE);
         share.setVisibility(View.INVISIBLE);
 
-        dsnamej = (EditText)findViewById(R.id.dsnamej);
-        upointsj = (TextView)findViewById(R.id.upoints);
-        udatej = (TextView)findViewById(R.id.udate);
-        usavej = (Button)findViewById(R.id.usave);
-        updatej = (Button)findViewById(R.id.update);
-        final String store_name=getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
+        dsnamej = (EditText) findViewById(R.id.dsnamej);
+        upointsj = (TextView) findViewById(R.id.upoints);
+        udatej = (TextView) findViewById(R.id.udate);
+        usavej = (Button) findViewById(R.id.usave);
+        updatej = (Button) findViewById(R.id.update);
+        final String store_name = getIntent().getExtras().getString(DatabaseHelper.STORE_NAME);
 
 
         dsnamej.setText(store_name);
@@ -50,7 +50,7 @@ public class Detaildb extends Activity {
                 DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
                 Points pts = new Points();
 
-                pts=dbHelper.getPoints(store_name);
+                pts = dbHelper.getPoints(store_name);
 
                 pts.getPoints();
                 pts.getLastVisited();
@@ -60,7 +60,6 @@ public class Detaildb extends Activity {
         updatej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
             }

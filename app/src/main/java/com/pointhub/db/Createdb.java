@@ -18,7 +18,7 @@ public class Createdb extends Activity {
 
     private EditText csnamej, cpointsj, cdatej;
     private Button csubj;
-    private ImageView imgmenu,share;
+    private ImageView imgmenu, share;
 
     private Button submitButton;
 
@@ -29,7 +29,7 @@ public class Createdb extends Activity {
         setContentView(R.layout.createdb);
 
         imgmenu = (ImageView) findViewById(R.id.imgmenu);
-        share=(ImageView) findViewById(R.id.share);
+        share = (ImageView) findViewById(R.id.share);
         imgmenu.setVisibility(View.INVISIBLE);
         share.setVisibility(View.INVISIBLE);
 

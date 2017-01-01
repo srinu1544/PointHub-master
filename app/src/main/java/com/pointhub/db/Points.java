@@ -52,4 +52,4 @@ public class Points {
     public void setLastVisited(String lastVisited) {
         this.lastVisited = lastVisited;
     }
-    }
+}

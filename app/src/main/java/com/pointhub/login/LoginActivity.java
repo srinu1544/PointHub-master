@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     //method for user login
     private void userLogin() {
 
@@ -104,31 +103,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Logging in the user.
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        progressDialog.dismiss();
+                progressDialog.dismiss();
 
-                        // If the task is successful.
-                        if (task.isSuccessful()) {
+                // If the task is successful.
+                if (task.isSuccessful()) {
 
-                            //start the profile activity finish();
-                            editTextEmail.setText("");
-                            editTextPassword.setText("");
-                            finish();
+                    //start the profile activity finish();
+                    editTextEmail.setText("");
+                    editTextPassword.setText("");
+                    finish();
 
-                            // String str = null;
-                            //Toast.makeText(getApplicationContext(),"Welcome to Seller App !!!",Toast.LENGTH_SHORT).show();
+                    // String str = null;
+                    //Toast.makeText(getApplicationContext(),"Welcome to Seller App !!!",Toast.LENGTH_SHORT).show();
 
-                            startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
-                        } else {
+                    startActivity(new Intent(getApplicationContext(), com.pointhub.wifidirect.WifiDirectSend.class));
+                } else {
 
-                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                            v.vibrate(500);
-                            Toast.makeText(getApplicationContext(),"Please enter your valid Email and Password",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(500);
+                    Toast.makeText(getApplicationContext(), "Please enter your valid Email and Password", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 

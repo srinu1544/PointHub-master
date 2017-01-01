@@ -6,6 +6,8 @@ package com.pointhub.wifidirect.Task;
 
 public interface AsyncResponse {
 
+    void onBackPressed();
+
     void processFinish(String output);
 
 }

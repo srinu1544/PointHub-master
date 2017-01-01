@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 import com.pointhub.PointHubMessage;
 import com.pointhub.db.Points;
+import com.pointhub.wifidirect.WifiDirectSend;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,18 +40,18 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
     SimpleDateFormat simpledateformat;
     private String Date;
     private String deviceid;
-   PointHubMessage pointHubMessage;
+    PointHubMessage pointHubMessage;
     Points pts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        deviceid=getImeistring();
-
+        deviceid = getImeistring();
 
 
     }
+
     public String getImeistring() {
 
         String imeistring = null;
@@ -85,6 +86,7 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
         mScannerView.stopCamera();
     }
 
+
     @Override
     public void handleResult(Result result) {
 
@@ -92,14 +94,14 @@ public class Scanner_Fragment extends Fragment implements ZXingScannerView.Resul
         tg.startTone(ToneGenerator.TONE_PROP_BEEP);
 
         // Direct to earn an1d redeem tab functionality.
-         if (result!= null){
-             //Log.i("tag",">>>>"+result.toString());
-             // Toast.makeText(getContext(),"result is"+result.toString(),Toast.LENGTH_LONG).show();
-             Intent i = new Intent(getActivity(), MainActivity.class);
-             i.putExtra("storename",result.toString());
-             startActivity(i);
-         } else {
-             Toast.makeText(getActivity(),"scan again",Toast.LENGTH_SHORT).show();
-         }
+        if (result != null) {
+            //Log.i("tag",">>>>"+result.toString());
+            // Toast.makeText(getContext(),"result is"+result.toString(),Toast.LENGTH_LONG).show();
+            Intent i = new Intent(getActivity(), WifiDirectSend.class);
+            i.putExtra("storename", result.toString());
+            startActivity(i);
+        } else {
+            Toast.makeText(getActivity(), "scan again", Toast.LENGTH_SHORT).show();
+        }
     }
 }

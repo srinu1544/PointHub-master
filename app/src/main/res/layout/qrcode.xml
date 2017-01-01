@@ -18,6 +18,7 @@
        android:layout_above="@+id/pointsbutton"
        android:layout_below="@+id/header"/>
 
+
    <Button
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
